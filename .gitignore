@@ -1,10 +1,123 @@
-__pycache__/
-*.py[cod]
+# ==========================================
+# A.S.F.R.E.E
+# AI Systems Forensics & Reconstruction
+# Evaluation Engine
+# ==========================================
+
+# ENVIRONMENT & SECRETS
 .env
 .env.*
 !.env.example
-.secrets/
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
 credentials/
-*.log
+private-config/
+
+# PYTHON
+__pycache__/
+*.py[cod]
+*.pyd
+.Python
+venv/
+.venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# NODE.JS
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+.next/
+.nuxt/
+.output/
 coverage/
-.dist/
+
+# AI & MODEL ARTIFACTS
+models/
+checkpoints/
+weights/
+*.pt
+*.pth
+*.onnx
+*.safetensors
+vector_db/
+embeddings_cache/
+agent_memory/
+evaluation_cache/
+
+# DATA & DATABASE
+*.db
+*.sqlite
+*.sqlite3
+data/local/
+datasets/private/
+backups/
+*.dump
+
+# LOGS & TEMPORARY FILES
+logs/
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+
+# BUILD & DISTRIBUTION
+artifacts/
+release/
+out/
+target/
+
+# TEST OUTPUT
+test-results/
+playwright-report/
+benchmark-results/
+evaluation-results/local/
+
+# SECURITY & FORENSICS
+forensic-dumps/
+memory-dumps/
+crash-dumps/
+secrets-scan-results/
+*.pcap
+
+# IDE & EDITORS
+.vscode/
+.idea/
+*.suo
+*.user
+*.swp
+*.swo
+
+# OPERATING SYSTEM
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# LOCAL CONFIGURATION
+*.local
+config.local.*
+settings.local.*
+
+# GENERATED FILES
+generated/
+*.generated.*
+
+# CONTAINER & LOCAL RUNTIME
+.docker/
+docker-data/
+.redis/
+gitignore
