@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Change Impact Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "change_id",
+    "baseline_ref",
+    "candidate_ref",
+    "affected_components",
+    "affected_tests",
+    "limitations"
+  ],
+  "properties": {
+    "change_id": {
+      "type": "string",
+      "pattern": "^CHG-[A-Z0-9-]+$"
+    },
+    "baseline_ref": {
+      "type": "string"
+    },
+    "candidate_ref": {
+      "type": "string"
+    },
+    "changed_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preservation_requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "risk_changes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_tests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "selection_rationale": {
+      "type": "string"
+    },
+    "rollback_considerations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

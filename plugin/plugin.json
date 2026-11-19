@@ -1,36 +1,41 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "asfree-master-orchestrator",
-  "version": "1.0.0",
-  "description": "Evidence-driven AI systems forensics, evaluation, supervised remediation and reconstruction orchestrator.",
   "author": {
-    "name": "A.S.F.R.E.E Project"
+    "email": "harysaidno@gmail.com",
+    "name": "Hary Saidno"
   },
-  "repository": "https://github.com/hsaidno-cpu/A.S.F.R.E.E",
-  "license": "PolyForm-Noncommercial-1.0.0",
+  "description": "A unified, evidence-driven forensic intelligence and supervised engineering orchestrator for authorized AI systems and software.",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "capabilities": [],
+        "category": "Developer Tools",
+        "defaultPrompt": [
+          "Forensically audit this system and design evidence-backed improvements."
+        ],
+        "developerName": "Hary Saidno",
+        "displayName": "A.S.F.R.E.E",
+        "longDescription": "A.S.F.R.E.E is a modular, evidence-driven orchestrator for authorized AI and software forensics, evaluation, diagnosis, comparison, supervised remediation and reconstruction. M00 coordinates O01\u2013O12, while Security & Governance and Evaluation Intelligence operate as cross-cutting control planes. It defaults to read-only analysis, uses explicit authority and capability gates, and distinguishes evidence, inference, hypotheses, tests and verified outcomes. This package contains portable skill instructions and data contracts; it does not itself deploy scanners, runtimes, databases, API gateways or MCP servers.",
+        "shortDescription": "AI systems forensics"
+      }
+    }
+  },
+  "homepage": "https://github.com/hsaidno-cpu/A.S.F.R.E.E",
   "keywords": [
     "forensics",
     "systems-analysis",
     "evaluation",
+    "reverse-engineering",
     "orchestration",
+    "software-quality",
+    "supervised-engineering",
+    "evidence-driven",
     "reconstruction",
     "quality-assurance",
     "governance"
   ],
-  "extensions": {
-    "com.openai": {
-      "interface": {
-        "displayName": "A.S.F.R.E.E",
-        "shortDescription": "AI forensic engineering",
-        "longDescription": "A.S.F.R.E.E is an evidence-driven master orchestrator for authorized AI and software systems. It coordinates artifact intelligence, architecture decomposition, positive and negative analysis, comparison, bug diagnosis, supervised remediation, reconstruction, integration readiness, QA, security governance, and continuous evaluation. It defaults to read-only analysis, requires scoped approval for material changes, distinguishes evidence from hypotheses, and never claims tools or tests that were not actually used.",
-        "category": "Developer Tools",
-        "capabilities": [],
-        "defaultPrompt": [
-          "Forensically analyze this authorized system and deliver an evidence-backed evaluation.",
-          "Map this system's architecture, strengths, weaknesses, dependencies and risks.",
-          "Design a supervised reconstruction plan with acceptance tests and rollback."
-        ]
-      }
-    }
-  }
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "name": "asfree",
+  "repository": "https://github.com/hsaidno-cpu/A.S.F.R.E.E",
+  "version": "0.2.1"
 }

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Audit Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "case_id",
+    "actor",
+    "action",
+    "decision",
+    "timestamp",
+    "limitations"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "pattern": "^EVT-[A-Z0-9-]+$"
+    },
+    "case_id": {
+      "type": "string",
+      "pattern": "^CASE-[A-Z0-9-]+$"
+    },
+    "actor": {
+      "type": "string"
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_ref": {
+      "type": "string"
+    },
+    "authority_level": {
+      "enum": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ]
+    },
+    "decision": {
+      "enum": [
+        "ALLOWED",
+        "DENIED",
+        "APPROVED",
+        "REJECTED",
+        "HELD",
+        "BLOCKED",
+        "COMPLETED",
+        "FAILED",
+        "NOT_RUN"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "side_effect": {
+      "type": "string"
+    },
+    "recovery_ref": {
+      "type": "string"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

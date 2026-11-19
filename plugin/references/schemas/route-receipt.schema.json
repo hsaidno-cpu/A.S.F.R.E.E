@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Route Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "route_id",
+    "case_id",
+    "intent",
+    "primary_specialist",
+    "supporting_specialists",
+    "capability_status",
+    "routing_observability",
+    "expected_outputs",
+    "limitations"
+  ],
+  "properties": {
+    "route_id": {
+      "type": "string",
+      "pattern": "^ROUTE-[A-Z0-9-]+$"
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "intent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "primary_specialist": {
+      "enum": [
+        "M00",
+        "O01",
+        "O02",
+        "O03",
+        "O04",
+        "O05",
+        "O06",
+        "O07",
+        "O08",
+        "O09",
+        "O10",
+        "O11",
+        "O12"
+      ]
+    },
+    "supporting_specialists": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "activation_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "not_used_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capability_status": {
+      "enum": [
+        "READY",
+        "READY_WITH_LIMITATIONS",
+        "NOT_CHECKED",
+        "UNAVAILABLE",
+        "ACCESS_DENIED",
+        "EXPIRED",
+        "BLOCKED",
+        "OUT_OF_SCOPE"
+      ]
+    },
+    "routing_observability": {
+      "enum": [
+        "INVOKED",
+        "PROCEDURE_APPLIED",
+        "BEHAVIOR_ONLY",
+        "NOT_OBSERVABLE"
+      ]
+    },
+    "expected_outputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "observed_outputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "interface": {
+    "capabilities": [],
+    "category": "Developer Tools",
+    "defaultPrompt": [
+      "Forensically audit this system and design evidence-backed improvements."
+    ],
+    "developerName": "Hary Saidno",
+    "displayName": "A.S.F.R.E.E",
+    "longDescription": "A.S.F.R.E.E is a modular, evidence-driven orchestrator for authorized AI and software forensics, evaluation, diagnosis, comparison, supervised remediation and reconstruction. M00 coordinates O01\u2013O12, while Security & Governance and Evaluation Intelligence operate as cross-cutting control planes. It defaults to read-only analysis, uses explicit authority and capability gates, and distinguishes evidence, inference, hypotheses, tests and verified outcomes. This package contains portable skill instructions and data contracts; it does not itself deploy scanners, runtimes, databases, API gateways or MCP servers.",
+    "shortDescription": "AI systems forensics"
+  },
+  "name": "asfree",
+  "version": "0.2.1",
+  "description": "A unified, evidence-driven forensic intelligence and supervised engineering orchestrator for authorized AI systems and software.",
+  "author": {
+    "name": "Hary Saidno",
+    "email": "harysaidno@gmail.com"
+  },
+  "keywords": [
+    "forensics",
+    "systems-analysis",
+    "evaluation",
+    "reverse-engineering",
+    "orchestration",
+    "software-quality",
+    "supervised-engineering",
+    "evidence-driven",
+    "reconstruction",
+    "quality-assurance",
+    "governance"
+  ],
+  "homepage": "https://github.com/hsaidno-cpu/A.S.F.R.E.E",
+  "repository": "https://github.com/hsaidno-cpu/A.S.F.R.E.E",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "skills": "./skills"
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Capability Readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "capability_id",
+    "operation",
+    "status",
+    "limitations"
+  ],
+  "properties": {
+    "capability_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider": {
+      "type": "string"
+    },
+    "tool_or_connector": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "identity_scope": {
+      "type": "string"
+    },
+    "permission": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "READY",
+        "READY_WITH_LIMITATIONS",
+        "NOT_CHECKED",
+        "UNAVAILABLE",
+        "ACCESS_DENIED",
+        "EXPIRED",
+        "BLOCKED",
+        "OUT_OF_SCOPE"
+      ]
+    },
+    "checked_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approved_fallback": {
+      "type": "string"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

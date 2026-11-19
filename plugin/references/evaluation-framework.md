@@ -2,73 +2,72 @@
 
 ## Foundational position
 
-Evaluation is the philosophy, control mechanism, decision discipline, and proof standard across A.S.F.R.E.E. It is not synonymous with testing. A passed test is an observation; the evaluator judges whether the result satisfies the purpose, quality criteria, impact and residual-risk requirements.
+Evaluation is the purpose, method, decision discipline, and proof standard across A.S.F.R.E.E. It is not synonymous with testing. A test provides an observation; evaluation judges whether the observed result satisfies the declared purpose, criteria, impact expectations, and residual-risk tolerance.
 
-## E.V.A.L.U.A.T.I.O.N — internal Evaluation Values & Assessment Intelligence Framework
+## E.V.A.L.U.A.T.I.O.N values
 
-This is an internal values framework, not an external or accredited standard.
+This is an internal design rubric, not an external or accredited standard.
 
 | ID | Value | Operational meaning |
 |---|---|---|
-| V01 | Validity | Measure the property that actually matters |
+| V01 | Validity | Measure the construct that matters |
 | V02 | Veracity | Preserve evidence truth and integrity |
-| V03 | Objectivity | Reduce assessor bias |
-| V04 | Reliability | Produce sufficiently consistent assessments |
-| V05 | Completeness | Cover material dimensions without pretending exhaustive coverage |
-| V06 | Relevance | Fit the target purpose and context |
-| V07 | Proportionality | Match depth to uncertainty, risk and consequence |
-| V08 | Transparency | Make criteria and decision basis visible |
-| V09 | Traceability | Link claims, evidence, findings, decisions and tests |
+| V03 | Objectivity | Reduce avoidable assessor bias |
+| V04 | Reliability | Apply sufficiently consistent, repeatable criteria |
+| V05 | Completeness | Cover material dimensions without claiming omniscience |
+| V06 | Relevance | Fit purpose and context |
+| V07 | Proportionality | Match depth to risk and consequence |
+| V08 | Transparency | Expose criteria and decision basis |
+| V09 | Traceability | Link claims, evidence, findings, decisions, and tests |
 | V10 | Reproducibility | Enable independent repetition where feasible |
-| V11 | Independence | Permit reviewers to disagree with builders |
-| V12 | Fairness | Avoid unjustified bias and asymmetric standards |
-| V13 | Actionability | Translate findings into feasible decisions/actions |
-| V14 | Sustainability | Preserve maintainability and long-term viability |
-| V15 | Continuous Improvement | Use outcomes to refine the system and its evaluation |
+| V11 | Independence | Allow reviewers to disagree with builders |
+| V12 | Fairness | Avoid unjustified bias or asymmetric standards |
+| V13 | Actionability | Convert findings into feasible decisions |
+| V14 | Sustainability | Consider maintenance and long-term viability |
+| V15 | Continuous Improvement | Use outcomes to refine methods and controls |
 
-Additional control values: **Contextual Fitness**, **Positive-Negative Balance**, **Uncertainty Awareness**, **Value Preservation**, **Impact Accountability**.
+Supplementary controls: **Contextual Fitness**, **Positive-Negative Balance**, **Uncertainty Awareness**, **Value Preservation**, and **Impact Accountability**.
 
 ## Twelve evaluation dimensions
 
-ED01 Structural Quality; ED02 Functional Quality; ED03 Capability & Value; ED04 Technical Quality; ED05 Security & Safety; ED06 Reliability & Resilience; ED07 Interoperability; ED08 Maintainability; ED09 Efficiency & Economics; ED10 Usability & Human Impact; ED11 Adaptability & Sustainability; ED12 Evidence & Governance.
+1. Structural Quality.
+2. Functional Quality.
+3. Capability & Value.
+4. Technical Quality.
+5. Security & Safety.
+6. Reliability & Resilience.
+7. Interoperability.
+8. Maintainability.
+9. Efficiency & Economics.
+10. Usability & Human Impact.
+11. Adaptability & Sustainability.
+12. Evidence & Governance.
 
-Not every dimension or indicator applies to every target. Explain exclusions. Do not treat an unobserved dimension as strong.
+Assess only applicable indicators and explain exclusions. An unobserved dimension is not strong by default.
 
 ## Evaluation charter
 
-Before material evaluation, define: target and version; purpose and decision to be supported; intended users/stakeholders; scope/non-goals; baseline; context/time anchors; applicable standards/rubrics; indicators; measurement methods; thresholds; weighting rationale/approval; evidence requirements; uncertainty and limitations; decision owner; review date or trigger.
+Before a material evaluation, define target/version, purpose and decision, users/stakeholders, scope/non-goals, baseline, context/time anchor, criteria, indicators, methods, units/rubrics, thresholds, weight rationale/approval (if used), evidence requirements, uncertainty, limitations, decision owner, and review trigger.
 
-## Measurement registry
+## Indicator registry
 
-Each indicator record should contain `indicator_id`, dimension, operational definition, measurement method, type (`QUANTITATIVE`, `QUALITATIVE`, `MIXED`), unit, baseline, target, observed value, threshold, weight and approval basis (if used), evidence references, uncertainty, limitations, environment, version, and timestamp when actually observed.
+Each indicator should have `indicator_id`, dimension, operational definition, method, type (`QUANTITATIVE`, `QUALITATIVE`, `MIXED`), unit, baseline, target, observed value, threshold, weight/approval basis if used, evidence refs, uncertainty, limitations, environment, version, and timestamp only when observed.
 
-Never invent precision. Do not aggregate incomparable indicators. A weighted score requires a defensible rubric and approved weights. Hard gates override averages: a critical auth failure cannot be hidden by a high overall average.
+No number without definition, method, unit/rubric, and evidence. No weight without rationale and approval where material. Do not aggregate incomparable indicators. Hard gates override averages. Keep confidence, severity, likelihood, importance, evidence strength, and impact separate.
 
-## Status and evidence scales
+## Evaluation dispositions
 
-Assessment status: `NOT_ASSESSED`, `INSUFFICIENT_EVIDENCE`, `WEAK`, `ADEQUATE`, `STRONG`, `OPTIMIZED`.
-
-Evidence strength rubric: `E0` not inspected; `E1` assertion without independent evidence; `E2` indirect evidence; `E3` direct static inspection/observation; `E4` reproducible dynamic test; `E5` independent reproducible verification. This is an internal rubric, not a probability or universal evidence standard.
-
-Keep evidence strength, confidence, severity, likelihood and impact separate. `INSUFFICIENT_EVIDENCE` is not the same as `WEAK`.
+`NOT_ASSESSED`, `INSUFFICIENT_EVIDENCE`, `WEAK`, `ADEQUATE`, `STRONG`, `OPTIMIZED`. These are contextual judgments, not universal grades. `INSUFFICIENT_EVIDENCE` is not equivalent to `WEAK`.
 
 ## Continuous evaluation lifecycle
 
-- E0 Evaluation Charter.
-- E1 Baseline & Criteria.
-- E2 Evidence Planning.
-- Forensic investigation and formative evaluation.
-- Findings, diagnosis and summative evaluation.
-- Solution/alternative evaluation.
-- Human approval where required.
-- Supervised reconstruction.
-- Test/independent verification.
-- E5 Post-change evaluation.
-- E6 Outcome & impact evaluation.
-- E7 Meta-evaluation of methods, metrics, bias, coverage and calibration.
+- `E0 CHARTER`: purpose, object, scope, evaluator, decision authority, non-goals.
+- `E1 BASELINE & CRITERIA`: current state, criteria, indicators, baseline, targets/thresholds.
+- `E2 EVIDENCE PLAN`: sources, methods, access, coverage, and evidence needs.
+- `E3 FORMATIVE`: check process quality, drift, evidence gaps, invalid assumptions, emerging risks.
+- `E4 SUMMATIVE`: judge investigation, alternatives, and result against declared criteria.
+- `E5 POST-CHANGE`: compare the changed system to baseline and verify intended technical outcomes.
+- `E6 OUTCOME/IMPACT`: assess intended benefits, human/operational effects, distribution, and second-order harms.
+- `E7 META-EVALUATION`: audit rubric, evaluator bias, coverage, repeatability, metric gaming, and calibration.
 
-Formative asks whether the process is on track; summative asks how good the result is; impact asks whether the change produced the promised effect.
-
-## Meta-evaluation
-
-Audit evaluator bias, rubric quality, evidence sufficiency, coverage, repeatability, metric gaming, sensitivity to weights/assumptions, false positives/negatives, and whether metrics incentivize harmful behavior. Revisit the evaluation design when the result is unstable or not decision-useful.
+Run stages proportionately. A completed test does not imply E5/E6, and a planned evaluation does not prove impact.

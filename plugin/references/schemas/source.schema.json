@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Source Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_id",
+    "source_type",
+    "locator",
+    "provenance_status",
+    "limitations"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "pattern": "^SRC-[A-Z0-9-]+$"
+    },
+    "source_type": {
+      "enum": [
+        "USER_INPUT",
+        "FILE",
+        "REPOSITORY",
+        "DOCUMENTATION",
+        "WEBPAGE",
+        "API",
+        "MCP_RESOURCE",
+        "TOOL_OUTPUT",
+        "TEST_RUN",
+        "DATASET",
+        "OTHER"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "publisher_or_owner": {
+      "type": "string"
+    },
+    "source_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "accessed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "version": {
+      "type": "string"
+    },
+    "acquisition_method": {
+      "type": "string"
+    },
+    "provenance_status": {
+      "enum": [
+        "VERIFIED",
+        "PARTIAL",
+        "CLAIMED",
+        "UNKNOWN",
+        "UNAVAILABLE"
+      ]
+    },
+    "independence_group": {
+      "type": "string"
+    },
+    "sensitivity": {
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "CONFIDENTIAL",
+        "SENSITIVE",
+        "UNKNOWN"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
