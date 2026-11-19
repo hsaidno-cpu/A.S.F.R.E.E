@@ -1,0 +1,21 @@
+name: validate-asfree-package
+on:
+  push:
+    paths: ["plugin/**", "scripts/**", ".github/workflows/validate.yml"]
+  pull_request:
+    paths: ["plugin/**", "scripts/**", ".github/workflows/validate.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate plugin package structure and JSON fixtures
+        run: python scripts/validate_package.py
