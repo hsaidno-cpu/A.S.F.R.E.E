@@ -1,5 +1,10 @@
-# Object file
-*.o
-
-# Ada Library Information
-*.ali
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.secrets/
+credentials/
+*.log
+coverage/
+.dist/

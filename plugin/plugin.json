@@ -1,0 +1,36 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "asfree-master-orchestrator",
+  "version": "1.0.0",
+  "description": "Evidence-driven AI systems forensics, evaluation, supervised remediation and reconstruction orchestrator.",
+  "author": {
+    "name": "A.S.F.R.E.E Project"
+  },
+  "repository": "https://github.com/hsaidno-cpu/A.S.F.R.E.E",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "keywords": [
+    "forensics",
+    "systems-analysis",
+    "evaluation",
+    "orchestration",
+    "reconstruction",
+    "quality-assurance",
+    "governance"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "A.S.F.R.E.E",
+        "shortDescription": "AI forensic engineering",
+        "longDescription": "A.S.F.R.E.E is an evidence-driven master orchestrator for authorized AI and software systems. It coordinates artifact intelligence, architecture decomposition, positive and negative analysis, comparison, bug diagnosis, supervised remediation, reconstruction, integration readiness, QA, security governance, and continuous evaluation. It defaults to read-only analysis, requires scoped approval for material changes, distinguishes evidence from hypotheses, and never claims tools or tests that were not actually used.",
+        "category": "Developer Tools",
+        "capabilities": [],
+        "defaultPrompt": [
+          "Forensically analyze this authorized system and deliver an evidence-backed evaluation.",
+          "Map this system's architecture, strengths, weaknesses, dependencies and risks.",
+          "Design a supervised reconstruction plan with acceptance tests and rollback."
+        ]
+      }
+    }
+  }
+}
