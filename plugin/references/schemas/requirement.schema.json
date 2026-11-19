@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Requirement",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "requirement_id",
+    "statement",
+    "acceptance_criteria",
+    "status"
+  ],
+  "properties": {
+    "requirement_id": {
+      "type": "string",
+      "pattern": "^REQ-[A-Z0-9-]+$"
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "priority": {
+      "enum": [
+        "MUST",
+        "SHOULD",
+        "COULD",
+        "WONT"
+      ]
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "verification_methods": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "DRAFT",
+        "APPROVED",
+        "REJECTED",
+        "IMPLEMENTED",
+        "VERIFIED",
+        "DEFERRED"
+      ]
+    },
+    "owner": {
+      "type": "string"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

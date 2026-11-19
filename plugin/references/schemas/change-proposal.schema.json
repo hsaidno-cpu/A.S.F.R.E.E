@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Change Proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "change_id",
+    "target_id",
+    "finding_refs",
+    "scope",
+    "proposed_change",
+    "approval_status",
+    "tests_required",
+    "rollback_plan",
+    "status"
+  ],
+  "properties": {
+    "change_id": {
+      "type": "string",
+      "pattern": "^CHG-[A-Z0-9-]+$"
+    },
+    "target_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finding_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "recommendation_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requirement_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "non_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "baseline_ref": {
+      "type": "string"
+    },
+    "proposed_change": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_mechanism": {
+      "type": "string"
+    },
+    "affected_components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tradeoffs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approval_status": {
+      "enum": [
+        "PENDING",
+        "APPROVED",
+        "REJECTED",
+        "NOT_REQUIRED",
+        "BLOCKED"
+      ]
+    },
+    "approval_basis": {
+      "type": "string"
+    },
+    "authority_level": {
+      "enum": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ]
+    },
+    "tests_required": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rollback_plan": {
+      "type": "string",
+      "minLength": 1
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "PROPOSED",
+        "ACCEPTED",
+        "DEFERRED",
+        "REJECTED",
+        "NEEDS_DECISION",
+        "IMPLEMENTING",
+        "IMPLEMENTED",
+        "VERIFICATION_PENDING",
+        "VERIFIED",
+        "RELEASE_APPROVED",
+        "RELEASED",
+        "CLOSED"
+      ]
+    }
+  }
+}

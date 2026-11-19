@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "intent",
+    "target_refs",
+    "scope",
+    "mode",
+    "authority_level",
+    "status"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "pattern": "^CASE-[A-Z0-9-]+$"
+    },
+    "intent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "domain": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "non_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "context": {
+      "type": "string"
+    },
+    "date_anchor": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "version_anchor": {
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "TRIAGE",
+        "FORENSIC_ONLY",
+        "ARCHITECTURE_AUDIT",
+        "POSITIVE_REVIEW",
+        "NEGATIVE_REVIEW",
+        "COMPARATIVE",
+        "BUG_DIAGNOSIS",
+        "REMEDIATION_DESIGN",
+        "RECONSTRUCTION",
+        "TOOL_ADAPTATION",
+        "VALIDATION",
+        "EVALUATION",
+        "FULL_CYCLE"
+      ]
+    },
+    "forensic_depth": {
+      "enum": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ]
+    },
+    "access_mode": {
+      "enum": [
+        "WHITE_BOX",
+        "GREY_BOX",
+        "BLACK_BOX"
+      ]
+    },
+    "authority_level": {
+      "enum": [
+        "S0",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5"
+      ]
+    },
+    "authorization_basis": {
+      "type": "string"
+    },
+    "decision_owner": {
+      "type": "string"
+    },
+    "stakeholders": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unknown_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "OPEN",
+        "IN_PROGRESS",
+        "HOLD",
+        "BLOCKED",
+        "CLOSED"
+      ]
+    }
+  }
+}

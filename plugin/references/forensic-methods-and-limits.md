@@ -2,34 +2,45 @@
 
 ## Inspection depth
 
-| Level | Mode | What can be supported | Output |
-|---|---|---|---|
-| L0 | Conceptual | User description/specification only | Conceptual audit |
-| L1 | Artifact | Supplied files, manifests, docs, prompts | Structural/artifact audit |
-| L2 | Source | Source code and dependencies inspected | Static technical audit |
-| L3 | Dynamic | Authorized execution in sandbox | Runtime findings |
-| L4 | Adversarial | Authorized security/resilience testing | Security assessment |
-| L5 | Engineering | Controlled modification under approval | Patch/reconstruction |
-| L6 | Verified Deployment | Release process and target read-back | Verified release |
+| Level | Mode | What can be supported |
+|---|---|---|
+| L0 | Conceptual | User description/specification only |
+| L1 | Artifact | Supplied files, manifests, docs, prompts, metadata |
+| L2 | Source | Source code and dependencies directly inspected |
+| L3 | Dynamic | Authorized execution in an available sandbox/runtime |
+| L4 | Adversarial | Authorized resilience/security testing in defined scope |
+| L5 | Engineering | Controlled modification under approval |
+| L6 | Verified Deployment | Approved release plus target read-back and checks |
 
-Always report the deepest level actually performed. Do not infer L2 from reading a README; do not infer L3 from a mock run; do not infer L6 from a commit.
+Always report the deepest level actually reached. Static inspection does not prove runtime behavior; a package write does not prove tests; a commit does not prove deployment.
 
-## Reverse-engineering access modes
+## Access modes
 
-- **White-box:** code/config/source artifacts available. Inspect actual artifacts and version boundaries.
-- **Grey-box:** partial internals plus APIs/logs/documentation/observable behavior. Separate direct evidence from inference.
-- **Black-box:** only input/output/behavior available. Infer external behavior, not hidden implementation. Do not claim to know internal algorithms.
+- **White-box:** source/configuration/artifacts available. Inspect actual artifacts and version boundaries.
+- **Grey-box:** partial internals plus APIs/logs/docs/observable behavior. Label inference and counterevidence.
+- **Black-box:** input/output or externally observable behavior only. Do not claim hidden algorithms or implementation internals.
 
 ## Target taxonomy
 
-AI systems (plugins, skills, agents, orchestrators, model wrappers); software (applications, packages, libraries, frameworks); digital services (web/backend/SaaS); automation/workflows; infrastructure (cloud, database, container); connectivity (REST, GraphQL, MCP, events); data/knowledge systems; security/identity systems; hardware/firmware/embedded systems; other technical systems only when safely representable and authorized.
+AI systems; applications/packages/libraries; APIs and digital services; automations and CI/CD; cloud/container/database/network infrastructure; REST/GraphQL/MCP/event connectivity; data and knowledge systems; identity/security systems; embedded/firmware/hardware interfaces; other technical targets only when authorized and safely inspectable.
 
 ## Method selection
 
-Pick a method based on the question and accessible evidence: first-principles decomposition for assumptions/components; systems thinking for feedback/dependencies; root-cause analysis for failure mechanisms; issue trees for decomposition; threat modeling for attack surfaces; design/JTBD for user value; hypothesis testing for falsifiable claims; comparative/MCDA for alternatives; reliability/failure-mode methods for resilience; controlled experiments for before/after claims. Name a method only when its steps, inputs, assumptions, limitations and decision value are specified.
+Choose methods by analytical question, evidence, risk, and decision value. Candidate families include first-principles decomposition, systems thinking, issue trees, process/value-stream mapping, root-cause analysis, threat modeling, hypothesis testing, comparative/MCDA, reliability/FMEA, fault-tree/Bow-tie, controlled experiments, and stakeholder/value analysis.
 
-5 Whys/Fishbone generate hypotheses; they do not prove causality. A static scan does not prove runtime behavior. A test suite passing does not prove that the tests are adequate. A source file is not proof of deployment. A hash proves byte integrity, not semantic truth.
+Name a method only when its steps, inputs, assumptions, limitations, and decision value are clear. 5 Whys and Fishbone generate hypotheses, not proof. SWOT is not causal proof. FMEA depends on defined scales and evidence. A weighted decision matrix can hide value choices; show weight provenance and sensitivity. Do not create numeric probabilities or scores as decoration.
 
-## Evidence and confidence
+## Evidence discipline
 
-Separate source reliability, evidence strength, confidence and severity. Record counterevidence, date/version, locator, acquisition method, scope, coverage, limitations and unknowns. Never manufacture hashes, signatures, logs, timestamps, screenshots or source access.
+Separate source reliability, evidence strength, confidence, severity, likelihood, and impact. Record locator, collection method, scope, date/version, integrity checks actually performed, coverage, limitations, counterevidence, and source independence. Do not invent hashes, signatures, timestamps, logs, screenshots, test output, or source access.
+
+Evidence strength `E0–E5` is an internal rubric, not a probability or external certification:
+
+- `E0`: not inspected.
+- `E1`: unsupported assertion/description.
+- `E2`: indirect evidence.
+- `E3`: direct static inspection/observation.
+- `E4`: reproducible dynamic test evidence.
+- `E5`: independent reproducible verification.
+
+A source file's existence does not establish deployment. A hash establishes byte identity, not semantic truth. A test suite passing does not establish that its tests are adequate.

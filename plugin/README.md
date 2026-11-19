@@ -1,47 +1,46 @@
 # A.S.F.R.E.E — AI Systems Forensics & Reconstruction Evaluation Engine
 
-**Version:** 1.0.0  
-**Package type:** Skills-only ChatGPT plugin  
-**Architecture:** M00 + O01–O12, with cross-cutting Evaluation and Security control planes  
-**Operating model:** Supervised engineering, read-only by default  
-**Implementation status:** Instruction package prepared; tool/runtime backends are not bundled.
+**Version:** 0.2.0  
+**Package type:** Skills-only plugin  
+**Architecture:** M00 + O01–O12; eight system layers; cross-cutting O11 Security & Governance and O12 Evaluation Intelligence  
+**Operating model:** Evidence-led supervised engineering; read-only by default  
+**Implementation status:** Portable instruction and contract package. External tool/runtime backends are not bundled.
 
 ## What it does
 
-A.S.F.R.E.E coordinates evidence-led examination of authorized technical systems: artifact inventory, structural and functional decomposition, positive and negative analysis, comparison, defect diagnosis, remediation design, reconstruction planning, tool readiness, QA and continuous evaluation.
+A.S.F.R.E.E coordinates authorized technical investigation: artifact intake, provenance, structural/functional decomposition, strengths and value preservation, adversarial weakness analysis, comparison, defect diagnosis, evaluation, supervised remediation, reconstruction, tool adaptation, QA, independent verification, and impact review.
 
 ## Architecture
 
-- `M00` — master intent, scope, routing, task graph, arbitration and synthesis.
-- `O01–O10` — artifact, anatomy, positive, negative, comparative, diagnostics, remediation, reconstruction, runtime integration and QA specialists.
-- `O11` — Security & Governance cross-cutting control plane.
-- `O12` — Evaluation Intelligence cross-cutting control plane.
+- **M00:** intent, scope, operating mode, authority, routing, task graph, arbitration, synthesis, lifecycle disposition.
+- **O01–O10:** artifact, anatomy, positive, negative, comparative, diagnostics, remediation, reconstruction, integration/runtime, and validation/QA specialists.
+- **O11:** Security & Governance control plane across all layers.
+- **O12:** Evaluation Intelligence control plane across all stages.
 
-The 65 O12 sub-specialist procedures are grouped into eight families. They are not separate runtime agents by default. This is deliberate: explicit contracts and evidence are more valuable than multiplying agents that merely hand work to one another.
+The specialist files define bounded procedures. Their capability catalogues are not claims that separate autonomous agents have been deployed. If the host does not expose separate invocation, report `PROCEDURE_APPLIED` rather than `INVOKED`.
 
 ## Package contents
 
-- `plugin.json` — Agent Plugins 1.0 manifest.
-- `skills/` — 13 callable skill instruction units (M00 + O01–O12).
-- `references/` — shared architecture, evidence contracts, evaluation, security, methods, recovery and tool-adapter rules.
-- `tests/acceptance-cases.json` — static behavioral acceptance fixtures; not proof of runtime execution.
+- `plugin.json` — portable Agent Plugins 1.0 manifest.
+- `.codex-plugin/plugin.json` — synchronized compatibility manifest.
+- `skills/` — M00 and O01–O12 instructions.
+- `references/` — architecture, data contracts, evaluation, forensic limits, lifecycle/recovery, security/authority, tool-adapter contract, and JSON Schemas.
+- `tests/acceptance-cases.json` — declarative behavior fixtures. They are specifications until executed in a real harness.
+- `LICENSE` — PolyForm Noncommercial 1.0.0.
+- `TRADEMARKS.md` — separate brand and trademark notice.
 
-## Important capability boundary
+## Capability boundary
 
-This package contains instructions and orchestration procedures. It does **not** deploy an API gateway, MCP server, scanner, database, sandbox, cloud runtime or CI service. Actual filesystem/repository/API/MCP access and tests depend on tools, connectors, permission scopes and execution infrastructure available in the host. Each operation must pass a readiness/authorization check. If a capability is missing, the workflow records `NOT_CHECKED`, `UNAVAILABLE`, `ACCESS_DENIED`, `BLOCKED` or `NOT_RUN` and falls back only when safe.
+This package does **not** deploy an API gateway, MCP server, scanner, database, sandbox, cloud runtime, or CI/test service. Access to files, repositories, APIs, MCP servers, runtimes, and write paths depends on actual host tools, connectors, scopes, and infrastructure. Every operation must pass capability-readiness and authorization checks. If unavailable, mark `NOT_CHECKED`, `UNAVAILABLE`, `ACCESS_DENIED`, `BLOCKED`, or `NOT_RUN` and use a safe fallback only.
 
-## Use
+## Operating model
 
-Invoke `A.S.F.R.E.E` with a target artifact/system and the intended objective. For a full-cycle task, state the authorized scope, target/version, desired outcome and whether you are authorizing only a read-only audit or a specific engineering scope. Do not provide passwords, API keys, tokens or private keys in prompts.
-
-## Forensic and authority model
-
-Inspection depth is reported as L0 conceptual through L6 verified deployment. Change authority ranges from S0 Observe to S5 Production Release. Read-only is the default; mutation, upload, permission changes, migration and deployment require scoped authorization. Implementation, test, merge and release statuses remain separate.
+The forensic depth scale is L0–L6. The supervised authority scale is S0–S5. Read-only is the default. Mutation, upload/publication, permission changes, credential actions, migration, and deployment require exact scoped authorization. Implementation, verification, merge, release, and read-back are distinct states.
 
 ## Evaluation
 
-Evaluation is continuous, not a final score. A.S.F.R.E.E defines 15 internal evaluation values, five supplementary control values and 12 context-sensitive dimensions. Scores require defined methods, data, rubrics and uncertainty; critical hard gates cannot be hidden by averages.
+Evaluation is continuous. The package defines 15 internal E.V.A.L.U.A.T.I.O.N values, five supplementary controls, 12 context-sensitive dimensions, and E0–E7 evaluation checkpoints. These are internal design rubrics, not external certification. Scores require operational definitions, methods, data, rubrics, uncertainty, and defensible weights. Critical hard gates cannot be hidden by averages.
 
 ## License and brand
 
-This source-available package is distributed under PolyForm Noncommercial License 1.0.0. It is not an OSI-approved open-source license and does not grant third-party commercial-use rights. Separate written commercial permission is required from the rights holder. The A.S.F.R.E.E name and branding are not licensed by the software license. See `LICENSE` and `TRADEMARKS.md` in the project repository for policy details.
+The source package is distributed under PolyForm Noncommercial License 1.0.0. It is source-available, not an OSI-approved open-source license, and does not grant third-party commercial-use rights. Separate written commercial permission is required from the applicable rights holder. The software license does not license the A.S.F.R.E.E name, logo, or other brand assets. See `LICENSE` and `TRADEMARKS.md`. Confirm the legally designated rights holder before assigning rights to any future foundation entity.

@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Evaluation Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evaluation_id",
+    "objective",
+    "context",
+    "criteria",
+    "method",
+    "evidence_refs",
+    "disposition",
+    "uncertainty",
+    "limitations"
+  ],
+  "properties": {
+    "evaluation_id": {
+      "type": "string",
+      "pattern": "^EVAL-[A-Z0-9-]+$"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context": {
+      "type": "string",
+      "minLength": 1
+    },
+    "unit_of_analysis": {
+      "type": "string"
+    },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "indicators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "indicator_id",
+          "definition",
+          "method"
+        ],
+        "properties": {
+          "indicator_id": {
+            "type": "string"
+          },
+          "dimension": {
+            "type": "string"
+          },
+          "definition": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "QUANTITATIVE",
+              "QUALITATIVE",
+              "MIXED"
+            ]
+          },
+          "unit": {
+            "type": "string"
+          },
+          "baseline": {},
+          "target": {},
+          "observed_value": {},
+          "threshold": {},
+          "weight": {
+            "type": "number",
+            "minimum": 0
+          },
+          "weight_approval": {
+            "type": "string"
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "uncertainty": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "method": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "disposition": {
+      "enum": [
+        "NOT_ASSESSED",
+        "INSUFFICIENT_EVIDENCE",
+        "WEAK",
+        "ADEQUATE",
+        "STRONG",
+        "OPTIMIZED"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "UNASSESSED"
+      ]
+    },
+    "hard_gate_failures": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "uncertainty": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review_independence": {
+      "enum": [
+        "INDEPENDENT",
+        "PARTIAL",
+        "NOT_INDEPENDENT",
+        "UNKNOWN"
+      ]
+    },
+    "decision_owner": {
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "ACCEPT",
+        "REJECT",
+        "DEFER",
+        "PILOT",
+        "HOLD",
+        "STOP",
+        "NO_DECISION"
+      ]
+    },
+    "evaluation_stage": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "E6",
+        "E7"
+      ]
+    }
+  }
+}

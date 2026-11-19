@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Target",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "target_id",
+    "target_type",
+    "identity",
+    "scope_status"
+  ],
+  "properties": {
+    "target_id": {
+      "type": "string",
+      "pattern": "^TARGET-[A-Z0-9-]+$"
+    },
+    "target_type": {
+      "enum": [
+        "AI_SYSTEM",
+        "PLUGIN",
+        "SKILL",
+        "AGENT",
+        "ORCHESTRATOR",
+        "PROMPT",
+        "SOFTWARE",
+        "REPOSITORY",
+        "PACKAGE",
+        "API",
+        "SERVICE",
+        "AUTOMATION",
+        "INFRASTRUCTURE",
+        "DATA_SYSTEM",
+        "IDENTITY_SYSTEM",
+        "HARDWARE",
+        "OTHER"
+      ]
+    },
+    "identity": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "locator": {
+      "type": "string"
+    },
+    "scope_status": {
+      "enum": [
+        "AUTHORIZED",
+        "PENDING",
+        "DENIED",
+        "UNKNOWN",
+        "OUT_OF_SCOPE"
+      ]
+    },
+    "access_mode": {
+      "enum": [
+        "WHITE_BOX",
+        "GREY_BOX",
+        "BLACK_BOX"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

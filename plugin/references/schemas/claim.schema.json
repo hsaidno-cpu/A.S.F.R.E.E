@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Claim Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claim_id",
+    "statement",
+    "epistemic_status",
+    "evidence_refs",
+    "status"
+  ],
+  "properties": {
+    "claim_id": {
+      "type": "string",
+      "pattern": "^CLM-[A-Z0-9-]+$"
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "epistemic_status": {
+      "enum": [
+        "DIRECT_OBSERVATION",
+        "USER_CLAIM",
+        "SOURCE_CLAIM",
+        "VERIFIED_SOURCE_CLAIM",
+        "ASSUMPTION",
+        "INFERENCE",
+        "HYPOTHESIS",
+        "PREDICTION",
+        "NORMATIVE_JUDGMENT",
+        "RECOMMENDATION"
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "counterevidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "method_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scope": {
+      "type": "string"
+    },
+    "time_context": {
+      "type": "string"
+    },
+    "confidence": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "UNASSESSED"
+      ]
+    },
+    "status": {
+      "enum": [
+        "SUPPORTED",
+        "CONTRADICTED",
+        "PARTIALLY_SUPPORTED",
+        "UNVERIFIED",
+        "DISPUTED",
+        "SUPERSEDED"
+      ]
+    },
+    "allowed_wording": {
+      "type": "string"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

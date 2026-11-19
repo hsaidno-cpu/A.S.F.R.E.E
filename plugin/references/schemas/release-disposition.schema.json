@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Release Disposition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "release_id",
+    "target_id",
+    "disposition",
+    "hard_gate_status",
+    "limitations"
+  ],
+  "properties": {
+    "release_id": {
+      "type": "string",
+      "pattern": "^REL-[A-Z0-9-]+$"
+    },
+    "target_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string"
+    },
+    "disposition": {
+      "enum": [
+        "PASS",
+        "PASS_WITH_CAVEATS",
+        "HOLD",
+        "FAIL",
+        "BLOCKED"
+      ]
+    },
+    "hard_gate_status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_CHECKED",
+        "BLOCKED"
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "test_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approval_ref": {
+      "type": "string"
+    },
+    "read_back_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "decision_owner": {
+      "type": "string"
+    },
+    "decided_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

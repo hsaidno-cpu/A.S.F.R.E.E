@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Evidence Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id",
+    "source_id",
+    "evidence_type",
+    "locator",
+    "acquisition_method",
+    "strength",
+    "limitations"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^EVD-[A-Z0-9-]+$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^SRC-[A-Z0-9-]+$"
+    },
+    "artifact_id": {
+      "type": "string"
+    },
+    "evidence_type": {
+      "enum": [
+        "USER_PROVIDED",
+        "DOCUMENT",
+        "SOURCE_CODE",
+        "CONFIGURATION",
+        "STATIC_OBSERVATION",
+        "DYNAMIC_TEST",
+        "LOG",
+        "METRIC",
+        "TRACE",
+        "TOOL_OUTPUT",
+        "EXTERNAL_SOURCE",
+        "TEST_RESULT",
+        "MEASUREMENT",
+        "OTHER"
+      ]
+    },
+    "locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observation": {
+      "type": "string"
+    },
+    "claim_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "acquisition_method": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "source_date": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "scope": {
+      "type": "string"
+    },
+    "integrity_check": {
+      "enum": [
+        "NOT_RUN",
+        "CHECKSUM_VERIFIED",
+        "SIGNATURE_VERIFIED",
+        "OTHER"
+      ]
+    },
+    "strength": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "counterevidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sensitivity": {
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "CONFIDENTIAL",
+        "SENSITIVE",
+        "UNKNOWN"
+      ]
+    },
+    "source_independence": {
+      "enum": [
+        "INDEPENDENT",
+        "SHARED_ORIGIN",
+        "UNKNOWN",
+        "NOT_APPLICABLE"
+      ]
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E Test Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "test_id",
+    "expected",
+    "actual",
+    "status",
+    "limitations"
+  ],
+  "properties": {
+    "test_id": {
+      "type": "string",
+      "pattern": "^TST-[A-Z0-9-]+$"
+    },
+    "requirement_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "change_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "test_class": {
+      "enum": [
+        "UNIT",
+        "INTEGRATION",
+        "CONTRACT",
+        "SYSTEM",
+        "REGRESSION",
+        "SECURITY",
+        "PERFORMANCE",
+        "COMPATIBILITY",
+        "FUZZ",
+        "ACCEPTANCE",
+        "RECOVERY",
+        "INDEPENDENT",
+        "OTHER"
+      ]
+    },
+    "preconditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "input": {
+      "type": "string"
+    },
+    "expected": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actual": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string"
+    },
+    "tool": {
+      "type": "string"
+    },
+    "tool_version": {
+      "type": "string"
+    },
+    "executed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "NOT_RUN",
+        "NOT_APPLICABLE",
+        "UNVERIFIABLE"
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
