@@ -6,7 +6,15 @@ The repository now contains a local reference runtime for Evidence Management, M
 
 **Gate status:** 79 local unit/recovery tests, Python compilation and end-to-end quickstart pass; GitHub CI must verify the exact PR head. This does not satisfy production readiness.
 
-**Remaining gate:** authenticate actors/workers; add encryption/KMS and remote object storage; externally anchor audit integrity; implement OS/container isolation; integrate dynamic test runners and operational recovery before any staging/production service.
+**P0→P1 boundary:** local reference controls now exist for authenticated principals, default-deny policy, tenant-scoped stores, blob envelope encryption and a fail-closed OCI adapter. Production gates remain open for live IdP configuration, cross-process signed delegation, managed KMS, encrypted metadata, external audit anchoring, cloud tenant isolation, actual OCI runtime and quota/log supervision.
+
+## P1 — Security & Trust Plane (reference layer implemented; production gate HOLD)
+
+P1 adds OIDC RS256 token validation, default-deny tenant-first authorization, MFA/separation-of-duties policy rules, process-local authorization capabilities, tenant-derived local partitions, AES-256-GCM envelope encryption for artifact blobs, KMS provider contracts, and a worker-token-bound rootless OCI execution adapter.
+
+**Verification:** 31 P1 security tests and 79 P0 regression tests pass locally (110 total); Python compilation and the P0 end-to-end quickstart pass. The 33 P1 acceptance specifications are declarative cases, not all separate executed tests. OCI runtime behavior is tested with mocks; actual runtime execution is NOT_RUN. Local editable installation was not verified in this offline environment because pip build isolation could not retrieve setuptools.
+
+**Production gate remains HOLD** until a real IdP and its claim/MFA semantics are configured; distributed authorization uses signed delegated capabilities; cloud KMS/HSM and secret management are implemented; database/WAL/log/backup metadata encryption is complete; tenant partitions use independently enforced infrastructure IAM; audit records are externally anchored; rootless OCI/gVisor/Kata and host quota/streaming-log supervisors run on the target kernel; hostile-workload and concurrency tests pass; and human security review approves deployment.
 
 ## Phase 1 — Forensic MVP
 
@@ -22,7 +30,7 @@ O05 comparison, O06 defect reproduction/root-cause workflow, benchmark and risk-
 
 ## Phase 3 — Supervised engineering expansion
 
-The local sandbox-only change engine is implemented as a reference. Next: isolated worker runtime, signed approvals from authenticated principals, external policy enforcement, dynamic test adapters, provenance, and stronger rollback/restore guarantees.
+The local sandbox-only change engine is implemented as a reference. Next: connect the authenticated policy facade to every SCIVE mutation and approval path, implement signed cross-process authorization delegation, provision and test the isolated worker runtime, add dynamic test adapters, provenance, and stronger rollback/restore guarantees.
 
 **Gate:** no target mutation without authorization; failures and partial changes are recoverable; the executor must be a real OS/container/VM isolation boundary before handling untrusted workloads.
 
