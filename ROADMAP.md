@@ -1,10 +1,12 @@
 # Roadmap
 
-## Phase 0 — Architecture foundation
+## Phase 0 — P0 reference foundations (implemented locally)
 
-M00 routing, evidence/finding contracts, capability readiness, authorization, evaluation charter, static validation.
+The repository now contains a local reference runtime for Evidence Management, M00 Orchestration & Contract Engine, and Supervised Change & Independent Verification. It includes provenance lineage, hash-addressed blobs, append-only audit chain, task DAG/leases, evidence-backed capability readiness, approval-bound sandbox changes, recovery and independent static review.
 
-**Gate:** core contracts and hard constraints are testable; no false runtime claims.
+**Gate status:** local unit/recovery suite and end-to-end quickstart pass in the developer workspace; GitHub CI must verify the exact PR head. This does not satisfy production readiness.
+
+**Remaining gate:** authenticate actors/workers; add encryption/KMS and remote object storage; externally anchor audit integrity; implement OS/container isolation; integrate dynamic test runners and operational recovery before any staging/production service.
 
 ## Phase 1 — Forensic MVP
 
@@ -18,11 +20,11 @@ O05 comparison, O06 defect reproduction/root-cause workflow, benchmark and risk-
 
 **Gate:** tests distinguish observed defects from hypotheses and false positives.
 
-## Phase 3 — Supervised engineering
+## Phase 3 — Supervised engineering expansion
 
-O07 remediation planning, O09 isolated sandbox/runtime adapters, scoped approval, snapshots and rollback.
+The local sandbox-only change engine is implemented as a reference. Next: isolated worker runtime, signed approvals from authenticated principals, external policy enforcement, dynamic test adapters, provenance, and stronger rollback/restore guarantees.
 
-**Gate:** no target mutation without authorization; failures and partial results recover safely.
+**Gate:** no target mutation without authorization; failures and partial changes are recoverable; the executor must be a real OS/container/VM isolation boundary before handling untrusted workloads.
 
 ## Phase 4 — Reconstruction and independent evaluation
 

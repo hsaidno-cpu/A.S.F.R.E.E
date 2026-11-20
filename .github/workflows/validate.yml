@@ -1,9 +1,27 @@
 name: validate-asfree-package
 on:
   push:
-    paths: ["plugin/**", "scripts/**", ".github/workflows/validate.yml"]
+    paths:
+      - "plugin/**"
+      - "runtime/**"
+      - "implementation-bundles/**"
+      - "docs/implementation/**"
+      - "scripts/**"
+      - "README.md"
+      - "CHANGELOG.md"
+      - "ROADMAP.md"
+      - ".github/workflows/validate.yml"
   pull_request:
-    paths: ["plugin/**", "scripts/**", ".github/workflows/validate.yml"]
+    paths:
+      - "plugin/**"
+      - "runtime/**"
+      - "implementation-bundles/**"
+      - "docs/implementation/**"
+      - "scripts/**"
+      - "README.md"
+      - "CHANGELOG.md"
+      - "ROADMAP.md"
+      - ".github/workflows/validate.yml"
   workflow_dispatch:
 
 permissions:
@@ -12,10 +30,20 @@ permissions:
 jobs:
   static-validation:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: runtime
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate plugin package structure and JSON fixtures
+      - name: Unpack checksum-verified P0 runtime source bundle
+        run: python scripts/unpack_p0_bundle.py
+      - name: Validate manifests, skills, schemas and acceptance fixtures
         run: python scripts/validate_package.py
+      - name: Compile reference runtime and tests
+        run: python -m py_compile runtime/asfree/*.py runtime/tests/*.py
+      - name: Run P0 runtime unit and recovery tests
+        run: python -m unittest discover -s runtime/tests -v
+      - name: Run end-to-end P0 quickstart
+        run: python runtime/examples/quickstart.py

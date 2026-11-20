@@ -6,56 +6,59 @@ Universal-by-design · Evidence-driven · Supervised engineering
 
 A.S.F.R.E.E is a modular intelligence system for authorized forensic analysis, architecture decomposition, evaluation, diagnosis, controlled remediation, reconstruction and independent verification of AI/software systems.
 
-## Current unified baseline
+## Current baseline
 
-- **Canonical plugin package:** v0.2.1 in [`plugin/`](plugin/).
+- **Canonical plugin package:** v0.3.0 in [`plugin/`](plugin/).
 - **Architecture:** one M00 master orchestrator and twelve specialist skills O01–O12.
-- **Contracts:** 16 JSON Schemas covering case, target, source, claim, evidence, findings, methods, requirements, changes, tests, evaluation, capability readiness, routing, audit events and release disposition.
-- **Acceptance fixtures:** 30 deduplicated declarative cases.
-- **Runtime platform:** not yet implemented or deployment-verified.
-- **Cloud/API/MCP services:** not included in this skills-only package.
+- **P0 reference runtime:** local Python implementation of Evidence Management, Master Orchestration & Contract Engine, and Supervised Change & Independent Verification.
+- **Acceptance specifications:** 30 baseline cases plus 37 P0 cases; these are specifications, not execution records.
+- **Production platform:** not deployed or production-verified.
 
-## Architecture at a glance
+## The three P0 foundations
 
-- **M00:** intent, scope, capability readiness, routing, arbitration and final synthesis.
-- **O01–O10:** artifact intelligence; anatomy; positive and negative intelligence; comparison; bug diagnosis; remediation; reconstruction; integration/runtime; validation/QA.
-- **O11:** Security & Governance cross-cutting authority.
-- **O12:** Evaluation Intelligence cross-cutting control plane.
-
-Evaluation operates before, during and after the work. Read-only is the default; engineering changes are separately authorized and independently verified. Operating modes, forensic depth L0–L6, and authority levels S0–S5 govern how far a workflow may proceed.
+1. **Evidence Management System** — source/provenance registry; content-addressed artifact storage; immutable evidence records; typed claim/evidence links; case boundaries; hash-chained audit ledger; explicit legacy migration.
+2. **Master Orchestration & Contract Engine** — versioned case/task/handoff contracts; deterministic routing to O01–O12; dependency DAG; idempotency; worker/specialist leases; bounded retry; evidence-backed capability readiness; route observability.
+3. **Supervised Change & Independent Verification Engine** — proposal digest; exact-path approval scope; authority and expiry checks; fail-closed approval adapter; sandbox-only execution; baseline recheck; atomic change checkpoints; recovery/rollback; independent reviewer plan and verification evidence.
 
 ## Repository layout
 
 ```text
 .
-├── plugin/                 # Canonical importable skills-only package v0.2.1
+├── plugin/                 # Canonical skills-only package v0.3.0
 │   ├── plugin.json
 │   ├── .codex-plugin/
-│   ├── LICENSE
-│   ├── TRADEMARKS.md
-│   ├── skills/              # M00 + O01–O12
-│   ├── references/          # architecture, contracts, schemas and controls
-│   └── tests/               # 30 declarative acceptance fixtures
-├── docs/                    # project-level architecture and policy
-├── scripts/                 # deterministic static package validation
-├── tests/                   # repository-level acceptance fixtures
-└── .github/workflows/       # static validation CI
+│   ├── skills/              # M00 + O01–O12 and compatibility aliases
+│   ├── references/          # architecture, contracts, JSON Schemas and controls
+│   └── tests/               # baseline + P0 acceptance specifications
+├── runtime/                # Separate local Python reference implementation
+│   ├── asfree/              # evidence, contracts, orchestration, changes
+│   ├── tests/               # executable unit/recovery tests
+│   └── examples/            # end-to-end local quickstart
+├── docs/implementation/    # P0 architecture and threat model
+├── scripts/                # deterministic static validator and bundle unpacker
+└── .github/workflows/      # static + runtime test CI
 ```
 
-## Use the plugin source
+## Validate locally
 
-The `plugin/` directory is the standalone package root. Its skills are reusable instruction units; the package does not itself provision a scanner, local shell, container sandbox, API gateway, MCP server, database, telemetry or cloud runtime. Real capabilities must be connected and checked in the host environment. Unavailable or denied capabilities remain explicitly blocked/not run.
+Python 3.11+ is required. The P0 runtime source is distributed as a SHA-256-verified, ordered source archive. The archive may be reconstructed from its nine base64 shards in `implementation-bundles/.p0-v0.3.0/` before running:
 
-## Validation status
+```bash
+python scripts/unpack_p0_bundle.py
+python scripts/validate_package.py
+python -m py_compile runtime/asfree/*.py runtime/tests/*.py
+PYTHONPATH=runtime python -m unittest discover -s runtime/tests -v
+PYTHONPATH=runtime python runtime/examples/quickstart.py
+```
 
-The package source and manifests have been read back; all 16 JSON Schema files parse as JSON and the 30 acceptance case identifiers are unique. These are static package checks, not runtime acceptance-test results. Runtime tests and MCP/API adapter deployments remain unimplemented.
+The tests use the Python standard library; no third-party runtime dependency is required. The portable plugin remains skills-only; the Python implementation is a separate local reference source bundle, not an embedded hosted runtime.
 
-## Contributing
+## Capability and security boundary
 
-Read [`CONTRIBUTING.md`](CONTRIBUTING.md) and the license before submitting changes. Contributions must preserve traceability, add acceptance cases for material behavior changes, and never include secrets or unauthorized target data.
+The P0 runtime is an executable **local, single-node reference**, not a production A.S.F.R.E.E platform. It uses SQLite and a local content-addressed blob directory. It does not bundle OIDC/MFA, authenticated principal binding, KMS/encryption, remote object storage, tenant isolation, externally anchored WORM audit, OS/container isolation, dynamic test runners, HTTP/MCP servers, worker daemons, cloud deployment, HA, backups, retention/deletion, or production release. Confidential/sensitive records are rejected when encryption is unavailable. Staging and production changes are disabled. Actor/worker identifiers remain caller-supplied labels until an authenticated identity adapter is integrated.
 
-## License & brand
+See [`runtime/README.md`](runtime/README.md), [`P0-FOUNDATIONS.md`](docs/implementation/P0-FOUNDATIONS.md), and [`THREAT-MODEL.md`](docs/implementation/THREAT-MODEL.md).
 
-This repository's current source baseline uses **PolyForm Noncommercial License 1.0.0** (source-available, noncommercial; not an OSI-approved open-source license). Commercial use by third parties requires separate written permission from the rights holder. The A.S.F.R.E.E name and visual identity are separate from the software license; see [`TRADEMARKS.md`](TRADEMARKS.md) and [`LICENSE-STRATEGY.md`](LICENSE-STRATEGY.md).
+## Contributing and license
 
-**Historical notice:** the initial repository commit contained an Apache-2.0 license. A later license change does not automatically revoke license grants made for earlier snapshots. Obtain qualified legal review before commercial distribution, contributor onboarding or foundation transfer.
+Read [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`LICENSE-STRATEGY.md`](LICENSE-STRATEGY.md) before contributing. The current source baseline uses PolyForm Noncommercial License 1.0.0 (source-available, not OSI-approved open source); commercial use requires separate written permission. Brand rights are separate. The initial repository commit contained Apache-2.0, so prior grant history must be reviewed before making broad claims about retroactive restrictions.

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0 — 2026-11-20
+
+- Implement the three P0 foundations as an executable local Python reference runtime.
+- Add source, artifact, evidence and claim registries with content-addressed SHA-256 blobs and case-scoped provenance links.
+- Add append-only hash-chained audit records and explicit legacy schema migration to unverified provenance placeholders.
+- Add M00 task orchestration with versioned contracts, DAG validation, idempotency, worker/specialist leases, bounded retries and evidence-backed capability readiness.
+- Add scoped change proposals, fail-closed approval, sandbox-only apply, baseline rechecks, checkpointed recovery/rollback, and separate independent review plans.
+- Add 37 P0 acceptance specifications, five runtime JSON Schemas, a local end-to-end quickstart, runtime tests and CI execution.
+- Clarify that the portable plugin remains skills-only and the runtime is a separate local reference implementation, not a deployed production service.
+
 ## 0.2.1 — 2026-11-20
 
 - Consolidate both A.S.F.R.E.E plugin variants into one canonical package.
@@ -18,5 +28,3 @@
 - Add continuous evaluation, supervised authority, recovery and release-state rules.
 - Add declarative acceptance fixtures and static package validation.
 - Set the source-available / noncommercial license baseline; review historical Apache-2.0 snapshot implications before distribution.
-
-This project is a skills-only instruction package, not a deployed runtime platform.

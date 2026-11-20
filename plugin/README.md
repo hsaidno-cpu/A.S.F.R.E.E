@@ -1,10 +1,10 @@
 # A.S.F.R.E.E — AI Systems Forensics & Reconstruction Evaluation Engine
 
-**Version:** 0.2.0  
-**Package type:** Skills-only plugin  
+**Version:** 0.3.0  
+**Package type:** Portable skills-only plugin  
 **Architecture:** M00 + O01–O12; eight system layers; cross-cutting O11 Security & Governance and O12 Evaluation Intelligence  
 **Operating model:** Evidence-led supervised engineering; read-only by default  
-**Implementation status:** Portable instruction and contract package. External tool/runtime backends are not bundled.
+**Implementation boundary:** The portable plugin contains instruction and contract files. A separate local reference runtime exists in the source repository under `../runtime/`; it is not bundled with this plugin.
 
 ## What it does
 
@@ -25,22 +25,18 @@ The specialist files define bounded procedures. Their capability catalogues are 
 - `.codex-plugin/plugin.json` — synchronized compatibility manifest.
 - `skills/` — M00 and O01–O12 instructions.
 - `references/` — architecture, data contracts, evaluation, forensic limits, lifecycle/recovery, security/authority, tool-adapter contract, and JSON Schemas.
-- `tests/acceptance-cases.json` — declarative behavior fixtures. They are specifications until executed in a real harness.
+- `tests/acceptance-cases.json` and `tests/p0-foundations-cases.json` — declarative behavior fixtures, not test execution evidence.
 - `LICENSE` — PolyForm Noncommercial 1.0.0.
 - `TRADEMARKS.md` — separate brand and trademark notice.
 
 ## Capability boundary
 
-This package does **not** deploy an API gateway, MCP server, scanner, database, sandbox, cloud runtime, or CI/test service. Access to files, repositories, APIs, MCP servers, runtimes, and write paths depends on actual host tools, connectors, scopes, and infrastructure. Every operation must pass capability-readiness and authorization checks. If unavailable, mark `NOT_CHECKED`, `UNAVAILABLE`, `ACCESS_DENIED`, `BLOCKED`, or `NOT_RUN` and use a safe fallback only.
+The portable plugin does **not** include or deploy the adjacent `runtime/` project, an API gateway, MCP server, scanner, database, sandbox, cloud runtime, or CI/test service. The repository's optional Python reference runtime is a separate local single-node development/evaluation adapter. Access to files, repositories, APIs, MCP servers, runtimes, and write paths depends on actual host tools, connectors, scopes, and infrastructure. Every operation must pass capability-readiness and authorization checks.
 
 ## Operating model
 
-The forensic depth scale is L0–L6. The supervised authority scale is S0–S5. Read-only is the default. Mutation, upload/publication, permission changes, credential actions, migration, and deployment require exact scoped authorization. Implementation, verification, merge, release, and read-back are distinct states.
-
-## Evaluation
-
-Evaluation is continuous. The package defines 15 internal E.V.A.L.U.A.T.I.O.N values, five supplementary controls, 12 context-sensitive dimensions, and E0–E7 evaluation checkpoints. These are internal design rubrics, not external certification. Scores require operational definitions, methods, data, rubrics, uncertainty, and defensible weights. Critical hard gates cannot be hidden by averages.
+The forensic depth scale is L0–L6. The supervised authority scale is S0–S5. Read-only is the default. Mutation, upload/publication, permission changes, credential actions, migration, staging/production deployment require exact scoped authorization. Implementation, verification, merge, release, and read-back are distinct states.
 
 ## License and brand
 
-The source package is distributed under PolyForm Noncommercial License 1.0.0. It is source-available, not an OSI-approved open-source license, and does not grant third-party commercial-use rights. Separate written commercial permission is required from the applicable rights holder. The software license does not license the A.S.F.R.E.E name, logo, or other brand assets. See `LICENSE` and `TRADEMARKS.md`. Confirm the legally designated rights holder before assigning rights to any future foundation entity.
+The source package is distributed under PolyForm Noncommercial License 1.0.0. It is source-available, not an OSI-approved open-source license, and does not grant third-party commercial-use rights. Separate written commercial permission is required from the applicable rights holder. The software license does not license the A.S.F.R.E.E name, logo, or other brand assets. Confirm the legally designated rights holder before assigning rights to any future foundation entity.
