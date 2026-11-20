@@ -122,9 +122,9 @@ hardening_shard_dir = ROOT/"implementation-bundles"/".p0-hardening-v0.3.1"
 check((ROOT/"scripts"/"apply_p0_hardening.py").is_file(), "missing P0 hardening overlay applier")
 check(hardening_archive.is_file(), "missing P0 hardening source overlay")
 check(hardening_checksum.is_file(), "missing P0 hardening source-overlay checksum")
-expected_shards = [f"part{i:02d}.b64" for i in range(10)]
+expected_shards = [f"part{i:02d}.b64" for i in range(16)]
 actual_shards = sorted(p.name for p in hardening_shard_dir.glob("part*.b64")) if hardening_shard_dir.exists() else []
-check(actual_shards == expected_shards, f"P0 hardening source requires ten ordered shards, found {actual_shards}")
+check(actual_shards == expected_shards, f"P0 hardening source requires sixteen ordered shards, found {actual_shards}")
 if hardening_archive.is_file() and hardening_checksum.is_file():
     import hashlib
     expected_hardening = hardening_checksum.read_text(encoding="ascii").strip().split()[0]
