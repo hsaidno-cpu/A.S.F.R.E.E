@@ -39,6 +39,8 @@ jobs:
           python-version: "3.12"
       - name: Unpack checksum-verified P0 runtime source bundle
         run: python scripts/unpack_p0_bundle.py
+      - name: Apply checksum-verified P0 hardening overlay
+        run: python scripts/apply_p0_hardening.py
       - name: Validate manifests, skills, schemas and acceptance fixtures
         run: python scripts/validate_package.py
       - name: Compile reference runtime and tests
@@ -56,5 +58,6 @@ jobs:
             runtime/
             docs/implementation/
             plugin/references/schemas/runtime/
+            plugin/tests/p0-hardening-cases.json
           if-no-files-found: error
           retention-days: 7

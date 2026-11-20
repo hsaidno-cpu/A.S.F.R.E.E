@@ -87,6 +87,7 @@ check(len(p0_runtime_schemas) == 5, f"expected five P0 runtime schemas, found {l
 
 base_cases = load_json(PKG / "tests" / "acceptance-cases.json")
 p0_cases = load_json(PKG / "tests" / "p0-foundations-cases.json")
+hardening_cases = load_json(PKG / "tests" / "p0-hardening-cases.json")
 for label, cases_doc, minimum in (("base", base_cases, 30), ("P0", p0_cases, 30)):
     cases = cases_doc.get("cases", []) if isinstance(cases_doc, dict) else []
     ids = [c.get("id") for c in cases if isinstance(c, dict)]
@@ -96,6 +97,13 @@ for label, cases_doc, minimum in (("base", base_cases, 30), ("P0", p0_cases, 30)
     check(len(ids) == len(set(ids)), f"duplicate {label} acceptance case IDs")
     if isinstance(cases_doc, dict) and "case_count" in cases_doc:
         check(cases_doc["case_count"] == len(cases), f"{label} case_count does not match cases length")
+
+hardening_list = hardening_cases.get("cases", []) if isinstance(hardening_cases, dict) else []
+hardening_ids = [c.get("id") for c in hardening_list if isinstance(c, dict)]
+check(len(hardening_list) == 8, f"expected eight P0 hardening acceptance specifications, found {len(hardening_list)}")
+check(len(hardening_ids) == len(set(hardening_ids)), "duplicate P0 hardening acceptance IDs")
+if isinstance(hardening_cases, dict):
+    check(hardening_cases.get("case_count") == len(hardening_list), "P0 hardening case_count does not match cases length")
 
 runtime_archive = ROOT/"implementation-bundles"/"asfree-p0-foundations-v0.3.0.tar.gz"
 runtime_checksum = ROOT/"implementation-bundles"/"asfree-p0-foundations-v0.3.0.tar.gz.sha256"
@@ -107,6 +115,22 @@ if runtime_archive.is_file() and runtime_checksum.is_file():
     actual_digest = hashlib.sha256(runtime_archive.read_bytes()).hexdigest()
     check(actual_digest == expected_digest, "P0 implementation bundle checksum mismatch")
 check((ROOT/"scripts"/"unpack_p0_bundle.py").is_file(), "missing P0 bundle extraction/allowlist script")
+
+hardening_archive = ROOT/"implementation-bundles"/"asfree-p0-hardening-v0.3.1.tar.gz"
+hardening_checksum = ROOT/"implementation-bundles"/"asfree-p0-hardening-v0.3.1.tar.gz.sha256"
+hardening_shard_dir = ROOT/"implementation-bundles"/".p0-hardening-v0.3.1"
+check((ROOT/"scripts"/"apply_p0_hardening.py").is_file(), "missing P0 hardening overlay applier")
+check(hardening_archive.is_file(), "missing P0 hardening source overlay")
+check(hardening_checksum.is_file(), "missing P0 hardening source-overlay checksum")
+expected_shards = [f"part{i:02d}.b64" for i in range(10)]
+actual_shards = sorted(p.name for p in hardening_shard_dir.glob("part*.b64")) if hardening_shard_dir.exists() else []
+check(actual_shards == expected_shards, f"P0 hardening source requires ten ordered shards, found {actual_shards}")
+if hardening_archive.is_file() and hardening_checksum.is_file():
+    import hashlib
+    expected_hardening = hardening_checksum.read_text(encoding="ascii").strip().split()[0]
+    actual_hardening = hashlib.sha256(hardening_archive.read_bytes()).hexdigest()
+    check(actual_hardening == expected_hardening, "P0 hardening overlay checksum mismatch")
+
 runtime_required = [
     ROOT/"runtime"/"pyproject.toml", ROOT/"runtime"/"asfree"/"store.py", ROOT/"runtime"/"asfree"/"evidence.py",
     ROOT/"runtime"/"asfree"/"contracts.py", ROOT/"runtime"/"asfree"/"orchestration.py",
@@ -128,5 +152,5 @@ print(
     "STATIC VALIDATION: PASS — "
     f"{len(required_canonical)} canonical skills/{len(skill_dirs)} total skill folders, "
     f"{len(schema_files)} JSON schemas, "
-    f"{len(base_cases['cases'])} baseline cases, {len(p0_cases['cases'])} P0 cases, {len(p0_runtime_schemas)} P0 runtime schemas, P0 runtime files present"
+    f"{len(base_cases['cases'])} baseline cases, {len(p0_cases['cases'])} P0 cases, {len(hardening_list)} P0 hardening cases, {len(p0_runtime_schemas)} P0 runtime schemas, P0 runtime files present"
 )

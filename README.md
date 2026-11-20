@@ -11,7 +11,7 @@ A.S.F.R.E.E is a modular intelligence system for authorized forensic analysis, a
 - **Canonical plugin package:** v0.3.0 in [`plugin/`](plugin/).
 - **Architecture:** one M00 master orchestrator and twelve specialist skills O01–O12.
 - **P0 reference runtime:** local Python implementation of Evidence Management, Master Orchestration & Contract Engine, and Supervised Change & Independent Verification.
-- **Acceptance specifications:** 30 baseline cases plus 37 P0 cases; these are specifications, not execution records.
+- **Acceptance specifications:** 30 baseline + 37 P0 + 8 hardening cases. The executable local runtime suite has 79 tests; specifications and test execution records are distinct.
 - **Production platform:** not deployed or production-verified.
 
 ## The three P0 foundations
@@ -41,10 +41,11 @@ A.S.F.R.E.E is a modular intelligence system for authorized forensic analysis, a
 
 ## Validate locally
 
-Python 3.11+ is required. The P0 runtime source is distributed as a SHA-256-verified, ordered source archive. The archive may be reconstructed from its nine base64 shards in `implementation-bundles/.p0-v0.3.0/` before running:
+Python 3.11+ is required. The P0 runtime source is distributed as a SHA-256-verified baseline archive plus a separately verified hardening overlay. The archive may be reconstructed from its nine base64 shards in `implementation-bundles/.p0-v0.3.0/` before running:
 
 ```bash
 python scripts/unpack_p0_bundle.py
+python scripts/apply_p0_hardening.py
 python scripts/validate_package.py
 python -m py_compile runtime/asfree/*.py runtime/tests/*.py
 PYTHONPATH=runtime python -m unittest discover -s runtime/tests -v
@@ -55,7 +56,7 @@ The tests use the Python standard library; no third-party runtime dependency is 
 
 ## Capability and security boundary
 
-The P0 runtime is an executable **local, single-node reference**, not a production A.S.F.R.E.E platform. It uses SQLite and a local content-addressed blob directory. It does not bundle OIDC/MFA, authenticated principal binding, KMS/encryption, remote object storage, tenant isolation, externally anchored WORM audit, OS/container isolation, dynamic test runners, HTTP/MCP servers, worker daemons, cloud deployment, HA, backups, retention/deletion, or production release. Confidential/sensitive records are rejected when encryption is unavailable. Staging and production changes are disabled. Actor/worker identifiers remain caller-supplied labels until an authenticated identity adapter is integrated.
+The P0 runtime is an executable **local, single-node, workspace-bounded reference**, not an OS/container sandbox and not a production A.S.F.R.E.E platform. It uses SQLite and a local content-addressed blob directory. It does not bundle OIDC/MFA, authenticated principal binding, KMS/encryption, remote object storage, tenant isolation, externally anchored WORM audit, OS/container isolation, dynamic test runners, HTTP/MCP servers, worker daemons, cloud deployment, HA, backups, retention/deletion, or production release. Confidential/sensitive records are rejected when encryption is unavailable. Staging and production changes are disabled. Actor/worker/verifier identifiers remain caller-supplied labels until an authenticated identity adapter is integrated; verification evidence therefore keeps `source_independence=UNKNOWN`.
 
 See [`runtime/README.md`](runtime/README.md), [`P0-FOUNDATIONS.md`](docs/implementation/P0-FOUNDATIONS.md), and [`THREAT-MODEL.md`](docs/implementation/THREAT-MODEL.md).
 

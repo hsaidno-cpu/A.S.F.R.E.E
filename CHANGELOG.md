@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.1 — 2026-11-20
+
+- Bind proposal and approval records to their original hash-chained audit events; detect persisted-row tampering before filesystem mutation.
+- Include POSIX before/after file modes in the approved proposal digest, baseline drift checks and rollback; new files default to 0600.
+- Add metadata-only artifact inventory and strict claim-link/context validation.
+- Keep reviewer source independence UNKNOWN unless authenticated identity and independent provenance can substantiate it.
+- Clarify the execution boundary as workspace-bounded, not OS/container isolation.
+- Add eight P0 hardening acceptance specifications and expand the executable suite from 70 to 79 tests.
+
 ## 0.3.0 — 2026-11-20
 
 - Implement the three P0 foundations as an executable local Python reference runtime.

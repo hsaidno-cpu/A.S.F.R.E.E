@@ -2,9 +2,9 @@
 
 ## Phase 0 — P0 reference foundations (implemented locally)
 
-The repository now contains a local reference runtime for Evidence Management, M00 Orchestration & Contract Engine, and Supervised Change & Independent Verification. It includes provenance lineage, hash-addressed blobs, append-only audit chain, task DAG/leases, evidence-backed capability readiness, approval-bound sandbox changes, recovery and independent static review.
+The repository now contains a local reference runtime for Evidence Management, M00 Orchestration & Contract Engine, and Supervised Change & Independent Verification. The v0.3.1 hardening overlay adds proposal/approval-to-audit-event integrity, permission-mode-aware approvals and rollback, stricter evidence contracts, metadata-only artifact listing, and honest reviewer-independence status.
 
-**Gate status:** local unit/recovery suite and end-to-end quickstart pass in the developer workspace; GitHub CI must verify the exact PR head. This does not satisfy production readiness.
+**Gate status:** 79 local unit/recovery tests, Python compilation and end-to-end quickstart pass; GitHub CI must verify the exact PR head. This does not satisfy production readiness.
 
 **Remaining gate:** authenticate actors/workers; add encryption/KMS and remote object storage; externally anchor audit integrity; implement OS/container isolation; integrate dynamic test runners and operational recovery before any staging/production service.
 
