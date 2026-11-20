@@ -26,6 +26,7 @@ on:
 
 permissions:
   contents: read
+  actions: write
 
 jobs:
   static-validation:
@@ -47,3 +48,14 @@ jobs:
         run: python -m unittest discover -s runtime/tests -v
       - name: Run end-to-end P0 quickstart
         run: python runtime/examples/quickstart.py
+      - name: Upload unpacked source for review and reproducibility
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asfree-p0-runtime-source-${{ github.sha }}
+          path: |
+            runtime/
+            docs/implementation/
+            plugin/references/schemas/runtime/
+          if-no-files-found: error
+          retention-days: 7
