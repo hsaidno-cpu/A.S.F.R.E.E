@@ -1,5 +1,16 @@
 # Changelog
 
+## Runtime 0.2.0 — P1 Security & Trust Plane — 2026-11-20
+
+- Add OIDC RS256 access-token validation against server-configured HTTPS issuer, audience and JWKS; reject token-controlled key URLs and enforce token claims.
+- Add default-deny tenant-first authorization policy, MFA/separation-of-duties rules, access-decision audit and integrity-bound process-local authorization capabilities.
+- Add tenant-derived local SQLite/blob partitions and capability-checked storage facade.
+- Add AES-256-GCM envelope encryption for artifact blob bytes and a KMS provider contract with rewrap support.
+- Add worker-token-bound execution dispatcher and fail-closed rootless OCI preflight for immutable image digests, seccomp, gVisor/Kata, no-network execution and host quota receipts.
+- Add five security JSON Schemas, 33 P1 acceptance specifications, 31 executable P1 tests and threat/operations documentation.
+- Bundle P1 source as a SHA-256-pinned 17-file overlay; runtime package version is 0.2.0. The canonical skills-only plugin manifest remains v0.3.0.
+- Explicitly retain production caveats: no configured IdP, live KMS, encrypted metadata, external WORM audit, distributed signed capability, provisioned OCI/quota backend, actual hostile-workload validation or production deployment.
+
 ## 0.3.1 — 2026-11-20
 
 - Bind proposal and approval records to their original hash-chained audit events; detect persisted-row tampering before filesystem mutation.

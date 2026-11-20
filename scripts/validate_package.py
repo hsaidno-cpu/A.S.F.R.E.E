@@ -4,6 +4,8 @@ from pathlib import Path
 import json
 import re
 import sys
+import hashlib
+import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
 PKG = ROOT / "plugin"
@@ -81,7 +83,7 @@ schema_files = sorted((PKG / "references" / "schemas").rglob("*.json"))
 for schema_path in schema_files:
     schema = load_json(schema_path)
     check(isinstance(schema, dict) and schema.get("$schema") == "https://json-schema.org/draft/2020-12/schema", f"invalid/missing JSON Schema declaration: {schema_path.relative_to(ROOT)}")
-check(len(schema_files) >= 20, f"expected at least 20 JSON schemas, found {len(schema_files)}")
+check(len(schema_files) >= 25, f"expected at least 25 P0/P1 JSON schemas, found {len(schema_files)}")
 p0_runtime_schemas = sorted((PKG / "references" / "schemas" / "runtime").glob("*.json"))
 check(len(p0_runtime_schemas) == 5, f"expected five P0 runtime schemas, found {len(p0_runtime_schemas)}")
 
@@ -131,6 +133,48 @@ if hardening_archive.is_file() and hardening_checksum.is_file():
     actual_hardening = hashlib.sha256(hardening_archive.read_bytes()).hexdigest()
     check(actual_hardening == expected_hardening, "P0 hardening overlay checksum mismatch")
 
+
+p1_archive = ROOT/"implementation-bundles"/"asfree-p1-security-v0.2.0.tar.gz"
+p1_checksum = ROOT/"implementation-bundles"/"asfree-p1-security-v0.2.0.tar.gz.sha256"
+check((ROOT/"scripts"/"apply_p1_security.py").is_file(), "missing P1 security overlay applier")
+check(p1_archive.is_file(), "missing P1 security source overlay")
+check(p1_checksum.is_file(), "missing P1 security source-overlay checksum")
+if p1_archive.is_file() and p1_checksum.is_file():
+    tokens = p1_checksum.read_text(encoding="ascii").strip().split()
+    check(len(tokens) == 2 and tokens[1] == p1_archive.name, "P1 source overlay checksum sidecar malformed")
+    if len(tokens) == 2:
+        actual_p1 = hashlib.sha256(p1_archive.read_bytes()).hexdigest()
+        check(actual_p1 == tokens[0], "P1 security source overlay checksum mismatch")
+
+p1_cases = load_json(PKG/"tests"/"p1-security-cases.json")
+p1_list = p1_cases.get("cases", []) if isinstance(p1_cases, dict) else []
+p1_ids = [case.get("id") for case in p1_list if isinstance(case, dict)]
+check(len(p1_list) == 33, f"expected 33 P1 security acceptance specifications, found {len(p1_list)}")
+check(len(p1_ids) == len(set(p1_ids)), "duplicate P1 security acceptance IDs")
+if isinstance(p1_cases, dict):
+    check(p1_cases.get("case_count") == len(p1_list), "P1 security case_count does not match cases length")
+p1_security_schemas = sorted((PKG/"references"/"schemas"/"security").glob("*.json"))
+check(len(p1_security_schemas) == 5, f"expected five P1 security schemas, found {len(p1_security_schemas)}")
+
+try:
+    runtime_project = tomllib.loads((ROOT/"runtime"/"pyproject.toml").read_text(encoding="utf-8"))
+    project_meta = runtime_project.get("project", {})
+    check(project_meta.get("name") == "asfree-runtime", "unexpected P1 runtime package name")
+    check(project_meta.get("version") == "0.2.0", "P1 runtime package version must be 0.2.0")
+    check(any(dep.startswith("cryptography>=42") for dep in project_meta.get("dependencies", [])), "P1 cryptography dependency missing")
+except Exception as exc:
+    errors.append(f"cannot parse P1 runtime pyproject.toml: {type(exc).__name__}: {exc}")
+
+for rel in (
+    "asfree/security/__init__.py",
+    "asfree/security/identity.py",
+    "asfree/security/crypto.py",
+    "asfree/security/tenancy.py",
+    "asfree/security/execution.py",
+):
+    check((ROOT/"runtime"/rel).is_file(), f"missing P1 runtime module after overlay: runtime/{rel}")
+check((ROOT/"runtime"/"tests"/"test_p1_security.py").is_file(), "missing P1 executable security tests")
+
 runtime_required = [
     ROOT/"runtime"/"pyproject.toml", ROOT/"runtime"/"asfree"/"store.py", ROOT/"runtime"/"asfree"/"evidence.py",
     ROOT/"runtime"/"asfree"/"contracts.py", ROOT/"runtime"/"asfree"/"orchestration.py",
@@ -152,5 +196,5 @@ print(
     "STATIC VALIDATION: PASS — "
     f"{len(required_canonical)} canonical skills/{len(skill_dirs)} total skill folders, "
     f"{len(schema_files)} JSON schemas, "
-    f"{len(base_cases['cases'])} baseline cases, {len(p0_cases['cases'])} P0 cases, {len(hardening_list)} P0 hardening cases, {len(p0_runtime_schemas)} P0 runtime schemas, P0 runtime files present"
+    f"{len(base_cases['cases'])} baseline cases, {len(p0_cases['cases'])} P0 cases, {len(hardening_list)} P0 hardening cases, {len(p1_list)} P1 security cases, {len(p0_runtime_schemas)} P0 runtime schemas, {len(p1_security_schemas)} P1 security schemas"
 )
