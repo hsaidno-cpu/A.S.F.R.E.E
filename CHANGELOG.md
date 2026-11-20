@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.3.1 — 2026-11-20
+
+- Bind proposal and approval records to their original hash-chained audit events; detect persisted-row tampering before filesystem mutation.
+- Include POSIX before/after file modes in the approved proposal digest, baseline drift checks and rollback; new files default to 0600.
+- Add metadata-only artifact inventory and strict claim-link/context validation.
+- Keep reviewer source independence UNKNOWN unless authenticated identity and independent provenance can substantiate it.
+- Clarify the execution boundary as workspace-bounded, not OS/container isolation.
+- Add eight P0 hardening acceptance specifications and expand the executable suite from 70 to 79 tests.
+
+## 0.3.0 — 2026-11-20
+
+- Implement the three P0 foundations as an executable local Python reference runtime.
+- Add source, artifact, evidence and claim registries with content-addressed SHA-256 blobs and case-scoped provenance links.
+- Add append-only hash-chained audit records and explicit legacy schema migration to unverified provenance placeholders.
+- Add M00 task orchestration with versioned contracts, DAG validation, idempotency, worker/specialist leases, bounded retries and evidence-backed capability readiness.
+- Add scoped change proposals, fail-closed approval, sandbox-only apply, baseline rechecks, checkpointed recovery/rollback, and separate independent review plans.
+- Add 37 P0 acceptance specifications, five runtime JSON Schemas, a local end-to-end quickstart, runtime tests and CI execution.
+- Clarify that the portable plugin remains skills-only and the runtime is a separate local reference implementation, not a deployed production service.
+
 ## 0.2.1 — 2026-11-20
 
 - Consolidate both A.S.F.R.E.E plugin variants into one canonical package.
@@ -18,5 +37,3 @@
 - Add continuous evaluation, supervised authority, recovery and release-state rules.
 - Add declarative acceptance fixtures and static package validation.
 - Set the source-available / noncommercial license baseline; review historical Apache-2.0 snapshot implications before distribution.
-
-This project is a skills-only instruction package, not a deployed runtime platform.
