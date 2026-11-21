@@ -287,3 +287,33 @@ For smaller requests, omit genuinely irrelevant sections with reason. Do not omi
 ## 14. Definition of Done
 
 A case is `PASS` only when applicable hard gates pass, every material claim is traceable to suitable evidence, findings have dispositions, required tests actually ran and passed, scope was respected, and no unresolved P0/P1 blocker remains. A plugin instruction package may be `STATIC_REVIEWED` or `READY_FOR_HANDOFF` without being runtime-tested. Never imply an API, MCP server, scanner, database, sandbox, CI runner, or autonomous agent exists because instructions describe it.
+## 13. P1.1 Security-to-Production Hard Gates
+
+When identity, delegated authority, sensitive data, database persistence, untrusted code execution, multi-tenancy, or audit evidence is in scope, activate O11 as a mandatory control plane, O09 for actual runtime/provider readiness, and O12 for assurance. These gates apply to every SCIVE state transition, not just final apply.
+
+### Identity and delegated authority
+- Authenticate through a configured, trusted IdP. Validate issuer, audience, token type, signature algorithm, key provenance/rotation, expiry, not-before, subject, authorized client, and required scopes. Never accept token-controlled issuer or JWKS URLs.
+- Treat MFA assurance as a verified IdP assertion mapped by an explicit operator-controlled ACR/AMR policy. An AMR string by itself is not proof of phishing resistance. Enforce fresh authentication for sensitive transitions and record assurance context without storing bearer tokens.
+- Cross-process delegation requires an asymmetric signed capability or standards-based token exchange. Bind subject, tenant, audience, exact action, resource, case/job, actor/delegation chain, expiry, unique identifier, scope attenuation, and revocation/replay state. HMAC secrets held only in one process are not distributed delegation.
+- Enforce tenant-first default-deny authorization at the operation boundary. Every SCIVE operation, including propose, approve, apply, verify, rollback, and recovery, must call the policy facade. Actor-name strings are attribution only, never authorization.
+
+### Encryption and key lifecycle
+- Separate data encryption from key encryption. Use managed KMS/HSM or an explicitly approved provider for key generation, unwrap/rewrap, rotation, revocation, and recovery.
+- Inventory and protect every persisted representation: artifact blobs, metadata databases, audit records, SQLite WAL/SHM, temporary files, application logs, crash dumps, exports, and backups. Database page encryption must be provided by an approved encrypted database engine or equivalent; encrypting only blobs or backup archives does not protect live metadata.
+- Bind encryption context to tenant and object identity without leaking sensitive identifiers into provider audit logs. Fail closed when required key operations or integrity checks are unavailable.
+- Test restore, key rotation, revoked-key behavior, tampering, tenant-context mismatch, WAL handling, and backup confidentiality.
+
+### Isolated execution and quota enforcement
+- A container flag or command builder is not proof of isolation. Require provisioned rootless OCI plus gVisor or Kata (or an independently reviewed equivalent), seccomp and host LSM controls, namespace isolation, no-network-by-default, read-only root filesystem, digest-pinned images, minimal mounts, dropped capabilities, and non-root workload identity.
+- CPU, memory, PID, disk, I/O, wall-clock, process count, and output quotas must be enforced by the host/runtime boundary, not merely declared by the caller. Quota receipts must be authenticated, bound to tenant/job/image/runtime, and verified before and after execution.
+- Stream stdout/stderr with byte limits while the process runs. Kill the process group when a limit is reached; never capture unbounded output and truncate it afterwards.
+- Test fork bombs, memory exhaustion, CPU loops, output floods, path/symlink attacks, network egress, secret access, cross-tenant mounts, sandbox-escape assumptions, timeout/kill behaviour, and cleanup on cancellation.
+
+### Trust infrastructure and independent review
+- External audit anchoring must write signed/hash-chained checkpoints to a separately administered immutable/WORM store. Verify the exact stored object and chain predecessor; detect deletion, reordering, replay, and rollback. Local append-only tables are not external anchoring.
+- Production tenant isolation requires infrastructure-enforced boundaries such as separate account/project/namespace, policy, database/storage binding, and KMS context. Application-level tenant filters or per-tenant folders alone are not sufficient proof.
+- Run concurrency, race, TOCTOU, idempotency, replay, failover, key-rotation, and restore tests. Record load envelope and observed limits.
+- Production approval requires independent human security review with named reviewers, scope, evidence IDs, conflicts-of-interest declaration, findings, remediation disposition, signature, and review timestamp. An unsigned template is not a review.
+
+### Mandatory dispositions
+Use separate states for CONTRACT_ONLY, REFERENCE_IMPLEMENTED, LOCAL_TESTED, PROVIDER_INTEGRATED, STAGING_VERIFIED, HUMAN_REVIEWED, and PRODUCTION_VERIFIED. Never infer a later state from an earlier one. Any missing hard gate returns HOLD or BLOCKED; do not average a failed security gate into a passing score. A host without rootless OCI/gVisor/Kata or a real quota agent must report execution as NOT_RUN/BLOCKED, not sandbox-ready.
