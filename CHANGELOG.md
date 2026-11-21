@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.0 — 2026-11-21
+
+- Add P2 Security & Trust hardening: provider-conformant OIDC/MFA profile, Ed25519 cross-process delegated capabilities, shared atomic replay/revocation, and SCIVE operation policy coverage.
+- Add injected AWS KMS adapter, SQLCipher-only tenant metadata store, crash-aware KMS-wrapped DB key lifecycle, encrypted audit/log sink and authenticated encrypted backup/temp stream.
+- Add bounded OCI stdout/stderr streaming, host quota receipt verification and delegated streaming dispatcher.
+- Add shared atomic infrastructure resource binding, signed dedicated-tenant receipts, external WORM receipt anchoring/reconciliation, and commit-bound production admission with independent human review.
+- Add eight P2 trust JSON Schemas and 25 P2 hardening acceptance specifications.
+- Add a SHA-256-pinned P2 trust-hardening 20-file source overlay with eight ordered shards and a path-allowlisted atomic applier.
+- Preserve independent version planes: plugin package 0.4.0, reference runtime 0.2.0, P2 trust overlay 0.3.0.
+- Expand the executable local runtime suite from 110 to 135 tests. Tests use injected/fake provider components; live IdP/KMS/Redis/WORM/SQLCipher/OCI/tenant infrastructure and production admission remain unconfigured or NOT_RUN.
+
 ## 0.3.2 — 2026-11-21
 
 - Align the canonical plugin and compatibility manifests, package README and static validator at package version 0.3.2; keep the local runtime and source-bundle versions independent.
