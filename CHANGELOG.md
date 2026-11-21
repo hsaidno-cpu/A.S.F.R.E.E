@@ -2,6 +2,7 @@
 
 ## 0.4.0-rc.1 — 2026-11-21
 
+- Add the ecosystem identity registry and JSON Schema, with CI-enforced uniqueness/role/redirect/version-source checks; add a normative migration and deprecation policy and six release-governance acceptance specifications.
 - Add P1.1 security-to-production hard gates for IdP/MFA assurance, cross-process signed delegation, full SCIVE operation authorization, complete at-rest encryption scope, isolated execution, host-enforced quotas, external WORM audit, infrastructure tenant isolation, concurrency testing and independent human review.
 - Extend M00 and O09/O11/O12 procedures so security authorization, runtime readiness and evaluation evidence are enforced as distinct responsibilities.
 - Add normative P1.1 readiness contract, reconstruction/evidence-boundary note, four JSON Schemas and 20 acceptance specifications. All P1.1 cases remain SPECIFICATION_ONLY until implementation and execution evidence is integrated.
