@@ -29,7 +29,8 @@ if not isinstance(manifest, dict):
     print("- plugin manifest is unavailable")
     sys.exit(1)
 check(manifest.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "plugin manifest schema is missing/incorrect")
-check(manifest.get("version") == "0.3.0", "P0 canonical plugin manifest must be version 0.3.0")
+EXPECTED_PLUGIN_VERSION = "0.3.2"
+check(manifest.get("version") == EXPECTED_PLUGIN_VERSION, f"canonical plugin manifest must be version {EXPECTED_PLUGIN_VERSION}")
 check(bool(re.fullmatch(r"[a-z0-9](?:[a-z0-9.-]{0,62}[a-z0-9])?", manifest.get("name", ""))), "invalid plugin name")
 check(bool(re.fullmatch(r"\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?", manifest.get("version", ""))), "plugin version is not strict SemVer")
 interface = manifest.get("extensions", {}).get("com.openai", {}).get("interface", {})
@@ -39,12 +40,24 @@ check(isinstance(interface.get("capabilities"), list), "interface.capabilities m
 if isinstance(compat, dict):
     check(compat.get("name") == manifest.get("name"), "compatibility manifest name differs")
     check(compat.get("version") == manifest.get("version"), "compatibility manifest version differs")
+    check(compat.get("description") == manifest.get("description"), "compatibility manifest description differs")
+    check(compat.get("repository") == manifest.get("repository"), "compatibility manifest repository differs")
+    check(compat.get("license") == manifest.get("license"), "compatibility manifest license differs")
     c_interface = compat.get("interface", {})
     for field in ("displayName", "shortDescription", "longDescription", "category", "defaultPrompt"):
         if field in interface:
             check(c_interface.get(field) == interface.get(field), f"compatibility manifest interface.{field} differs")
 else:
     check(False, "compatibility manifest is missing or invalid")
+
+package_readme_path = PKG / "README.md"
+root_readme_path = ROOT / "README.md"
+package_readme = package_readme_path.read_text(encoding="utf-8") if package_readme_path.is_file() else ""
+root_readme = root_readme_path.read_text(encoding="utf-8") if root_readme_path.is_file() else ""
+check(bool(re.search(r"(?m)^\\*\\*Version:\\*\\*\\s+0\\.3\\.2\\s*$", package_readme)), "plugin README version must match 0.3.2")
+check("Canonical plugin package:** v0.3.2" in root_readme, "root README plugin version must match 0.3.2")
+check("docs/implementation/RUNTIME-REFERENCE.md" in root_readme, "root README must link to the tracked runtime reference")
+check("runtime/README.md" not in root_readme, "root README contains a missing runtime/README.md link")
 
 skills_root = PKG / "skills"
 skill_dirs = sorted(p for p in skills_root.iterdir() if p.is_dir()) if skills_root.exists() else []
@@ -79,6 +92,33 @@ for folder in skill_dirs:
     check(len(content.encode("utf-8")) <= 1024 * 1024, f"skill exceeds 1 MiB: {skill.relative_to(ROOT)}")
 check(len(frontmatter_names) == len(set(frontmatter_names)), "duplicate skill frontmatter names")
 
+legacy_aliases = {
+    "anatomy-decomposition": "o02-anatomy-decomposition",
+    "artifact-intelligence": "o01-artifact-intelligence",
+    "bug-detection-diagnosis": "o06-bug-detection-diagnosis",
+    "comparative-intelligence": "o05-comparative-intelligence",
+    "evaluation-intelligence": "o12-evaluation-intelligence",
+    "integration-runtime-lab": "o09-integration-runtime-lab",
+    "negative-intelligence": "o04-negative-intelligence",
+    "positive-intelligence": "o03-positive-intelligence",
+    "reconstruction-adaptation": "o08-reconstruction-adaptation",
+    "remediation-bug-fixing": "o07-remediation-bug-fixing",
+    "security-governance": "o11-security-governance",
+    "validation-quality-assurance": "o10-validation-qa",
+}
+check(found_dirs == required_canonical | set(legacy_aliases), "skill folders must be exactly the canonical M00/O01–O12 set plus registered compatibility aliases")
+for alias, canonical in legacy_aliases.items():
+    alias_path = skills_root / alias / "SKILL.md"
+    canonical_path = skills_root / canonical / "SKILL.md"
+    if alias_path.is_file() and canonical_path.is_file():
+        alias_text = alias_path.read_text(encoding="utf-8")
+        canonical_text = canonical_path.read_text(encoding="utf-8")
+        check("# COMPATIBILITY ALIAS" in alias_text, f"legacy skill must be redirect-only: {alias}")
+        check(f"plugin/skills/{canonical}/SKILL.md" in alias_text, f"legacy alias destination mismatch: {alias}")
+        check(alias_text != canonical_text, f"legacy alias must not duplicate canonical procedure: {alias}")
+    else:
+        check(False, f"missing alias or canonical destination: {alias} -> {canonical}")
+
 schema_files = sorted((PKG / "references" / "schemas").rglob("*.json"))
 for schema_path in schema_files:
     schema = load_json(schema_path)
@@ -88,12 +128,19 @@ p0_runtime_schemas = sorted((PKG / "references" / "schemas" / "runtime").glob("*
 check(len(p0_runtime_schemas) == 5, f"expected five P0 runtime schemas, found {len(p0_runtime_schemas)}")
 
 base_cases = load_json(PKG / "tests" / "acceptance-cases.json")
+release_governance = PKG / "references" / "release-and-routing-governance.md"
+runtime_reference = ROOT / "docs" / "implementation" / "RUNTIME-REFERENCE.md"
+check(release_governance.is_file(), "missing release and routing governance reference")
+check(runtime_reference.is_file(), "missing tracked runtime reference guide")
 p0_cases = load_json(PKG / "tests" / "p0-foundations-cases.json")
 hardening_cases = load_json(PKG / "tests" / "p0-hardening-cases.json")
 for label, cases_doc, minimum in (("base", base_cases, 30), ("P0", p0_cases, 30)):
     cases = cases_doc.get("cases", []) if isinstance(cases_doc, dict) else []
     ids = [c.get("id") for c in cases if isinstance(c, dict)]
     check(len(cases) >= minimum, f"{label} acceptance fixtures fewer than {minimum}")
+    if label == "base":
+        check(len(cases) == 35, f"expected 35 baseline acceptance specifications, found {len(cases)}")
+        check(cases_doc.get("schema_version") == "1.2.0", "baseline acceptance fixture schema_version must be 1.2.0")
     if label == "P0":
         check(len(cases) == 37, f"expected 37 P0 acceptance specifications, found {len(cases)}")
     check(len(ids) == len(set(ids)), f"duplicate {label} acceptance case IDs")
