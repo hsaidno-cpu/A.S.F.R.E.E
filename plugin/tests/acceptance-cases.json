@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.1.0",
-  "description": "Deduplicated, consolidated acceptance fixtures for the A.S.F.R.E.E unified orchestration contract. These are specifications until run in a real test harness.",
-  "case_count": 30,
+  "schema_version": "1.2.0",
+  "description": "Consolidated A.S.F.R.E.E orchestration acceptance fixtures including release version planes, canonical routing and synchronization governance. These are specifications until run in a real test harness.",
+  "case_count": 35,
   "cases": [
     {
       "id": "AC-001",
@@ -212,6 +212,41 @@
       "input": "A proposed change alters one skill and a shared contract.",
       "expected": "Generate change-impact map, identify dependent specialists/schemas/tests, and select regression coverage.",
       "must_not": "Do not test only the edited file while ignoring dependents."
+    },
+    {
+      "id": "AC-031",
+      "category": "release-version-planes",
+      "input": "The repository plugin package, compatibility manifest, app-backed release and local runtime use different version identifiers.",
+      "expected": "The package manifest is authoritative for package SemVer; compatibility manifest and package README match it; Plugin Creator is independently updated and read back; runtime and bundle versions remain separate.",
+      "must_not": "Do not equate plugin, runtime, bundle, or legacy redirect versions."
+    },
+    {
+      "id": "AC-032",
+      "category": "compatibility-routing",
+      "input": "A request arrives through a historical unnumbered skill name such as artifact-intelligence.",
+      "expected": "Resolve the alias to exactly one numbered O01–O12 canonical skill; the alias carries no independent workflow, state, or authority.",
+      "must_not": "Do not invoke both the alias and canonical skill as separate specialists or revive stale duplicated instructions."
+    },
+    {
+      "id": "AC-033",
+      "category": "repository-app-synchronization",
+      "input": "A reviewed repository package is updated but the Plugin Creator release has not yet been updated.",
+      "expected": "Report repository source update and app deployment as separate lifecycle states; after app update, verify release metadata and file read-back against the reviewed source.",
+      "must_not": "Do not claim the installed app is updated because a GitHub commit or PR exists."
+    },
+    {
+      "id": "AC-034",
+      "category": "runtime-source-distribution",
+      "input": "A README links to runtime/README.md while the repository stores the runtime as checksum-pinned source bundles reconstructed by scripts.",
+      "expected": "Link to a tracked runtime reproduction guide; identify the runtime workspace as generated after extraction and overlays.",
+      "must_not": "Do not imply runtime/ is checked in or claim the source bundle is an active deployed service."
+    },
+    {
+      "id": "AC-035",
+      "category": "release-validator",
+      "input": "The two manifests, README version, compatibility skill folders, or alias destinations drift from the release governance contract.",
+      "expected": "Static validation fails with a specific error before package release.",
+      "must_not": "Do not silently accept manifest divergence, unregistered skill folders, or duplicated alias procedures."
     }
   ]
 }
