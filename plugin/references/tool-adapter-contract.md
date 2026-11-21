@@ -37,3 +37,10 @@ Record capability ID, exact operation, provider/tool and version, identity/scope
 Validate inputs against schema; use allowlists; redact secrets; enforce timeouts, bounded retries, and resource limits; use sandbox/egress policy where available; capture exit status/stdout/stderr/log refs only when actually available; preserve tool/version/environment metadata; normalize results; state limitations and false-positive caveats.
 
 Use provider-neutral, versioned contracts. Never hardcode secrets. Never imply a connector has filesystem, local runtime, shell, network, or write access unless its exposed contract says so.
+## P1.1 execution-adapter security contract
+
+An execution adapter used for untrusted workload must return independently verifiable host/runtime identity, image digest, policy hash, tenant/job binding, signed quota receipt, bounded stdout/stderr byte counts, exit status, termination reason, and cleanup status.
+
+Host quotas must be enforced by the runtime/host boundary for CPU, memory, PID, disk/I/O, wall-clock and output. The adapter must stream output under fixed byte limits while the process is running and kill the process group at limit breach. Unbounded capture followed by truncation is non-compliant.
+
+A production-capable adapter requires provisioned rootless OCI plus gVisor/Kata or a separately reviewed equivalent, seccomp/LSM controls, namespace and mount isolation, disabled network egress by default, immutable image digest allowlists, and per-job ephemeral workspaces. A manifest, command builder, mock, or cgroup directory is not proof of isolation. If required evidence is unavailable, readiness is BLOCKED or NOT_RUN.
