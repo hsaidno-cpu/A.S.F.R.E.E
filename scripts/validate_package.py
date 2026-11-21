@@ -29,7 +29,7 @@ if not isinstance(manifest, dict):
     print("- plugin manifest is unavailable")
     sys.exit(1)
 check(manifest.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "plugin manifest schema is missing/incorrect")
-EXPECTED_PLUGIN_VERSION = "0.3.2"
+EXPECTED_PLUGIN_VERSION = "0.4.0"
 check(manifest.get("version") == EXPECTED_PLUGIN_VERSION, f"canonical plugin manifest must be version {EXPECTED_PLUGIN_VERSION}")
 check(bool(re.fullmatch(r"[a-z0-9](?:[a-z0-9.-]{0,62}[a-z0-9])?", manifest.get("name", ""))), "invalid plugin name")
 check(bool(re.fullmatch(r"\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?", manifest.get("version", ""))), "plugin version is not strict SemVer")
@@ -54,8 +54,8 @@ package_readme_path = PKG / "README.md"
 root_readme_path = ROOT / "README.md"
 package_readme = package_readme_path.read_text(encoding="utf-8") if package_readme_path.is_file() else ""
 root_readme = root_readme_path.read_text(encoding="utf-8") if root_readme_path.is_file() else ""
-check("**Version:** 0.3.2" in package_readme, "plugin README version must match 0.3.2")
-check("Canonical plugin package:** v0.3.2" in root_readme, "root README plugin version must match 0.3.2")
+check("**Version:** 0.4.0" in package_readme, "plugin README version must match 0.4.0")
+check("Canonical plugin package:** v0.4.0" in root_readme, "root README plugin version must match 0.4.0")
 check("docs/implementation/RUNTIME-REFERENCE.md" in root_readme, "root README must link to the tracked runtime reference")
 check("runtime/README.md" not in root_readme, "root README contains a missing runtime/README.md link")
 
@@ -202,14 +202,37 @@ if p1_archive.is_file() and p1_checksum.is_file():
         check(actual_p1 == tokens[0], "P1 security source overlay checksum mismatch")
 
 p1_cases = load_json(PKG/"tests"/"p1-security-cases.json")
+p2_cases = load_json(PKG/"tests"/"p2-security-hardening-cases.json")
 p1_list = p1_cases.get("cases", []) if isinstance(p1_cases, dict) else []
 p1_ids = [case.get("id") for case in p1_list if isinstance(case, dict)]
 check(len(p1_list) == 33, f"expected 33 P1 security acceptance specifications, found {len(p1_list)}")
 check(len(p1_ids) == len(set(p1_ids)), "duplicate P1 security acceptance IDs")
 if isinstance(p1_cases, dict):
     check(p1_cases.get("case_count") == len(p1_list), "P1 security case_count does not match cases length")
+p2_list = p2_cases.get("cases", []) if isinstance(p2_cases, dict) else []
+p2_ids = [case.get("id") for case in p2_list if isinstance(case, dict)]
+check(len(p2_list) == 25, "expected 25 P2 trust-hardening acceptance specifications")
+check(len(p2_ids) == len(set(p2_ids)), "duplicate P2 trust-hardening acceptance IDs")
+if isinstance(p2_cases, dict):
+    check(p2_cases.get("case_count") == len(p2_list), "P2 trust case_count does not match cases length")
+p2_archive = ROOT/"implementation-bundles"/"asfree-p1-trust-hardening-v0.3.0.tar.gz"
+p2_checksum = ROOT/"implementation-bundles"/"asfree-p1-trust-hardening-v0.3.0.tar.gz.sha256"
+p2_shard_dir = ROOT/"implementation-bundles"/".p1-trust-hardening-v0.3.0"
+check((ROOT/"scripts"/"apply_p1_trust_hardening.py").is_file(), "missing P2 trust-hardening overlay applier")
+check(p2_checksum.is_file(), "missing P2 trust-hardening checksum sidecar")
+p2_expected_shards = [f"part{i:02d}.b64" for i in range(8)]
+p2_actual_shards = sorted(p.name for p in p2_shard_dir.glob("part*.b64")) if p2_shard_dir.exists() else []
+check(p2_actual_shards == p2_expected_shards, f"P2 overlay requires eight ordered shards, found {p2_actual_shards}")
+if p2_checksum.is_file():
+    p2_tokens = p2_checksum.read_text(encoding="ascii").strip().split()
+    check(len(p2_tokens) == 2 and p2_tokens[1] == p2_archive.name, "P2 checksum sidecar malformed")
+    if len(p2_tokens) == 2 and p2_archive.is_file():
+        actual_p2 = hashlib.sha256(p2_archive.read_bytes()).hexdigest()
+        check(actual_p2 == p2_tokens[0], "P2 trust-hardening overlay checksum mismatch")
 p1_security_schemas = sorted((PKG/"references"/"schemas"/"security").glob("*.json"))
 check(len(p1_security_schemas) == 5, f"expected five P1 security schemas, found {len(p1_security_schemas)}")
+trust_schemas = sorted((PKG/"references"/"schemas"/"trust").glob("*.json"))
+check(len(trust_schemas) == 8, "expected eight P2 trust schemas")
 
 try:
     runtime_project = tomllib.loads((ROOT/"runtime"/"pyproject.toml").read_text(encoding="utf-8"))
