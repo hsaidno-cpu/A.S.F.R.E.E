@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/trust/infrastructure-attestation.schema.json",
+  "title": "Signed release-bound infrastructure security attestation",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "attestation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "release_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "issued_at": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "expires_at": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "controls": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "VERIFIED",
+              "NOT_VERIFIED",
+              "BLOCKED",
+              "NOT_APPLICABLE"
+            ]
+          },
+          "evidence_ref": {
+            "type": "string",
+            "format": "uri",
+            "minLength": 1
+          },
+          "verified_at": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "verifier": {
+            "type": "string",
+            "minLength": 1
+          },
+          "details_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "status",
+          "evidence_ref",
+          "verified_at",
+          "verifier",
+          "details_sha256"
+        ]
+      }
+    },
+    "key_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "signature": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "attestation_id",
+    "subject",
+    "release_commit",
+    "issued_at",
+    "expires_at",
+    "controls",
+    "key_id",
+    "signature"
+  ]
+}
