@@ -128,6 +128,7 @@ p0_runtime_schemas = sorted((PKG / "references" / "schemas" / "runtime").glob("*
 check(len(p0_runtime_schemas) == 5, f"expected five P0 runtime schemas, found {len(p0_runtime_schemas)}")
 
 base_cases = load_json(PKG / "tests" / "acceptance-cases.json")
+release_cases = load_json(PKG / "tests" / "release-governance-cases.json")
 release_governance = PKG / "references" / "release-and-routing-governance.md"
 runtime_reference = ROOT / "docs" / "implementation" / "RUNTIME-REFERENCE.md"
 check(release_governance.is_file(), "missing release and routing governance reference")
@@ -139,8 +140,8 @@ for label, cases_doc, minimum in (("base", base_cases, 30), ("P0", p0_cases, 30)
     ids = [c.get("id") for c in cases if isinstance(c, dict)]
     check(len(cases) >= minimum, f"{label} acceptance fixtures fewer than {minimum}")
     if label == "base":
-        check(len(cases) == 35, f"expected 35 baseline acceptance specifications, found {len(cases)}")
-        check(cases_doc.get("schema_version") == "1.2.0", "baseline acceptance fixture schema_version must be 1.2.0")
+        check(len(cases) == 30, f"expected 30 baseline acceptance specifications, found {len(cases)}")
+        check(cases_doc.get("schema_version") == "1.1.0", "baseline acceptance fixture schema_version must be 1.1.0")
     if label == "P0":
         check(len(cases) == 37, f"expected 37 P0 acceptance specifications, found {len(cases)}")
     check(len(ids) == len(set(ids)), f"duplicate {label} acceptance case IDs")
@@ -153,6 +154,13 @@ check(len(hardening_list) == 8, f"expected eight P0 hardening acceptance specifi
 check(len(hardening_ids) == len(set(hardening_ids)), "duplicate P0 hardening acceptance IDs")
 if isinstance(hardening_cases, dict):
     check(hardening_cases.get("case_count") == len(hardening_list), "P0 hardening case_count does not match cases length")
+
+release_list = release_cases.get("cases", []) if isinstance(release_cases, dict) else []
+release_ids = [case.get("id") for case in release_list if isinstance(case, dict)]
+check(len(release_list) == 5, f"expected five release-governance acceptance specifications, found {len(release_list)}")
+check(len(release_ids) == len(set(release_ids)), "duplicate release-governance acceptance IDs")
+if isinstance(release_cases, dict):
+    check(release_cases.get("case_count") == len(release_list), "release-governance case_count does not match cases length")
 
 runtime_archive = ROOT/"implementation-bundles"/"asfree-p0-foundations-v0.3.0.tar.gz"
 runtime_checksum = ROOT/"implementation-bundles"/"asfree-p0-foundations-v0.3.0.tar.gz.sha256"
