@@ -6,7 +6,7 @@
 - Convert twelve historical unnumbered skill paths into redirect-only compatibility aliases to the canonical O01–O12 procedures.
 - Add release/source-of-truth governance for repository and Plugin Creator app releases, guarded updates, read-back verification, and lifecycle-state reporting.
 - Add a tracked runtime source/reproduction guide and replace the missing `runtime/README.md` repository link.
-- Extend baseline acceptance specifications from 30 to 35 cases to cover release version planes, alias routing, repository/app synchronization, runtime source distribution and validator enforcement.
+- Preserve the 30 baseline acceptance cases and add five dedicated release/routing governance specifications; strengthen static validation to enforce both sets.
 - Strengthen static validation for manifest parity, README versions, registered skill paths, redirect-only aliases and tracked governance references.
 
 ## Runtime 0.2.0 — P1 Security & Trust Plane — 2026-11-20
