@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/trust/human-security-review.schema.json",
+  "title": "Independent signed human security review",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "review_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewer_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "author_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "release_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "threat_model_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "verdict": {
+      "enum": [
+        "APPROVED",
+        "REJECTED",
+        "APPROVED_WITH_CONDITIONS"
+      ]
+    },
+    "reviewed_at": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "expires_at": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "reviewer_role": {
+      "enum": [
+        "independent-security-reviewer",
+        "security-architect",
+        "security-auditor"
+      ]
+    },
+    "review_scope": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "THREAT_MODEL",
+          "IDENTITY",
+          "DATA_PROTECTION",
+          "EXECUTION",
+          "TENANT_ISOLATION",
+          "AUDIT_INTEGRITY"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "key_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "signature": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "review_id",
+    "reviewer_id",
+    "author_id",
+    "release_commit",
+    "threat_model_sha256",
+    "verdict",
+    "reviewed_at",
+    "expires_at",
+    "reviewer_role",
+    "review_scope",
+    "residual_risks",
+    "key_id",
+    "signature"
+  ]
+}
