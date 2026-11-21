@@ -40,11 +40,23 @@ allowed_exact = {
     "plugin/plugin.json", "plugin/.codex-plugin/plugin.json", "plugin/README.md",
     "plugin/references/p0-runtime-architecture.md", "plugin/tests/p0-foundations-cases.json",
 }
+
+# The original P0 source archive also carries package metadata snapshots from
+# the package version that existed when that runtime bundle was cut. Those
+# entries remain checksum-verified and allowlisted for provenance, but they
+# must never overwrite the current repository package source of truth.
+LEGACY_PACKAGE_METADATA = {
+    "plugin/plugin.json",
+    "plugin/.codex-plugin/plugin.json",
+    "plugin/README.md",
+}
 allowed_prefixes = (
     "runtime/asfree/", "runtime/tests/", "runtime/examples/",
     "docs/implementation/", "plugin/references/schemas/runtime/",
 )
 seen: set[str] = set()
+applied = 0
+ignored_legacy_metadata = 0
 with tarfile.open(BUNDLE, "r:gz") as bundle:
     for member in bundle.getmembers():
         rel = PurePosixPath(member.name)
@@ -64,8 +76,17 @@ with tarfile.open(BUNDLE, "r:gz") as bundle:
         source = bundle.extractfile(member)
         if source is None:
             raise SystemExit(f"cannot read archive member: {name}")
+        payload = source.read()
+        if name in LEGACY_PACKAGE_METADATA:
+            ignored_legacy_metadata += 1
+            continue
         destination.parent.mkdir(parents=True, exist_ok=True)
-        destination.write_bytes(source.read())
+        destination.write_bytes(payload)
+        applied += 1
+
+if not LEGACY_PACKAGE_METADATA.issubset(seen):
+    missing_metadata = sorted(LEGACY_PACKAGE_METADATA - seen)
+    raise SystemExit(f"expected legacy package metadata entries missing from P0 bundle: {missing_metadata}")
 
 required = [
     ROOT / "runtime/asfree/evidence.py",
@@ -81,4 +102,4 @@ required = [
 missing = [str(path.relative_to(ROOT)) for path in required if not path.is_file()]
 if missing:
     raise SystemExit("P0 overlay incomplete: " + ", ".join(missing))
-print(f"P0 overlay applied and checksum-verified: {actual} ({len(seen)} files)")
+print(f"P0 overlay applied and checksum-verified: {actual} ({applied} files applied; {ignored_legacy_metadata} legacy package metadata entries verified but ignored)")

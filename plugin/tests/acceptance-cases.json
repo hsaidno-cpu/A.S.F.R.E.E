@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1.0",
-  "description": "Deduplicated, consolidated acceptance fixtures for the A.S.F.R.E.E unified orchestration contract. These are specifications until run in a real test harness.",
+  "description": "Deduplicated, consolidated baseline acceptance fixtures for the A.S.F.R.E.E unified orchestration contract. These are specifications until run in a real harness.",
   "case_count": 30,
   "cases": [
     {

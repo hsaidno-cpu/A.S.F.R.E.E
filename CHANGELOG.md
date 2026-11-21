@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.2 — 2026-11-21
+
+- Align the canonical plugin and compatibility manifests, package README and static validator at package version 0.3.2; keep the local runtime and source-bundle versions independent.
+- Convert twelve historical unnumbered skill paths into redirect-only compatibility aliases to the canonical O01–O12 procedures.
+- Add release/source-of-truth governance for repository and Plugin Creator app releases, guarded updates, read-back verification, and lifecycle-state reporting.
+- Add a tracked runtime source/reproduction guide and replace the missing `runtime/README.md` repository link.
+- Preserve the 30 baseline acceptance cases and add five dedicated release/routing governance specifications; strengthen static validation to enforce both sets.
+- Strengthen static validation for manifest parity, README versions, registered skill paths, redirect-only aliases and tracked governance references.
+
 ## Runtime 0.2.0 — P1 Security & Trust Plane — 2026-11-20
 
 - Add OIDC RS256 access-token validation against server-configured HTTPS issuer, audience and JWKS; reject token-controlled key URLs and enforce token claims.
