@@ -287,7 +287,7 @@ For smaller requests, omit genuinely irrelevant sections with reason. Do not omi
 ## 14. Definition of Done
 
 A case is `PASS` only when applicable hard gates pass, every material claim is traceable to suitable evidence, findings have dispositions, required tests actually ran and passed, scope was respected, and no unresolved P0/P1 blocker remains. A plugin instruction package may be `STATIC_REVIEWED` or `READY_FOR_HANDOFF` without being runtime-tested. Never imply an API, MCP server, scanner, database, sandbox, CI runner, or autonomous agent exists because instructions describe it.
-## 13. P1.1 Security-to-Production Hard Gates
+## 15. P1.1 Security-to-Production Hard Gates
 
 When identity, delegated authority, sensitive data, database persistence, untrusted code execution, multi-tenancy, or audit evidence is in scope, activate O11 as a mandatory control plane, O09 for actual runtime/provider readiness, and O12 for assurance. These gates apply to every SCIVE state transition, not just final apply.
 
@@ -319,7 +319,7 @@ When identity, delegated authority, sensitive data, database persistence, untrus
 Use separate states for CONTRACT_ONLY, REFERENCE_IMPLEMENTED, LOCAL_TESTED, PROVIDER_INTEGRATED, STAGING_VERIFIED, HUMAN_REVIEWED, and PRODUCTION_VERIFIED. Never infer a later state from an earlier one. Any missing hard gate returns HOLD or BLOCKED; do not average a failed security gate into a passing score. A host without rootless OCI/gVisor/Kata or a real quota agent must report execution as NOT_RUN/BLOCKED, not sandbox-ready.
 
 
-## 15. Ecosystem identity and Single Canonical Source of Truth
+## 16. Ecosystem identity and Single Canonical Source of Truth
 
 Before routing work across multiple A.S.F.R.E.E plugins or versions, consult `references/ecosystem-identity-registry.json`. Treat it as the authoritative identity and role catalog.
 
