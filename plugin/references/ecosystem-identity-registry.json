@@ -1,0 +1,84 @@
+{
+  "registry_schema_version": "1.0.0",
+  "registry_id": "asfree-ecosystem-identities",
+  "purpose": "Authoritative identity and version-source catalog for products and plugins in the A.S.F.R.E.E ecosystem.",
+  "products": [
+    {
+      "product_id": "ASFREE",
+      "display_name": "A.S.F.R.E.E",
+      "canonical_repository": "https://github.com/hsaidno-cpu/A.S.F.R.E.E",
+      "default_branch": "main",
+      "plugins": [
+        {
+          "identity_id": "asfree-canonical-plugin",
+          "plugin_id": "plugins_6aff3f4ff7d48191a411f6efb0cc435a",
+          "plugin_name": "asfree",
+          "role": "CANONICAL",
+          "version_source": "plugin/plugin.json#/version",
+          "version_scope": "CANONICAL_PRODUCT_PACKAGE",
+          "source_activation_rule": "Only a reviewed commit merged into main is active. A branch or unmerged pull-request candidate is not the active canonical release.",
+          "change_history_source": "CHANGELOG.md and Git commit history; Plugin Creator release metadata is a deployment record and must be reconciled by read-back."
+        },
+        {
+          "identity_id": "asfree-legacy-redirect",
+          "plugin_id": "plugins_6aff3ad51a408191a8d49b1c6003195b",
+          "plugin_name": "asfree-master-orchestrator",
+          "role": "COMPATIBILITY_REDIRECT",
+          "target_identity_id": "asfree-canonical-plugin",
+          "version_source": "Plugin Creator release metadata for this exact plugin ID",
+          "version_scope": "LEGACY_REDIRECT_SHELL_ONLY",
+          "source_activation_rule": "The redirect package's own release version identifies only the compatibility shell; it does not identify or pin the A.S.F.R.E.E product version.",
+          "change_history_source": "This package's CHANGELOG.md and immutable Plugin Creator release history."
+        }
+      ],
+      "independent_artifacts": [
+        {
+          "artifact_id": "codex-compatibility-manifest",
+          "version_source": "Mirrors plugin/plugin.json; no independent version authority.",
+          "version_relation": "MIRROR",
+          "must_match_canonical_plugin_version": true
+        },
+        {
+          "artifact_id": "plugin-package-readme",
+          "version_source": "Mirrors plugin/plugin.json; no independent version authority.",
+          "version_relation": "MIRROR",
+          "must_match_canonical_plugin_version": true
+        },
+        {
+          "artifact_id": "plugin-creator-deployment",
+          "version_source": "Plugin Creator release metadata for the canonical plugin ID.",
+          "version_relation": "DEPLOYMENT_RECORD",
+          "must_match_canonical_plugin_version": true
+        },
+        {
+          "artifact_id": "local-reference-runtime",
+          "version_source": "runtime/pyproject.toml#project.version",
+          "version_relation": "INDEPENDENT",
+          "must_match_canonical_plugin_version": false
+        },
+        {
+          "artifact_id": "implementation-source-bundles",
+          "version_source": "Each bundle's versioned filename and adjacent SHA-256 sidecar.",
+          "version_relation": "INDEPENDENT",
+          "must_match_canonical_plugin_version": false
+        }
+      ],
+      "migration_policy_path": "plugin/references/migration-and-deprecation-policy.md",
+      "change_history_source": "CHANGELOG.md and Git commit history for source changes; Plugin Creator release history plus verified read-back for deployed plugin releases."
+    }
+  ],
+  "global_invariants": [
+    "Each product_id has exactly one registered plugin with role CANONICAL.",
+    "Every plugin identity has one stable identity_id, one unique Plugin Creator plugin_id, one name, one declared version_source, and one change_history_source.",
+    "Every COMPATIBILITY_REDIRECT targets exactly one CANONICAL plugin within the same product.",
+    "Only the canonical package manifest in the reviewed main branch determines the active canonical package SemVer.",
+    "Unmerged branches and pull-request candidates are not active releases.",
+    "Plugin Creator release IDs are deployment identifiers; deployment metadata and file read-back must match the reviewed source package before synchronization is claimed.",
+    "Compatibility manifests and package READMEs mirror the canonical manifest and are not independent version authorities.",
+    "A compatibility redirect's own SemVer applies only to that redirect package and must not pin or redefine the canonical product SemVer.",
+    "A redirect never falls back to a superseded implementation when its canonical destination is unavailable.",
+    "Runtime and source-bundle versions remain independent artifact version planes."
+  ],
+  "release_governance_path": "plugin/references/release-and-routing-governance.md",
+  "migration_policy_path": "plugin/references/migration-and-deprecation-policy.md"
+}
