@@ -89,6 +89,8 @@ A redirect has a deliberately small contract:
 
 It must not re-enable the old orchestrator, run both implementations, duplicate specialist instructions, or fall back to stale code. Canonical unavailability is a blocker, not permission to revive an obsolete authority.
 
+No fallback to superseded behavior is permitted when the canonical destination or a required migration mapping is unavailable. Stop and report the blocker.
+
 A redirect may be retired only after:
 1. all known supported consumers have a documented migration path;
 2. migration notices and destination references have been maintained;
