@@ -31,7 +31,7 @@ The repository package version is declared by `plugin.json`; `.codex-plugin/plug
 - `.codex-plugin/plugin.json` — synchronized compatibility manifest.
 - `skills/` — M00 and O01–O12 instructions.
 - `references/` — architecture, release/routing governance, data contracts, evaluation, forensic limits, lifecycle/recovery, security/authority, tool-adapter contract, and JSON Schemas.
-- `tests/acceptance-cases.json` — 35 declarative behavior fixtures; other P0/P1 runtime fixtures remain in the repository source bundle. Fixtures are specifications, not test execution evidence.
+- `tests/acceptance-cases.json` — 30 baseline declarative behavior fixtures; `tests/release-governance-cases.json` — five release/routing fixtures. Both are specifications, not test execution evidence.
 - `LICENSE` — PolyForm Noncommercial 1.0.0.
 - `TRADEMARKS.md` — separate brand and trademark notice.
 
