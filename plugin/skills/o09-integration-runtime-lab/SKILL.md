@@ -36,3 +36,15 @@ Run a capability-readiness check for the exact operation, tool, scope, identity,
 - Stop or return `BLOCKED` when permission, evidence, environment, or scope is insufficient for the requested operation.
 - Preserve unrelated behavior and data. Require explicit approval for consequential changes.
 - Report `NOT_ASSESSED`, `INSUFFICIENT_EVIDENCE`, `NOT_RUN`, or `UNVERIFIABLE` rather than implying success.
+## P1.1 Secure execution and provider-readiness procedure
+
+When execution involves untrusted code, tenant data, external credentials, or production-like workloads:
+1. Identify the actual execution host, tenant boundary, runtime, kernel, user namespace, container engine, sandbox backend, LSM/seccomp profile, network policy, filesystem mounts, and egress route.
+2. Require rootless OCI and gVisor/Kata (or a separately reviewed equivalent). A generated OCI command, mock executor, Docker-compatible API, or cgroup file presence alone is not proof of workload isolation.
+3. Require host-enforced CPU, memory, PID, wall-clock, disk/I/O and output ceilings. Bind signed quota receipts to tenant, job, image digest, runtime identity, limit set, start/end time, and observed usage; verify post-run state before marking success.
+4. Stream stdout/stderr concurrently with strict byte caps. Stop/kill the process group immediately at quota breach; never use unbounded capture_output and truncate afterwards.
+5. Default network egress off; allow only explicitly declared destinations. Use image digest allowlists, read-only root, minimal mounts, non-root uid, no host socket, no device passthrough, no inherited environment secrets, and ephemeral workspaces.
+6. Run approved hostile-workload tests and cross-tenant isolation tests. Preserve test image digest, host/runtime/kernel versions, policy hash, and execution evidence.
+7. If the host lacks the required runtime, signed quota agent, or permission, return BLOCKED/NOT_RUN. Do not substitute a mocked run or local folder partition for production evidence.
+
+P1.1 outputs: host preflight receipt; runtime/provider manifest; signed quota receipt; bounded output/exit report; isolation test evidence; cleanup/rollback receipt; explicit unverified controls.
