@@ -317,3 +317,20 @@ When identity, delegated authority, sensitive data, database persistence, untrus
 
 ### Mandatory dispositions
 Use separate states for CONTRACT_ONLY, REFERENCE_IMPLEMENTED, LOCAL_TESTED, PROVIDER_INTEGRATED, STAGING_VERIFIED, HUMAN_REVIEWED, and PRODUCTION_VERIFIED. Never infer a later state from an earlier one. Any missing hard gate returns HOLD or BLOCKED; do not average a failed security gate into a passing score. A host without rootless OCI/gVisor/Kata or a real quota agent must report execution as NOT_RUN/BLOCKED, not sandbox-ready.
+
+
+## 15. Ecosystem identity and Single Canonical Source of Truth
+
+Before routing work across multiple A.S.F.R.E.E plugins or versions, consult `references/ecosystem-identity-registry.json`. Treat it as the authoritative identity and role catalog.
+
+For each product:
+- require exactly one registered `CANONICAL` plugin identity;
+- resolve compatibility redirects to that identity by immutable Plugin Creator ID, not by display-name similarity;
+- keep each plugin's version source and change-history source explicit;
+- reject unregistered identities, duplicate plugin IDs, multiple canonical entries, and ambiguous redirect targets;
+- do not activate versions from unmerged branches or pull requests;
+- do not equate repository package versions, Plugin Creator deployment IDs, runtime versions, bundle versions, or redirect-shell SemVer.
+
+A compatibility redirect may identify the canonical destination and explain migration only. It must never execute the old workflow, maintain independent product logic, or fall back to superseded behavior. If the canonical destination is unavailable, stop with a blocker.
+
+Apply `references/migration-and-deprecation-policy.md` before moving schemas, status values, user workflows, or persisted artifacts. Preserve provenance; quarantine ambiguity; require validation and a recovery point. The registry and policy are governance documents enforced by static validation and release review, not a claim that a live registry service or automatic migration engine is deployed.
