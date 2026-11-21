@@ -36,3 +36,17 @@ Run a capability-readiness check for the exact operation, tool, scope, identity,
 - Stop or return `BLOCKED` when permission, evidence, environment, or scope is insufficient for the requested operation.
 - Preserve unrelated behavior and data. Require explicit approval for consequential changes.
 - Report `NOT_ASSESSED`, `INSUFFICIENT_EVIDENCE`, `NOT_RUN`, or `UNVERIFIABLE` rather than implying success.
+
+## P2 runtime and provider readiness gates
+
+For any task that touches a worker, database, KMS, tenant partition, audit or backup, inspect the exact execution boundary:
+
+- Rootless OCI + gVisor/Kata + seccomp must be verified on the target host. A generated command or mocked preflight is not an executed sandbox.
+- Stream stdout/stderr with bounded retained buffers, timeout/process-tree cleanup and explicit truncation counters. Require a signed host quota receipt before spawning; never substitute post-run measurement.
+- Cross-process delegated capabilities must be verified at the receiving worker; use shared atomic revocation/JTI state and fail closed when unavailable.
+- Use a SQLCipher-capable driver and KMS-wrapped tenant key. Reject ordinary SQLite fallback when encrypted metadata is required.
+- Verify encrypted log, temporary and backup sinks end-to-end. GCM authentication must complete before a plaintext sink commits.
+- Tenant database routing requires a signed infrastructure receipt and a shared atomic backend-resource binding registry. Redis adapter tests are not proof of deployed tenant isolation.
+- External WORM retention and independent human security review are separate trust gates.
+
+Report evidence state explicitly: `CONTRACT_DEFINED`, `CODE_IMPLEMENTED`, `LOCAL_TEST_PASS`, `LIVE_INTEGRATION_VERIFIED`, `PRODUCTION_ATTESTED`, `NOT_CONFIGURED`, `NOT_RUN`, or `HOLD`. Never claim deployment from a fake provider test.
