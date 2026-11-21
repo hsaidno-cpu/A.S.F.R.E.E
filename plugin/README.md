@@ -1,10 +1,10 @@
 # A.S.F.R.E.E — AI Systems Forensics & Reconstruction Evaluation Engine
 
-**Version:** 0.3.0  
+**Version:** 0.3.2  
 **Package type:** Portable skills-only plugin  
 **Architecture:** M00 + O01–O12; eight system layers; cross-cutting O11 Security & Governance and O12 Evaluation Intelligence  
 **Operating model:** Evidence-led supervised engineering; read-only by default  
-**Implementation boundary:** The portable plugin contains instruction and contract files. A separate local reference runtime exists in the source repository under `../runtime/`; it is not bundled with this plugin.
+**Implementation boundary:** The portable plugin contains instruction and contract files only. The separate local Python reference runtime is distributed through checksum-pinned source bundles under `../implementation-bundles/` and reconstructed by repository scripts for local/CI validation; it is not bundled with this plugin.
 
 ## What it does
 
@@ -19,13 +19,19 @@ A.S.F.R.E.E coordinates authorized technical investigation: artifact intake, pro
 
 The specialist files define bounded procedures. Their capability catalogues are not claims that separate autonomous agents have been deployed. If the host does not expose separate invocation, report `PROCEDURE_APPLIED` rather than `INVOKED`.
 
+## Canonical routing and release governance
+
+M00 is the only case-level coordinator. Numbered O01–O12 paths are the only canonical specialist procedures. Historical unnumbered names retained in the source repository are redirect-only compatibility aliases; they do not represent additional specialists and are not part of this canonical app-backed skill set.
+
+The repository package version is declared by `plugin.json`; `.codex-plugin/plugin.json` and this README must match it. Plugin Creator app releases are separate deployments and require a guarded update plus metadata/file read-back. Local runtime and source-bundle versions are independent. See [Release, Source-of-Truth & Routing Governance](references/release-and-routing-governance.md).
+ 
 ## Package contents
 
 - `plugin.json` — portable Agent Plugins 1.0 manifest.
 - `.codex-plugin/plugin.json` — synchronized compatibility manifest.
 - `skills/` — M00 and O01–O12 instructions.
-- `references/` — architecture, data contracts, evaluation, forensic limits, lifecycle/recovery, security/authority, tool-adapter contract, and JSON Schemas.
-- `tests/acceptance-cases.json` and `tests/p0-foundations-cases.json` — declarative behavior fixtures, not test execution evidence.
+- `references/` — architecture, release/routing governance, data contracts, evaluation, forensic limits, lifecycle/recovery, security/authority, tool-adapter contract, and JSON Schemas.
+- `tests/acceptance-cases.json` — 35 declarative behavior fixtures; other P0/P1 runtime fixtures remain in the repository source bundle. Fixtures are specifications, not test execution evidence.
 - `LICENSE` — PolyForm Noncommercial 1.0.0.
 - `TRADEMARKS.md` — separate brand and trademark notice.
 
