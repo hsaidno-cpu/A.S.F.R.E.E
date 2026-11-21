@@ -44,7 +44,7 @@ Parallelize only genuinely independent read-only tasks. Sequence dependent tasks
 
 The numbered O01–O12 paths listed in M00 are the only canonical specialist procedures. The repository may retain historical, unnumbered paths for backward compatibility, but each such path must be a redirect-only pointer to exactly one numbered specialist. It must not carry an alternate workflow, methods, schemas, authority decisions, or independent state.
 
-The canonical alias map and release-version authority are maintained in [Release, Source-of-Truth & Routing Governance](../../docs/architecture/RELEASE-AND-ROUTING-GOVERNANCE.md). M00 must route to the numbered destination, not invoke both the historical alias and its canonical destination. If an alias target is unavailable, report the relevant capability as unavailable instead of reviving a stale implementation.
+The canonical alias map and release-version authority are maintained in [Release, Source-of-Truth & Routing Governance](release-and-routing-governance.md). M00 must route to the numbered destination, not invoke both the historical alias and its canonical destination. If an alias target is unavailable, report the relevant capability as unavailable instead of reviving a stale implementation.
 
 ## Release synchronization boundary
 
