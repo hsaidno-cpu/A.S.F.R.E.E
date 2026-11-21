@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0-rc.1 — 2026-11-21
+
+- Add P1.1 security-to-production hard gates for IdP/MFA assurance, cross-process signed delegation, full SCIVE operation authorization, complete at-rest encryption scope, isolated execution, host-enforced quotas, external WORM audit, infrastructure tenant isolation, concurrency testing and independent human review.
+- Extend M00 and O09/O11/O12 procedures so security authorization, runtime readiness and evaluation evidence are enforced as distinct responsibilities.
+- Add normative P1.1 readiness contract, reconstruction/evidence-boundary note, four JSON Schemas and 20 acceptance specifications. All P1.1 cases remain SPECIFICATION_ONLY until implementation and execution evidence is integrated.
+- Preserve the local reference runtime at 0.2.0. The P1.1 local prototype is not included in this repository source bundle or the current CI baseline.
+- Release candidate only; no live IdP/KMS/HSM, rootless OCI/gVisor/Kata, host quota agent, WORM anchor, production tenant isolation or independent human sign-off is claimed.
+
 ## 0.3.2 — 2026-11-21
 
 - Align the canonical plugin and compatibility manifests, package README and static validator at package version 0.3.2; keep the local runtime and source-bundle versions independent.
