@@ -52,3 +52,8 @@ The source package is distributed under PolyForm Noncommercial License 1.0.0. It
 Release candidate 0.4.0-rc.1 adds explicit architecture and acceptance contracts for verified IdP/MFA assurance, signed cross-process delegation, authorization at every SCIVE transition, encrypted metadata/WAL/temp/log/audit/backup, managed KMS/HSM, provisioned rootless OCI plus gVisor/Kata, host-enforced quotas, bounded streaming output, external WORM audit anchoring, infrastructure-level tenant isolation, concurrency testing and independent human security review.
 
 These are hard gates and acceptance specifications, not proof that production providers or hosts are provisioned. See [P1.1 Security-to-Production Readiness](references/p1.1-security-production-readiness.md). The local reference runtime remains on its separately declared version until an independently reviewed runtime source overlay is integrated.
+
+
+## Ecosystem identity and migration governance
+
+This package follows the ecosystem's Single Canonical Source of Truth contract. The identity catalog is [Ecosystem Identity Registry](references/ecosystem-identity-registry.json); migration and retirement rules are in [Migration and Deprecation Policy](references/migration-and-deprecation-policy.md). Every product has one canonical plugin identity; redirect packages are registered aliases, not alternate orchestrators. The canonical version comes from the reviewed repository manifest merged into `main`; Plugin Creator deployment metadata is verified separately by read-back.
