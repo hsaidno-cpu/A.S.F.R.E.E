@@ -11,7 +11,7 @@
     "shortDescription": "AI systems forensics"
   },
   "name": "asfree",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "A unified, evidence-driven forensic intelligence and supervised engineering orchestrator for authorized AI systems and software.",
   "author": {
     "email": "harysaidno@gmail.com",
