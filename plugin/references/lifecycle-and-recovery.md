@@ -48,3 +48,12 @@ Verification: `NOT_RUN`, `PASS`, `FAIL`, `BLOCKED`, `UNVERIFIABLE`, `NOT_APPLICA
 Release: `NOT_RELEASED`, `RELEASE_APPROVED`, `PR_OPEN`, `MERGED`, `RELEASED`, `DEPLOYED`, `READ_BACK_CONFIRMED`.
 
 Never infer later states from earlier states.
+## P1.1 security release gates
+
+Apply four non-aggregatable hard gates before staging/production disposition:
+1. Identity & SCIVE: verified IdP/MFA assurance, cross-process signed delegation, replay/revocation tests, and policy coverage for every SCIVE transition.
+2. Encryption & key lifecycle: managed KMS/HSM, live metadata/WAL/temp/log/audit/backup encryption, key rotation, revocation and restore evidence.
+3. Execution & tenant isolation: rootless OCI plus gVisor/Kata or approved equivalent, host-enforced quotas, bounded streaming output, hostile-workload and cross-tenant tests.
+4. Trust & oversight: independent external WORM anchor and read-back, infrastructure tenant isolation, concurrency/TOCTOU tests, independent signed human review.
+
+A required control that is absent or untested is NOT_RUN/BLOCKED/HOLD, not PASS. A green CI result for local tests cannot substitute for live provider integration or human review. See [P1.1 Security-to-Production Readiness Contract](p1.1-security-production-readiness.md).

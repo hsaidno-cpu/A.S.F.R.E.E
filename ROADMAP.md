@@ -53,3 +53,12 @@ Longitudinal evaluation, calibration, cost controls, incident response, release 
 **Gate:** operational readiness is demonstrated with real measurements and authorized deployment evidence.
 
 Cloud provider, programming language, database, workflow engine, model providers, budgets and performance targets remain open decisions until workload and security requirements are defined.
+
+## P1.1 — Security-to-production reconstruction (architecture and acceptance candidate)
+
+The P1.1 contract now defines hard gates for real IdP/MFA assurance, asymmetric cross-process delegation, authorization at every SCIVE transition, complete encryption of metadata/WAL/temp/log/audit/backup, managed KMS/HSM, rootless OCI with gVisor/Kata, host-enforced quotas and bounded streaming, external WORM audit anchoring, infrastructure tenant isolation, concurrency/resilience testing and independent human security review.
+
+**Current repository state:** portable plugin instructions, reference contracts, four new JSON Schemas and 20 acceptance specifications are recorded. The P1.1 cases are specification-only. The extended local runtime prototype is not yet part of the tracked GitHub source bundle and is not part of the current repository CI. The active P1 runtime remains 0.2.0.
+
+**Gate:** no production promotion until runtime implementation is integrated, CI tests it, real IdP/KMS/database/WORM/OCI/quota providers are provisioned and read-back verified, hostile-workload and cross-tenant tests pass, key rotation/restore/concurrency are tested, and an independent human security review is signed. Current production status: NOT READY.
+

@@ -85,3 +85,30 @@ If the GitHub PR is open but not merged, record `PR_OPEN`. If the Plugin Creator
 ## 6. Rollback and compatibility
 
 Keep the previous Plugin Creator release and Git commit available as recovery points. A rollback must identify the exact target version and the reason for rollback; do not silently rewrite historical releases. Compatibility aliases remain until their consumers are migrated or a separately reviewed deprecation removes them.
+
+
+## 7. Ecosystem identity registry
+
+The normative identity catalog is `references/ecosystem-identity-registry.json`, validated by `references/schemas/governance/ecosystem-identity-registry.schema.json`. Do not create an identity or infer a canonical role from display names.
+
+- Each product has one stable `product_id` and exactly one registered plugin with role `CANONICAL`.
+- Every plugin has one stable registry `identity_id`, one immutable Plugin Creator `plugin_id`, one package name, one declared version source, and one declared change-history source.
+- A compatibility redirect must map to exactly one canonical plugin within the same product. It is not another M00, product authority, version authority, or execution fallback.
+- New independent products/plugins require distinct purpose, identity, ownership, source/version authority, changelog, migration policy, and acceptance coverage before registry admission.
+- CI must reject duplicate IDs/names, multiple canonical plugins for a product, missing redirect targets, and absent version/history sources.
+
+The registry is the ecosystem identity authority. The canonical package manifest remains the package SemVer authority. These are different responsibilities and must not be collapsed into a single overloaded version field.
+
+## 8. Canonical source and active-version rule
+
+For A.S.F.R.E.E, only `plugin/plugin.json#/version` in a reviewed commit merged into `main` is the active canonical plugin package version. A branch, release candidate, open PR, archive, or Plugin Creator upload is not an active source release.
+
+The Plugin Creator canonical plugin ID is stable and is registered once. Its release ID and deployed files form deployment evidence. They must be reconciled against the reviewed repository commit by metadata and file read-back. They do not supersede or redefine the repository version authority.
+
+The legacy `asfree-master-orchestrator` Plugin Creator ID is registered as `COMPATIBILITY_REDIRECT`. Its own SemVer versions only the redirect shell. Never copy the canonical package version into legacy manifests, skill instructions, or descriptions.
+
+## 9. Migration and deprecation
+
+Follow `references/migration-and-deprecation-policy.md` for identity mapping, version boundaries, change history, schema/status conversion, manual context migration, redirect constraints, and retirement gates.
+
+No dual authority, dual-run orchestration, silent schema coercion, or automatic legacy fallback is permitted. If the canonical destination or a required migration mapping is unavailable, stop and report the blocker. Keep old releases and evidence recoverable; retirement requires an explicit human decision.

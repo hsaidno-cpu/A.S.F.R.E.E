@@ -8,10 +8,10 @@ A.S.F.R.E.E is a modular intelligence system for authorized forensic analysis, a
 
 ## Current baseline
 
-- **Canonical plugin package:** v0.3.2 in [`plugin/`](plugin/).
+- **Canonical plugin candidate:** v0.4.0-rc.1 in [`plugin/`](plugin/). This is a release candidate, not a production release.
 - **Architecture:** one M00 master orchestrator and twelve specialist skills O01–O12.
 - **P0 reference runtime:** local Python implementation of Evidence Management, Master Orchestration & Contract Engine, and Supervised Change & Independent Verification.
-- **Acceptance specifications:** 30 baseline + 37 P0 + 8 P0 hardening + 33 P1 security cases. The executable runtime suite has 79 P0 + 31 P1 tests (110 total); specifications and executed tests remain distinct.
+- **Acceptance specifications:** 30 baseline + 37 P0 + 8 P0 hardening + 33 P1.0 + 20 P1.1 security cases. The established P0/P1.0 executable runtime suite has 110 tests; P1.1 cases are specifications until their implementation is integrated and executed.
 - **Production platform:** not deployed or production-verified.
 
 ## The three P0 foundations
@@ -29,25 +29,29 @@ P1 adds an integration layer around P0, not a hosted multi-tenant platform:
 - **Encryption:** AES-256-GCM envelope encryption for artifact blob bytes through a KMS provider contract. The in-memory provider is test-only; no cloud KMS/HSM adapter is supplied. SQLite metadata, audit rows, WAL, logs, temporary files and backups remain plaintext; confidential/sensitive metadata stays blocked.
 - **Execution boundary:** worker identity and task:execute capability bound to tenant/job, immutable image digest allowlisting, and a fail-closed rootless OCI adapter requiring seccomp, gVisor/Kata and host output quotas. Runtime tests use mocks; actual OCI execution is NOT_RUN.
 
-P1 contributes 31 executable security tests. Together with P0, 110 tests pass locally. These results do not prove a live IdP, KMS, encrypted metadata, external audit anchoring, cloud tenant isolation, kernel/container isolation or production readiness. See [P1 foundations](docs/implementation/P1-SECURITY-FOUNDATIONS.md), [P1 threat model](docs/implementation/P1-THREAT-MODEL.md) and [P1 operator notes](docs/implementation/P1-OPERATIONS.md).
+P1.0 contributes 31 executable security tests. Together with P0, the established local suite has 110 passing tests. These results do not prove a live IdP, KMS, encrypted metadata, external audit anchoring, cloud tenant isolation, kernel/container isolation or production readiness. See [P1 foundations](docs/implementation/P1-SECURITY-FOUNDATIONS.md), [P1 threat model](docs/implementation/P1-THREAT-MODEL.md) and [P1 operator notes](docs/implementation/P1-OPERATIONS.md).
+
+## P1.1 Security-to-Production Hardening Candidate
+
+P1.1 turns four production security domains into normative hard gates and test specifications: verified IdP/MFA and cross-process delegation with SCIVE policy at every transition; complete encryption and managed key lifecycle; rootless OCI with gVisor/Kata, host-enforced quotas and bounded streaming; external WORM audit, infrastructure tenant isolation, concurrency testing and independent human review. The 20 P1.1 acceptance cases are specifications, not executed tests. The current branch updates plugin contracts and schemas; the extended local runtime prototype is not yet part of the tracked repository source bundle. Production readiness remains **NOT READY**. See [P1.1 security reconstruction status](docs/implementation/P1.1-SECURITY-RECONSTRUCTION.md) and [P1.1 readiness contract](plugin/references/p1.1-security-production-readiness.md).
 
 ## Release and routing governance
 
-The portable plugin package is versioned independently from the local reference runtime and its source bundles. `plugin/plugin.json` is the repository's package-version authority; the compatibility manifest and package README must match it. Plugin Creator is a separate app-release registry and must be updated from a reviewed source snapshot, then read back before the app is called synchronized.
+The portable plugin package is versioned independently from the local reference runtime and its source bundles. `plugin/plugin.json` in a reviewed commit merged into `main` is the package-version authority; the compatibility manifest and package README are mirrors. Plugin Creator is a separate deployment record and must be read back against the reviewed source snapshot.
 
-M00 and numbered O01–O12 are the only canonical specialist procedures. Historical unnumbered skill folders are retained only as redirect-only compatibility aliases. See [Release, Source-of-Truth & Routing Governance](docs/architecture/RELEASE-AND-ROUTING-GOVERNANCE.md).
+The ecosystem identity catalog at [Ecosystem Identity Registry](plugin/references/ecosystem-identity-registry.json) defines one canonical plugin identity per product, unique plugin IDs, compatibility redirect roles, version authorities and history sources. [Migration and Deprecation Policy](plugin/references/migration-and-deprecation-policy.md) governs legacy conversion, manual context transfer, schema/status migration and retirement. M00 and numbered O01–O12 remain the only canonical A.S.F.R.E.E orchestrator/specialist procedures. A redirect never revives a superseded workflow. See [Release, Source-of-Truth & Routing Governance](plugin/references/release-and-routing-governance.md).
  
 ## Repository layout
 
 ```text
 .
-├── plugin/                 # Canonical skills-only package v0.3.0
+├── plugin/                 # Canonical skills-only package v0.4.0-rc.1
 │   ├── plugin.json
 │   ├── .codex-plugin/
 │   ├── skills/              # M00 + O01–O12; historical names are redirect-only aliases
 │   ├── references/          # architecture, contracts, JSON Schemas and controls
 │   └── tests/               # baseline + P0 acceptance specifications
-├── docs/implementation/    # P0/P1 architecture and threat models
+├── docs/implementation/    # P0/P1/P1.1 architecture, evidence and threat models
 ├── implementation-bundles/ # SHA-256-pinned P0/P1 source overlays
 ├── scripts/                # deterministic validator and P0/P1 bundle appliers
 └── .github/workflows/      # static + runtime test CI
@@ -72,7 +76,7 @@ The tests use the Python standard library; no third-party runtime dependency is 
 
 ## Capability and security boundary
 
-P0 remains an executable **local, single-node, workspace-bounded reference**. P1 adds local OIDC validation and policy facades, tenant-partitioned stores, blob envelope encryption, and a fail-closed OCI execution adapter. It is still not a deployed or production-verified service. There is no configured IdP, live cloud KMS, encrypted SQLite metadata/WAL/logs/backups, externally anchored WORM audit, independently isolated cloud tenant storage, provisioned OCI runtime/quota provider, HTTP/MCP service, worker fleet, HA, backup/restore, retention/deletion or production release. The authorization capability is process-local; the legacy P0 ChangeManager actor-string interface still needs a request-bound policy adapter. Confidential/sensitive metadata remains rejected. Actual OCI execution and hostile-workload isolation are NOT_RUN. Staging and production changes remain disabled.
+P0/P1.0 remains an executable **local, single-node, workspace-bounded reference**. P1.0 adds local OIDC validation and policy facades, tenant-partitioned stores, blob envelope encryption, and a fail-closed OCI adapter. P1.1 defines required production gates, but does not itself provision or prove them. No live IdP/MFA policy, managed KMS/HSM, encrypted metadata/WAL/logs/backups, external WORM anchor, independent cloud tenant boundary, rootless OCI + gVisor/Kata host, signed quota agent, or human security sign-off is currently evidenced. Cross-process delegation and complete SCIVE request-bound policy enforcement still require tracked runtime integration. Actual isolated execution and hostile-workload containment are NOT_RUN. Staging and production changes remain disabled.
 
 See [Local Reference Runtime Source & Reproduction Notes](docs/implementation/RUNTIME-REFERENCE.md) for the exact bundle reconstruction sequence and verification limits.
 

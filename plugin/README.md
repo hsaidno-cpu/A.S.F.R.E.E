@@ -1,6 +1,6 @@
 # A.S.F.R.E.E — AI Systems Forensics & Reconstruction Evaluation Engine
 
-**Version:** 0.3.2  
+**Version:** 0.4.0-rc.1  
 **Package type:** Portable skills-only plugin  
 **Architecture:** M00 + O01–O12; eight system layers; cross-cutting O11 Security & Governance and O12 Evaluation Intelligence  
 **Operating model:** Evidence-led supervised engineering; read-only by default  
@@ -30,8 +30,8 @@ The repository package version is declared by `plugin.json`; `.codex-plugin/plug
 - `plugin.json` — portable Agent Plugins 1.0 manifest.
 - `.codex-plugin/plugin.json` — synchronized compatibility manifest.
 - `skills/` — M00 and O01–O12 instructions.
-- `references/` — architecture, release/routing governance, data contracts, evaluation, forensic limits, lifecycle/recovery, security/authority, tool-adapter contract, and JSON Schemas.
-- `tests/acceptance-cases.json` — 30 baseline declarative behavior fixtures; `tests/release-governance-cases.json` — five release/routing fixtures. Both are specifications, not test execution evidence.
+- `references/` — architecture, release/routing governance, P1.1 security-to-production readiness, data contracts, evaluation, forensic limits, lifecycle/recovery, security/authority, tool-adapter contract, and JSON Schemas.
+- `tests/acceptance-cases.json` — 30 baseline fixtures; `tests/release-governance-cases.json` — five release/routing fixtures; `tests/p1-security-hardening-cases.json` — 20 P1.1 security acceptance specifications. Fixtures are specifications, not test execution evidence.
 - `LICENSE` — PolyForm Noncommercial 1.0.0.
 - `TRADEMARKS.md` — separate brand and trademark notice.
 
@@ -46,3 +46,14 @@ The forensic depth scale is L0–L6. The supervised authority scale is S0–S5. 
 ## License and brand
 
 The source package is distributed under PolyForm Noncommercial License 1.0.0. It is source-available, not an OSI-approved open-source license, and does not grant third-party commercial-use rights. Separate written commercial permission is required from the applicable rights holder. The software license does not license the A.S.F.R.E.E name, logo, or other brand assets. Confirm the legally designated rights holder before assigning rights to any future foundation entity.
+
+## P1.1 security-to-production gates
+
+Release candidate 0.4.0-rc.1 adds explicit architecture and acceptance contracts for verified IdP/MFA assurance, signed cross-process delegation, authorization at every SCIVE transition, encrypted metadata/WAL/temp/log/audit/backup, managed KMS/HSM, provisioned rootless OCI plus gVisor/Kata, host-enforced quotas, bounded streaming output, external WORM audit anchoring, infrastructure-level tenant isolation, concurrency testing and independent human security review.
+
+These are hard gates and acceptance specifications, not proof that production providers or hosts are provisioned. See [P1.1 Security-to-Production Readiness](references/p1.1-security-production-readiness.md). The local reference runtime remains on its separately declared version until an independently reviewed runtime source overlay is integrated.
+
+
+## Ecosystem identity and migration governance
+
+This package follows the ecosystem's Single Canonical Source of Truth contract. The identity catalog is [Ecosystem Identity Registry](references/ecosystem-identity-registry.json); migration and retirement rules are in [Migration and Deprecation Policy](references/migration-and-deprecation-policy.md). Every product has one canonical plugin identity; redirect packages are registered aliases, not alternate orchestrators. The canonical version comes from the reviewed repository manifest merged into `main`; Plugin Creator deployment metadata is verified separately by read-back.

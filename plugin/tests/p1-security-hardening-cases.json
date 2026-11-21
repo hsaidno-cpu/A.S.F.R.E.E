@@ -1,0 +1,168 @@
+{
+  "schema_version": "1.0.0",
+  "description": "P1.1 security hardening acceptance specifications. All cases are specification-only until executed against named code, providers and infrastructure.",
+  "case_count": 20,
+  "execution_status": "SPECIFICATION_ONLY",
+  "cases": [
+    {
+      "id": "P11-001",
+      "category": "idp-trust",
+      "input": "Configured IdP issues an access token with a token-controlled JWKS URL.",
+      "expected": "Reject token-controlled key discovery and fail closed.",
+      "must_not": "Do not fetch arbitrary token-provided URLs.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-002",
+      "category": "idp-profile",
+      "input": "Access token has wrong issuer, audience, token type, algorithm or expired claims.",
+      "expected": "Reject token and record a redacted denial receipt.",
+      "must_not": "Do not accept a syntactically valid but untrusted JWT.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-003",
+      "category": "mfa-assurance",
+      "input": "AMR contains an unapproved or unmapped method, or auth_time is stale.",
+      "expected": "Deny sensitive SCIVE operation and require fresh approved assurance.",
+      "must_not": "Do not treat generic mfa=true or an AMR string as phishing-resistant proof.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-004",
+      "category": "delegation-signature",
+      "input": "Delegated capability is signed by an unknown or rotated-out key.",
+      "expected": "Reject capability after bounded key resolution.",
+      "must_not": "Do not fall back to process-local shared HMAC.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-005",
+      "category": "delegation-binding",
+      "input": "Capability tenant, audience, action, resource, case or job differs from request.",
+      "expected": "Deny request before data access or state mutation.",
+      "must_not": "Do not infer missing binding from caller context.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-006",
+      "category": "delegation-replay",
+      "input": "Same JTI is replayed or revoked capability is presented.",
+      "expected": "Reject replay/revoked capability using shared durable state.",
+      "must_not": "Do not rely on per-process memory for cross-process replay prevention.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-007",
+      "category": "scive-propose-authorization",
+      "input": "Unauthenticated caller invokes proposal creation.",
+      "expected": "Deny before proposal persistence; record security decision.",
+      "must_not": "Do not exempt propose_change from authorization because it is not apply.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-008",
+      "category": "scive-transition-coverage",
+      "input": "Approve, apply, verify, rollback or recover is invoked outside the policy facade.",
+      "expected": "Reject direct mutation path; require distinct scoped authorization for each transition.",
+      "must_not": "Do not trust actor-name strings as authority.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-009",
+      "category": "separation-of-duties",
+      "input": "Proposer attempts to self-approve a high-impact change or executor attempts sole verification.",
+      "expected": "Deny or require independent authorized actor.",
+      "must_not": "Do not count role labels supplied by the same untrusted caller as separation.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-010",
+      "category": "metadata-encryption",
+      "input": "Database metadata is stored with an unavailable encrypted DB engine.",
+      "expected": "Fail closed and refuse plaintext fallback.",
+      "must_not": "Do not call blob-only encryption full database encryption.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-011",
+      "category": "wal-temp-coverage",
+      "input": "WAL/SHM/temp files are generated during write, checkpoint, crash or restore.",
+      "expected": "Demonstrate no sensitive plaintext spill or provide encrypted storage boundary.",
+      "must_not": "Do not assume SQL database encryption covers files without testing.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-012",
+      "category": "log-encryption",
+      "input": "Logs contain sensitive identity, tokens or object metadata.",
+      "expected": "Redact secrets, encrypt logs at rest, enforce access and retention.",
+      "must_not": "Do not log bearer tokens or unredacted sensitive payloads.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-013",
+      "category": "backup-key-lifecycle",
+      "input": "Restore is attempted with rotated, revoked or mismatched tenant keys.",
+      "expected": "Restore only under approved key policy and validate tenant context.",
+      "must_not": "Do not restore ciphertext into a different tenant context.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-014",
+      "category": "oci-rootless-isolation",
+      "input": "Execution host lacks provisioned rootless OCI or gVisor/Kata.",
+      "expected": "Return BLOCKED/NOT_RUN; do not execute hostile workload.",
+      "must_not": "Do not treat command generation or a mock as isolated execution.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-015",
+      "category": "host-quota-enforcement",
+      "input": "Caller presents unsigned, stale or mismatched host quota receipt.",
+      "expected": "Reject receipt and refuse success disposition.",
+      "must_not": "Do not rely on caller-declared quota values.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-016",
+      "category": "streaming-output-bounds",
+      "input": "Workload floods stdout/stderr beyond configured limit.",
+      "expected": "Stop/kill process group when byte limit is reached; retain bounded evidence.",
+      "must_not": "Do not buffer unbounded output and truncate after process completion.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-017",
+      "category": "hostile-workloads",
+      "input": "Fork bomb, memory bomb, CPU loop, disk flood or path attack runs in staging.",
+      "expected": "Contain workload within enforced host controls and clean resources.",
+      "must_not": "Do not claim test coverage from a mocked executor.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-018",
+      "category": "cross-tenant-runtime",
+      "input": "Workload attempts to read another tenant's mounts, database, object storage or KMS key.",
+      "expected": "Deny at independent infrastructure boundary and retain evidence.",
+      "must_not": "Do not treat directory naming or application filters as sole isolation.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-019",
+      "category": "external-audit-worm",
+      "input": "External anchor object is overwritten, deleted, reordered, truncated or points to wrong predecessor.",
+      "expected": "Detect integrity failure by read-back, signature, hash and sequence validation.",
+      "must_not": "Do not treat local append-only/hash-chain data as external WORM anchoring.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "P11-020",
+      "category": "concurrency-and-human-review",
+      "input": "Concurrent proposals, key rotation, replay, restore and independent human review occur.",
+      "expected": "Demonstrate serialization/idempotency and record signed reviewer decision with conflicts disclosed.",
+      "must_not": "Do not infer production approval from passing unit tests or an unsigned review template.",
+      "execution_status": "SPECIFICATION_ONLY"
+    }
+  ]
+}
