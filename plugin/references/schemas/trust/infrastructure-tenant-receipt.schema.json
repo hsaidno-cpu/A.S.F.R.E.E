@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/trust/infrastructure-tenant-receipt.schema.json",
+  "title": "Signed tenant infrastructure database receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "tenant_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,62}$"
+    },
+    "tenant_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{24}$"
+    },
+    "backend_resource_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "isolation_mode": {
+      "const": "DEDICATED_DATABASE"
+    },
+    "identity_policy_ref": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 1
+    },
+    "network_policy_ref": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 1
+    },
+    "kms_key_ref": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 1
+    },
+    "issued_at": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "expires_at": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "key_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "signature": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "tenant_id",
+    "tenant_fingerprint",
+    "backend_resource_id",
+    "isolation_mode",
+    "identity_policy_ref",
+    "network_policy_ref",
+    "kms_key_ref",
+    "issued_at",
+    "expires_at",
+    "key_id",
+    "signature"
+  ]
+}
