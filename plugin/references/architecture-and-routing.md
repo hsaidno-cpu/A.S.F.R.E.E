@@ -50,3 +50,10 @@ The canonical alias map and release-version authority are maintained in [Release
 
 The repository package manifest is the source version authority for a portable package release. The compatibility manifest and package README must match it. The Plugin Creator app release is a separate deployed artifact and must be updated from the reviewed source package, then verified by metadata and file read-back. Runtime and source-bundle versions are independent version planes. A commit, open pull request, package upload, app release, and production deployment are distinct lifecycle states.
 
+## P2 Security & Trust control chain
+
+For systems that handle multi-tenant data or execute untrusted workloads, the reference security control chain is:
+
+`OIDC/MFA → Ed25519 delegation → shared replay/revocation → SCIVE policy boundary → encrypted tenant storage → bounded OCI streaming + host quota → external WORM receipt → signed infrastructure attestation + independent human review`.
+
+O11 owns the authority/threat/evidence decision; O09 owns provider/runtime readiness; O10 owns independent test verification; O12 owns evidence sufficiency and residual-risk evaluation. These are control-plane responsibilities, not proof that providers or autonomous agents are deployed. See [P2 Security & Trust Hardening](security-trust-hardening.md).
