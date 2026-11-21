@@ -7,12 +7,12 @@
     ],
     "developerName": "Hary Saidno",
     "displayName": "A.S.F.R.E.E",
-    "longDescription": "A.S.F.R.E.E is a modular, evidence-driven orchestrator for authorized AI and software forensics, evaluation, diagnosis, comparison, supervised remediation and reconstruction. M00 coordinates O01–O12; Security & Governance and Evaluation Intelligence operate as cross-cutting control planes. Historical unnumbered skill names are redirect-only compatibility paths; numbered O01–O12 are the only canonical specialist procedures. The repository package and Plugin Creator app release are separate lifecycle artifacts and require explicit synchronization and read-back. Runtime and source-bundle versions remain independent. The portable package contains skills and contracts only; it does not itself deploy scanners, runtimes, databases, API gateways or MCP servers.",
+    "longDescription": "A.S.F.R.E.E is a modular, evidence-driven orchestrator for authorized AI/software forensics, evaluation, diagnosis, comparison and supervised reconstruction. M00 coordinates canonical specialists O01–O12; O11 governs security and O12 evaluates evidence and impact. The 0.4.0-rc.1 candidate adds explicit P1.1 contracts for verified identity/MFA, signed cross-process delegation, SCIVE policy coverage, complete encryption scope, isolated execution, host-enforced quotas, external WORM audit, infrastructure tenant isolation, concurrency tests and independent human review. These are architecture and acceptance gates, not a claim of production deployment. The portable package remains skills and contracts only.",
     "shortDescription": "AI systems forensics"
   },
   "name": "asfree",
-  "version": "0.3.2",
-  "description": "A unified, evidence-driven forensic intelligence and supervised engineering orchestrator for authorized AI systems and software.",
+  "version": "0.4.0-rc.1",
+  "description": "A unified, evidence-driven forensic intelligence and supervised engineering orchestrator with explicit P1.1 security-to-production gates.",
   "author": {
     "email": "harysaidno@gmail.com",
     "name": "Hary Saidno"
