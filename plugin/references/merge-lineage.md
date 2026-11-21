@@ -35,3 +35,12 @@ The plugin source update and file read-back are verified. JSON manifests and sch
 - Recover prior content from its historical release if required.
 - Migrate legacy status enums only through the documented map in `data-contracts.md`; do not silently coerce semantically different values.
 - Keep plugin identity and repository lineage explicit. Do not infer that the repository's legal ownership has transferred to a future foundation until the relevant legal assignment is completed.
+
+
+## Ecosystem identity registry
+
+The authoritative A.S.F.R.E.E ecosystem identity record is `plugin/references/ecosystem-identity-registry.json`. It registers canonical plugin ID `plugins_6aff3f4ff7d48191a411f6efb0cc435a` and legacy redirect ID `plugins_6aff3ad51a408191a8d49b1c6003195b` as distinct package identities with distinct roles. The canonical product is represented only by the `asfree` plugin; the legacy package is `COMPATIBILITY_REDIRECT`, not a second product implementation.
+
+The legacy redirect has its own shell version line, changelog, and Plugin Creator release history. Its version must never be compared numerically with or substituted for the canonical package SemVer. Canonical package changes belong in the repository manifest, Git history and root changelog; app deployment IDs are separately recorded as read-back evidence.
+
+See `plugin/references/migration-and-deprecation-policy.md` for the normative migration and retirement protocol.
