@@ -36,3 +36,23 @@ Design an evaluation charter before scoring: question, purpose, context, unit of
 - Stop or return `BLOCKED` when permission, evidence, environment, or scope is insufficient for the requested operation.
 - Preserve unrelated behavior and data. Require explicit approval for consequential changes.
 - Report `NOT_ASSESSED`, `INSUFFICIENT_EVIDENCE`, `NOT_RUN`, or `UNVERIFIABLE` rather than implying success.
+## P1.1 security evaluation and production acceptance
+
+For security-critical systems, design a security evaluation charter before scoring. Separate control existence, code-path coverage, provider integration, infrastructure enforcement, adversarial test execution, independent review, and production verification.
+
+Required evaluation domains:
+- identity trust, token validation, MFA assurance, delegated capability signature/replay/revocation and SCIVE operation coverage;
+- key custody, envelope context, metadata/WAL/temp/log/backup encryption, rotation and restore;
+- sandbox isolation, host quotas, streaming output limits, hostile workload behaviour, cleanup and tenant boundary;
+- external audit anchoring/WORM, concurrency/TOCTOU, infrastructure tenant isolation and independent human review.
+
+For each criterion define target, unit, test method, evidence ID, environment, provider/runtime version, baseline, pass/fail rule, uncertainty, owner and review state. Do not score a declared interface as an implemented control, a mock as live infrastructure, a local unit test as cross-tenant isolation, or a review template as human approval.
+
+Hard-gate policy:
+- Any P0/P1 identity, encryption, isolation, tenant-separation, audit-integrity or authorization failure yields HOLD/FAIL.
+- Required test not run yields NOT_RUN, never PASS.
+- Provider not configured yields CONTRACT_ONLY/BLOCKED.
+- Local tests may establish only the code paths and boundaries actually exercised.
+- Production disposition requires successful staging evidence, adversarial and concurrency testing, restore/key-lifecycle evidence, external audit read-back, and independent signed human review.
+
+P1.1 evaluation outputs: security evaluation charter; control-to-evidence matrix; adversarial/concurrency test matrix; provider and infrastructure readiness record; independent-review record; residual-risk register; disposition with explicit blockers.
