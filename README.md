@@ -37,9 +37,9 @@ P1.1 turns four production security domains into normative hard gates and test s
 
 ## Release and routing governance
 
-The portable plugin package is versioned independently from the local reference runtime and its source bundles. `plugin/plugin.json` is the repository's package-version authority; the compatibility manifest and package README must match it. Plugin Creator is a separate app-release registry and must be updated from a reviewed source snapshot, then read back before the app is called synchronized.
+The portable plugin package is versioned independently from the local reference runtime and its source bundles. `plugin/plugin.json` in a reviewed commit merged into `main` is the package-version authority; the compatibility manifest and package README are mirrors. Plugin Creator is a separate deployment record and must be read back against the reviewed source snapshot.
 
-M00 and numbered O01–O12 are the only canonical specialist procedures. Historical unnumbered skill folders are retained only as redirect-only compatibility aliases. See [Release, Source-of-Truth & Routing Governance](docs/architecture/RELEASE-AND-ROUTING-GOVERNANCE.md).
+The ecosystem identity catalog at [Ecosystem Identity Registry](plugin/references/ecosystem-identity-registry.json) defines one canonical plugin identity per product, unique plugin IDs, compatibility redirect roles, version authorities and history sources. [Migration and Deprecation Policy](plugin/references/migration-and-deprecation-policy.md) governs legacy conversion, manual context transfer, schema/status migration and retirement. M00 and numbered O01–O12 remain the only canonical A.S.F.R.E.E orchestrator/specialist procedures. A redirect never revives a superseded workflow. See [Release, Source-of-Truth & Routing Governance](plugin/references/release-and-routing-governance.md).
  
 ## Repository layout
 
