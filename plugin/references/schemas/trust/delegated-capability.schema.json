@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/trust/delegated-capability.schema.json",
+  "title": "Decoded EdDSA delegated capability claims",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "iss": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_issuer": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 1
+    },
+    "aud": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sub": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tenant_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,62}$"
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_subject": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "proposer_subject": {
+              "type": "string"
+            },
+            "classification": {
+              "type": "string"
+            },
+            "case_id": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "owner_subject",
+        "attributes"
+      ]
+    },
+    "policy_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "jti": {
+      "type": "string",
+      "minLength": 16
+    },
+    "iat": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "nbf": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "exp": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "one_time": {
+      "type": "boolean"
+    },
+    "source_token_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mfa": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "minLength": 1
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_token_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "acr": {
+          "type": "string"
+        },
+        "amr": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "auth_time": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "attested_at": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "key_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signature": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "issuer",
+        "subject",
+        "source_token_id",
+        "acr",
+        "amr",
+        "auth_time",
+        "attested_at",
+        "profile_id",
+        "key_id",
+        "signature"
+      ]
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "signature": {
+      "type": "string",
+      "minLength": 1
+    },
+    "key_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "iss",
+    "source_issuer",
+    "aud",
+    "sub",
+    "tenant_id",
+    "action",
+    "resource",
+    "policy_id",
+    "jti",
+    "iat",
+    "nbf",
+    "exp",
+    "one_time",
+    "source_token_id",
+    "mfa",
+    "scopes",
+    "roles",
+    "signature",
+    "key_id"
+  ]
+}
