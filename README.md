@@ -8,10 +8,10 @@ A.S.F.R.E.E is a modular intelligence system for authorized forensic analysis, a
 
 ## Current baseline
 
-- **Canonical plugin package:** v0.3.2 in [`plugin/`](plugin/).
+- **Canonical plugin package:** v0.4.0 in [`plugin/`](plugin/).
 - **Architecture:** one M00 master orchestrator and twelve specialist skills O01–O12.
 - **P0 reference runtime:** local Python implementation of Evidence Management, Master Orchestration & Contract Engine, and Supervised Change & Independent Verification.
-- **Acceptance specifications:** 30 baseline + 37 P0 + 8 P0 hardening + 33 P1 security cases. The executable runtime suite has 79 P0 + 31 P1 tests (110 total); specifications and executed tests remain distinct.
+- **Acceptance specifications:** 30 baseline + 5 release governance + 37 P0 + 8 P0 hardening + 33 P1 + 25 P2 trust cases. The executable runtime suite has 79 P0 + 31 P1 + 25 P2 tests (135 total); specifications and executed tests remain distinct.
 - **Production platform:** not deployed or production-verified.
 
 ## The three P0 foundations
@@ -20,16 +20,18 @@ A.S.F.R.E.E is a modular intelligence system for authorized forensic analysis, a
 2. **Master Orchestration & Contract Engine** — versioned case/task/handoff contracts; deterministic routing to O01–O12; dependency DAG; idempotency; worker/specialist leases; bounded retry; evidence-backed capability readiness; route observability.
 3. **Supervised Change & Independent Verification Engine** — proposal digest; exact-path approval scope; authority and expiry checks; fail-closed approval adapter; sandbox-only execution; baseline recheck; atomic change checkpoints; recovery/rollback; independent reviewer plan and verification evidence.
 
-## P1 Security & Trust Plane (local reference)
+## P1/P2 Security & Trust Plane (local reference)
 
-P1 adds an integration layer around P0, not a hosted multi-tenant platform:
+P1/P2 add fail-closed reference controls around P0; they do not constitute a hosted or production multi-tenant platform:
 
-- **Identity and access:** narrow OIDC RS256 access-token validation, server-pinned HTTPS issuer/audience/JWKS, default-deny tenant-first policy, MFA/separation-of-duties rules, allow/deny audit and short-lived process-local authorization capabilities.
-- **Tenant partitioning:** authenticated tenant-derived SQLite/blob partitions and capability-checked storage facades. This is local filesystem partitioning, not independent cloud IAM or OS isolation.
-- **Encryption:** AES-256-GCM envelope encryption for artifact blob bytes through a KMS provider contract. The in-memory provider is test-only; no cloud KMS/HSM adapter is supplied. SQLite metadata, audit rows, WAL, logs, temporary files and backups remain plaintext; confidential/sensitive metadata stays blocked.
-- **Execution boundary:** worker identity and task:execute capability bound to tenant/job, immutable image digest allowlisting, and a fail-closed rootless OCI adapter requiring seccomp, gVisor/Kata and host output quotas. Runtime tests use mocks; actual OCI execution is NOT_RUN.
+- **Identity and delegation:** OIDC RS256 validation, provider-specific MFA assurance profile, Ed25519 cross-process delegated capabilities, shared atomic replay/revocation and default-deny SCIVE method policy coverage.
+- **Data protection:** injected AWS KMS adapter, SQLCipher-only metadata store with KMS-wrapped tenant DB keys, encrypted audit/log records and chunked encrypted backup/temp streams. Ordinary SQLite fallback is rejected by the encryption adapter.
+- **Execution:** bounded streaming stdout/stderr, process-tree timeout handling and signed host quota receipts layered over rootless OCI command/preflight contracts for gVisor/Kata and seccomp.
+- **Trust infrastructure:** signed dedicated-tenant database receipts, shared atomic backend-resource binding, external WORM anchoring/reconciliation contract, and release-bound infrastructure attestation plus independent human security review.
 
-P1 contributes 31 executable security tests. Together with P0, 110 tests pass locally. These results do not prove a live IdP, KMS, encrypted metadata, external audit anchoring, cloud tenant isolation, kernel/container isolation or production readiness. See [P1 foundations](docs/implementation/P1-SECURITY-FOUNDATIONS.md), [P1 threat model](docs/implementation/P1-THREAT-MODEL.md) and [P1 operator notes](docs/implementation/P1-OPERATIONS.md).
+The current reference suite contains **135 passing executable tests**, including 25 P2 hardening tests. The P0 quickstart also passes. Tests use generated keys, injected clients and provider fakes. They do not prove a live IdP, KMS/HSM, Redis, WORM/Object Lock, SQLCipher production build, rootless OCI/gVisor/Kata execution, host quota enforcement, cloud tenant isolation, hostile-workload containment, production concurrency, disaster recovery or production deployment. Production admission remains **HOLD** until signed evidence for the exact release commit and an independent human review are provided.
+
+See [P1 foundations](docs/implementation/P1-SECURITY-FOUNDATIONS.md), [P1 threat model](docs/implementation/P1-THREAT-MODEL.md), [P1 operator notes](docs/implementation/P1-OPERATIONS.md), [P2 Security & Trust hardening](docs/implementation/P2-SECURITY-HARDENING.md), and [plugin trust contract](plugin/references/security-trust-hardening.md).
 
 ## Release and routing governance
 
@@ -41,15 +43,15 @@ M00 and numbered O01–O12 are the only canonical specialist procedures. Histori
 
 ```text
 .
-├── plugin/                 # Canonical skills-only package v0.3.0
+├── plugin/                 # Canonical skills-only package v0.4.0
 │   ├── plugin.json
 │   ├── .codex-plugin/
 │   ├── skills/              # M00 + O01–O12; historical names are redirect-only aliases
 │   ├── references/          # architecture, contracts, JSON Schemas and controls
 │   └── tests/               # baseline + P0 acceptance specifications
-├── docs/implementation/    # P0/P1 architecture and threat models
-├── implementation-bundles/ # SHA-256-pinned P0/P1 source overlays
-├── scripts/                # deterministic validator and P0/P1 bundle appliers
+├── docs/implementation/    # P0/P1/P2 architecture, threat models and trust admission
+├── implementation-bundles/ # SHA-256-pinned P0/P1/P2 source overlays
+├── scripts/                # deterministic validator and P0/P1/P2 bundle appliers
 └── .github/workflows/      # static + runtime test CI
 ```
 
@@ -61,6 +63,7 @@ Python 3.11+ is required. The P0 runtime source is distributed as a SHA-256-veri
 python scripts/unpack_p0_bundle.py
 python scripts/apply_p0_hardening.py
 python scripts/apply_p1_security.py
+python scripts/apply_p1_trust_hardening.py
 python -m pip install -e ./runtime
 python scripts/validate_package.py
 python -m py_compile runtime/asfree/*.py runtime/asfree/security/*.py runtime/tests/*.py
