@@ -18,7 +18,7 @@ A.S.F.R.E.E has multiple versioned artifacts. Their versions are related by a re
 | Runtime source bundles | `implementation-bundles/*` | Each archive/overlay retains its own version and SHA-256 sidecar |
 | Legacy redirect plugin | Its own Plugin Creator metadata | Remains a compatibility pointer; never treat its version as the canonical package version |
 
-At this release boundary, plugin package version is **0.3.2** and the P1 local reference runtime remains **0.2.0**. The P0 baseline and hardening bundle identifiers are also independent versioned artifacts.
+At this release-candidate boundary, plugin package version is **0.4.0-rc.1** and the P1 local reference runtime remains **0.2.0**. P1.1 acceptance contracts do not by themselves change the runtime version or imply provider integration. The P0 baseline and hardening bundle identifiers are also independent versioned artifacts.
 
 ## 2. Source-of-truth precedence
 
