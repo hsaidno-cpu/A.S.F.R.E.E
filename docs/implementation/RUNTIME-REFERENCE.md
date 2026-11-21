@@ -11,7 +11,8 @@ The repository does not track the expanded `runtime/` workspace as a normal sour
 - P0 baseline source is represented by ordered base64 shards under `implementation-bundles/.p0-v0.3.0/` and its SHA-256 sidecar.
 - P0 hardening is a separately versioned overlay under `implementation-bundles/.p0-hardening-v0.3.1/` with its own SHA-256 sidecar.
 - P1 security is a separately versioned overlay under `implementation-bundles/.p1-security-v0.2.0/` with its own SHA-256 sidecar.
-- `scripts/unpack_p0_bundle.py`, `scripts/apply_p0_hardening.py`, and `scripts/apply_p1_security.py` reconstruct the runtime workspace from those sources.
+- P2 trust hardening is a separately versioned overlay under `implementation-bundles/.p1-trust-hardening-v0.3.0/` with its own SHA-256 sidecar.
+- `scripts/unpack_p0_bundle.py`, `scripts/apply_p0_hardening.py`, `scripts/apply_p1_security.py`, and `scripts/apply_p1_trust_hardening.py` reconstruct the runtime workspace from those sources.
 - `scripts/validate_package.py` checks package structure, schemas, fixtures, bundle integrity, and required runtime files after reconstruction.
 
 The bundle version is not the plugin package version. The current portable plugin package version and the local runtime project version are tracked separately in the manifests and package metadata.
@@ -24,6 +25,7 @@ Use Python 3.11+ (the repository CI currently runs Python 3.12). From the reposi
 python scripts/unpack_p0_bundle.py
 python scripts/apply_p0_hardening.py
 python scripts/apply_p1_security.py
+python scripts/apply_p1_trust_hardening.py
 python -m pip install -e ./runtime
 python scripts/validate_package.py
 python -m py_compile runtime/asfree/*.py runtime/asfree/security/*.py runtime/tests/*.py
@@ -35,9 +37,9 @@ These commands are a reproduction procedure; they are not evidence that a partic
 
 ## Verification limits
 
-Passing static checks and local unit tests establishes only the covered contracts and test paths. It does not establish a configured external identity provider, live cloud KMS/HSM, encryption of metadata/WAL/logs/backups, externally anchored immutable audit, independently enforced cloud tenant isolation, real rootless OCI/gVisor/Kata runtime isolation, hostile-workload containment, production availability, backup/restore, or a production deployment.
+Current P2 reference validation covers 135 executable tests, including 25 P2 trust-hardening tests. Passing static checks and local unit tests establishes only the covered contracts and test paths. It does not establish a configured external identity provider, live cloud KMS/HSM, encryption of metadata/WAL/logs/backups, live external WORM retention, independently enforced cloud tenant isolation, real rootless OCI/gVisor/Kata runtime isolation, host quota enforcement, hostile-workload containment, production availability, backup/restore, or a production deployment.
 
-The P1 execution adapter uses mocked runtime tests in the current reference baseline; actual OCI execution and hostile-workload isolation remain `NOT_RUN` until demonstrated on the target infrastructure. Production readiness remains a separate, human-approved gate.
+The P1/P2 execution adapters use mocked provider/runtime tests in the current reference baseline. Actual IdP, managed KMS, Redis, SQLCipher deployment, WORM Object Lock, OCI execution, host quota enforcement, hostile-workload isolation and infrastructure tenant separation remain `NOT_RUN` until demonstrated on target infrastructure. Production readiness remains a separate, signed human-approved admission gate.
 
 ## Change policy
 
