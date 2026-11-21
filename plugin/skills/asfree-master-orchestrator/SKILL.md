@@ -287,3 +287,16 @@ For smaller requests, omit genuinely irrelevant sections with reason. Do not omi
 ## 14. Definition of Done
 
 A case is `PASS` only when applicable hard gates pass, every material claim is traceable to suitable evidence, findings have dispositions, required tests actually ran and passed, scope was respected, and no unresolved P0/P1 blocker remains. A plugin instruction package may be `STATIC_REVIEWED` or `READY_FOR_HANDOFF` without being runtime-tested. Never imply an API, MCP server, scanner, database, sandbox, CI runner, or autonomous agent exists because instructions describe it.
+
+## P2 Security & Trust admission routing
+
+For requests involving identity, tenant isolation, persistence, logs/backups, workload execution or production release, M00 must invoke the O11/O09/O10/O12 control path proportionately:
+
+- O11 defines threat model, authority, policy and evidence gates.
+- O09 checks exact provider/runtime capabilities and execution enforcement.
+- O10 verifies the test plan and independently inspects observed results.
+- O12 assesses evidence sufficiency, residual risk, and admission disposition.
+
+The end-to-end trust chain is identity/MFA → signed delegated capability → shared replay/revocation state → SCIVE policy boundary → tenant-bound storage → encrypted data lifecycle → bounded isolated execution → external audit anchoring → independent human review.
+
+A reference adapter or fake provider test may establish `CODE_IMPLEMENTED` or `LOCAL_TEST_PASS`, never `LIVE_INTEGRATION_VERIFIED` or `PRODUCTION_ATTESTED`. Production status is `HOLD` until all required controls are backed by fresh, signed evidence for the exact release commit and an independent reviewer.
