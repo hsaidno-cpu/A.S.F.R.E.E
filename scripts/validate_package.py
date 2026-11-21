@@ -54,7 +54,7 @@ package_readme_path = PKG / "README.md"
 root_readme_path = ROOT / "README.md"
 package_readme = package_readme_path.read_text(encoding="utf-8") if package_readme_path.is_file() else ""
 root_readme = root_readme_path.read_text(encoding="utf-8") if root_readme_path.is_file() else ""
-check(bool(re.search(r"(?m)^\\*\\*Version:\\*\\*\\s+0\\.3\\.2\\s*$", package_readme)), "plugin README version must match 0.3.2")
+check("**Version:** 0.3.2" in package_readme, "plugin README version must match 0.3.2")
 check("Canonical plugin package:** v0.3.2" in root_readme, "root README plugin version must match 0.3.2")
 check("docs/implementation/RUNTIME-REFERENCE.md" in root_readme, "root README must link to the tracked runtime reference")
 check("runtime/README.md" not in root_readme, "root README contains a missing runtime/README.md link")
