@@ -157,7 +157,7 @@ if isinstance(hardening_cases, dict):
 
 release_list = release_cases.get("cases", []) if isinstance(release_cases, dict) else []
 release_ids = [case.get("id") for case in release_list if isinstance(case, dict)]
-check(len(release_list) == 5, f"expected five release-governance acceptance specifications, found {len(release_list)}")
+check(len(release_list) == 11, f"expected eleven release-governance acceptance specifications, found {len(release_list)}")
 check(len(release_ids) == len(set(release_ids)), "duplicate release-governance acceptance IDs")
 if isinstance(release_cases, dict):
     check(release_cases.get("case_count") == len(release_list), "release-governance case_count does not match cases length")
@@ -259,6 +259,110 @@ for path in runtime_required:
         continue
     if not path.exists():
         check(runtime_archive.is_file(), f"runtime source not extracted and bundle unavailable: {path.relative_to(ROOT)}")
+
+
+# Ecosystem identity registry: one canonical plugin identity per product.
+identity_registry_path = PKG / "references" / "ecosystem-identity-registry.json"
+identity_schema_path = PKG / "references" / "schemas" / "governance" / "ecosystem-identity-registry.schema.json"
+migration_policy_path = PKG / "references" / "migration-and-deprecation-policy.md"
+identity_registry = load_json(identity_registry_path)
+identity_schema = load_json(identity_schema_path)
+check(identity_registry_path.is_file(), "missing ecosystem identity registry")
+check(identity_schema_path.is_file(), "missing ecosystem identity registry JSON Schema")
+check(migration_policy_path.is_file(), "missing ecosystem migration and deprecation policy")
+check(isinstance(identity_schema, dict) and identity_schema.get("$schema") == "https://json-schema.org/draft/2020-12/schema",
+      "ecosystem identity registry schema declaration is invalid")
+check(isinstance(identity_registry, dict), "ecosystem identity registry must be a JSON object")
+
+if isinstance(identity_registry, dict):
+    check(identity_registry.get("registry_schema_version") == "1.0.0", "unsupported ecosystem identity registry schema version")
+    check(identity_registry.get("registry_id") == "asfree-ecosystem-identities", "unexpected ecosystem registry ID")
+    schema_version_const = identity_schema.get("properties", {}).get("registry_schema_version", {}).get("const") if isinstance(identity_schema, dict) else None
+    check(schema_version_const == identity_registry.get("registry_schema_version"), "ecosystem registry/schema version mismatch")
+    products = identity_registry.get("products", [])
+    check(isinstance(products, list) and len(products) >= 1, "ecosystem registry must contain at least one product")
+    product_ids = [p.get("product_id") for p in products if isinstance(p, dict)]
+    check(len(product_ids) == len(set(product_ids)), "duplicate ecosystem product_id")
+
+    all_identity_ids = []
+    all_plugin_ids = []
+    all_plugin_names = []
+    for product in products if isinstance(products, list) else []:
+        if not isinstance(product, dict):
+            check(False, "ecosystem registry product entry must be an object")
+            continue
+        plugins = product.get("plugins", [])
+        check(isinstance(plugins, list) and len(plugins) >= 1, f"product {product.get('product_id')} has no registered plugins")
+        if not isinstance(plugins, list):
+            continue
+        canonical_plugins = [p for p in plugins if isinstance(p, dict) and p.get("role") == "CANONICAL"]
+        check(len(canonical_plugins) == 1, f"product {product.get('product_id')} must have exactly one CANONICAL plugin")
+        for plugin in plugins:
+            if not isinstance(plugin, dict):
+                check(False, f"product {product.get('product_id')} has a non-object plugin entry")
+                continue
+            for key in ("identity_id", "plugin_id", "plugin_name", "version_source", "change_history_source"):
+                check(isinstance(plugin.get(key), str) and bool(plugin.get(key).strip()),
+                      f"registered plugin missing {key}: {plugin.get('plugin_name', '<unknown>')}")
+            check(plugin.get("role") in {"CANONICAL", "COMPATIBILITY_REDIRECT", "INDEPENDENT_PLUGIN"},
+                  f"invalid plugin registry role: {plugin.get('role')}")
+            all_identity_ids.append(plugin.get("identity_id"))
+            all_plugin_ids.append(plugin.get("plugin_id"))
+            all_plugin_names.append(plugin.get("plugin_name"))
+        canonical_identity_ids = {p.get("identity_id") for p in canonical_plugins}
+        for plugin in plugins:
+            if isinstance(plugin, dict) and plugin.get("role") == "COMPATIBILITY_REDIRECT":
+                check(plugin.get("target_identity_id") in canonical_identity_ids,
+                      f"redirect {plugin.get('plugin_name')} must target the sole canonical plugin for {product.get('product_id')}")
+                check(plugin.get("version_scope") == "LEGACY_REDIRECT_SHELL_ONLY",
+                      f"redirect {plugin.get('plugin_name')} must scope its SemVer to the redirect shell")
+        artifacts = product.get("independent_artifacts", [])
+        check(isinstance(artifacts, list), f"independent_artifacts must be an array for {product.get('product_id')}")
+
+    check(len(all_identity_ids) == len(set(all_identity_ids)), "duplicate plugin identity_id across ecosystem registry")
+    check(len(all_plugin_ids) == len(set(all_plugin_ids)), "duplicate Plugin Creator plugin_id across ecosystem registry")
+    check(len(all_plugin_names) == len(set(all_plugin_names)), "duplicate plugin package name across ecosystem registry")
+
+    asfree_products = [p for p in products if isinstance(p, dict) and p.get("product_id") == "ASFREE"]
+    check(len(asfree_products) == 1, "registry must contain exactly one ASFREE product record")
+    if len(asfree_products) == 1:
+        asfree = asfree_products[0]
+        check(asfree.get("canonical_repository") == "https://github.com/hsaidno-cpu/A.S.F.R.E.E",
+              "ASFREE canonical repository identity mismatch")
+        asfree_plugins = asfree.get("plugins", [])
+        canonical = next((p for p in asfree_plugins if isinstance(p, dict) and p.get("role") == "CANONICAL"), {})
+        redirect = next((p for p in asfree_plugins if isinstance(p, dict) and p.get("role") == "COMPATIBILITY_REDIRECT"), {})
+        check(canonical.get("identity_id") == "asfree-canonical-plugin", "ASFREE canonical identity_id mismatch")
+        check(canonical.get("plugin_id") == "plugins_6aff3f4ff7d48191a411f6efb0cc435a",
+              "ASFREE canonical Plugin Creator ID mismatch")
+        check(canonical.get("plugin_name") == manifest.get("name") == "asfree",
+              "ASFREE canonical package name does not match the root manifest")
+        check(canonical.get("version_source") == "plugin/plugin.json#/version",
+              "ASFREE package version source must be the canonical root manifest")
+        check("reviewed commit merged into main" in canonical.get("source_activation_rule", ""),
+              "ASFREE active-version rule must require a reviewed merge to main")
+        check(redirect.get("identity_id") == "asfree-legacy-redirect", "ASFREE legacy redirect identity_id mismatch")
+        check(redirect.get("plugin_id") == "plugins_6aff3ad51a408191a8d49b1c6003195b",
+              "ASFREE legacy redirect Plugin Creator ID mismatch")
+        check(redirect.get("plugin_name") == "asfree-master-orchestrator", "ASFREE legacy redirect name mismatch")
+        check(redirect.get("target_identity_id") == canonical.get("identity_id"),
+              "ASFREE legacy redirect must point to canonical plugin identity")
+        check(redirect.get("role") == "COMPATIBILITY_REDIRECT", "ASFREE legacy package must be redirect-only")
+        check(redirect.get("version_scope") == "LEGACY_REDIRECT_SHELL_ONLY",
+              "ASFREE legacy version scope must not be canonical product SemVer")
+        check(asfree.get("migration_policy_path") == "plugin/references/migration-and-deprecation-policy.md",
+              "ASFREE migration policy path mismatch")
+        for artifact in asfree.get("independent_artifacts", []):
+            if isinstance(artifact, dict) and artifact.get("artifact_id") in {"local-reference-runtime", "implementation-source-bundles"}:
+                check(artifact.get("version_relation") == "INDEPENDENT" and artifact.get("must_match_canonical_plugin_version") is False,
+                      f"independent artifact version plane incorrectly coupled: {artifact.get('artifact_id')}")
+
+migration_policy = migration_policy_path.read_text(encoding="utf-8") if migration_policy_path.is_file() else ""
+check("exactly one" in migration_policy and "CANONICAL" in migration_policy,
+      "migration policy must define the single-canonical-plugin invariant")
+check("quarantined" in migration_policy.lower(), "migration policy must define a quarantine path for ambiguous values")
+check("never" in migration_policy.lower() and "fallback" in migration_policy.lower(),
+      "migration policy must prohibit fallback to superseded behavior")
 
 if errors:
     print("STATIC VALIDATION: FAIL")
