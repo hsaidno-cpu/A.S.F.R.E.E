@@ -36,3 +36,28 @@ Check target ownership, permission, intended scope, data sensitivity, retention,
 - Stop or return `BLOCKED` when permission, evidence, environment, or scope is insufficient for the requested operation.
 - Preserve unrelated behavior and data. Require explicit approval for consequential changes.
 - Report `NOT_ASSESSED`, `INSUFFICIENT_EVIDENCE`, `NOT_RUN`, or `UNVERIFIABLE` rather than implying success.
+
+## P2 Security & Trust evidence gates
+
+For high-consequence systems, O11 must evaluate the end-to-end trust chain, not isolated controls:
+
+1. Verify the provider-specific OIDC issuer, audience, JWKS and MFA ACR/AMR semantics. A generic MFA boolean or an old `auth_time` is not step-up proof.
+2. Require short-lived Ed25519 delegated capabilities for cross-process delegation. Check issuer, audience, tenant, action, resource, owner/allowlisted attributes, scopes, roles, JTI, expiry, revocation and replay state at the receiving worker. Worker processes receive public verification keys, never the issuer private key.
+3. Require a complete SCIVE public-operation policy registry. A new public service method without a unique policy mapping is a release blocker. Production API/MCP adapters must expose the policy boundary, not raw service objects.
+4. Require KMS-backed encryption for all approved data paths: database pages/metadata, WAL/journal, audit, logs, temporary files, backups, telemetry and crash handling. Refuse plaintext fallback when SQLCipher or KMS is unavailable.
+5. Verify host-level resource enforcement and bounded stream capture. A post-run quota measurement or truncated in-memory string is not host enforcement.
+6. Distinguish local hash-chain integrity from independently administered WORM retention. Require signed, sequence-bound external receipts and reconciliation evidence where compliance policy requires anchoring.
+7. Require infrastructure-signed dedicated-tenant receipts and independent proof of database, IAM, network, KMS and backup isolation. A signed app-level receipt is not a substitute for cloud control-plane evidence.
+8. Require a separate human security reviewer and a release-commit-bound infrastructure attestation. Missing or stale controls produce `HOLD`.
+
+## Evidence vocabulary for P2
+
+Every claim must be classified as one of:
+- `CONTRACT_DEFINED`: protocol/schema/instruction exists.
+- `CODE_IMPLEMENTED`: implementation exists in the reference source.
+- `LOCAL_TEST_PASS`: a named local test passed, including whether the provider was faked.
+- `LIVE_INTEGRATION_VERIFIED`: actual provider and target environment were exercised with evidence.
+- `PRODUCTION_ATTESTED`: exact production release commit is covered by a trusted attestation and independent review.
+- `NOT_CONFIGURED`, `NOT_RUN`, `UNVERIFIABLE`, or `HOLD` when evidence is absent.
+
+Never promote a lower evidence state to a higher one. Test-only in-memory Redis, KMS and WORM adapters are not production controls.
