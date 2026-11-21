@@ -1,6 +1,6 @@
 # A.S.F.R.E.E — AI Systems Forensics & Reconstruction Evaluation Engine
 
-**Version:** 0.3.2  
+**Version:** 0.4.0  
 **Package type:** Portable skills-only plugin  
 **Architecture:** M00 + O01–O12; eight system layers; cross-cutting O11 Security & Governance and O12 Evaluation Intelligence  
 **Operating model:** Evidence-led supervised engineering; read-only by default  
@@ -30,10 +30,16 @@ The repository package version is declared by `plugin.json`; `.codex-plugin/plug
 - `plugin.json` — portable Agent Plugins 1.0 manifest.
 - `.codex-plugin/plugin.json` — synchronized compatibility manifest.
 - `skills/` — M00 and O01–O12 instructions.
-- `references/` — architecture, release/routing governance, data contracts, evaluation, forensic limits, lifecycle/recovery, security/authority, tool-adapter contract, and JSON Schemas.
-- `tests/acceptance-cases.json` — 30 baseline declarative behavior fixtures; `tests/release-governance-cases.json` — five release/routing fixtures. Both are specifications, not test execution evidence.
+- `references/` — architecture, release/routing governance, data contracts, evaluation, forensic limits, lifecycle/recovery, security/authority, tool-adapter contract, P2 Security & Trust hardening, and JSON Schemas.
+- `tests/acceptance-cases.json` — 30 baseline fixtures; `tests/release-governance-cases.json` — five release/routing fixtures; `tests/p2-security-hardening-cases.json` — 25 P2 Security & Trust fixtures. These are acceptance specifications; executed test evidence is recorded separately.
 - `LICENSE` — PolyForm Noncommercial 1.0.0.
 - `TRADEMARKS.md` — separate brand and trademark notice.
+
+## P2 Security & Trust hardening
+
+P2 adds contracts for provider-conformant MFA, Ed25519 cross-process delegated capabilities, shared atomic replay/revocation and tenant binding, SCIVE operation-level policy coverage, KMS/SQLCipher encrypted data lifecycle, bounded OCI streaming and host quota receipts, external WORM anchoring, infrastructure tenant receipts, and release-bound independent human security admission.
+
+The runtime components are reference adapters. They do not configure or deploy an IdP, KMS/HSM, Redis, WORM service, SQLCipher build, OCI runtime, gVisor/Kata, host quota controller, or cloud tenant infrastructure. See [P2 Security & Trust Hardening](references/security-trust-hardening.md). Production remains HOLD until live provider evidence and independent review exist.
 
 ## Capability boundary
 
