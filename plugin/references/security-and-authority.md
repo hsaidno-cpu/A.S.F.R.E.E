@@ -42,3 +42,10 @@ Authentication/authorization; target and tenant isolation; credentials/secrets; 
 ## Finding distinctions
 
 A possible attack path is not a confirmed vulnerability. Use `OBSERVED`, `SUPPORTED`, `HYPOTHESIS`, `DISPUTED`, or `UNKNOWN` appropriately. Avoid exposing exploit details or sensitive findings unnecessarily; use responsible disclosure for third-party targets.
+## P1.1 security-to-production gate
+
+For any operation touching identity, MFA, delegated authority, encrypted persistence, untrusted execution, tenant data, or audit integrity, apply the normative [P1.1 Security-to-Production Readiness Contract](p1.1-security-production-readiness.md).
+
+Security decisions must bind authenticated subject, tenant, action, resource, target version, environment, assurance context and expiry. A signed delegation does not replace current policy evaluation. Every SCIVE transition, including proposal creation, requires an authenticated policy decision. A caller-provided actor string is attribution only.
+
+Do not infer production readiness from source inspection, a mock, a passing unit test, or a local filesystem partition. Require provider and host read-back, adversarial/concurrency tests, restore/key lifecycle evidence, external WORM anchoring, infrastructure tenant isolation, and independent signed human review. A missing hard gate is HOLD/BLOCKED.
