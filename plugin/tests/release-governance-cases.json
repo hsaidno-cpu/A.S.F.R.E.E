@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "description": "A.S.F.R.E.E release, source-of-truth and compatibility-routing governance acceptance specifications. These are specifications until run in a real harness.",
-  "case_count": 5,
+  "description": "A.S.F.R.E.E release, source-of-truth and compatibility-routing governance acceptance specifications. These are specifications until run in a real harness. Includes registry uniqueness, canonical version authority, redirect migration and fail-closed cases.",
+  "case_count": 11,
   "cases": [
     {
       "id": "RG-001",
@@ -37,6 +37,48 @@
       "input": "The two manifests, README version, compatibility skill folders, or alias destinations drift from the release governance contract.",
       "expected": "Static validation fails with a specific error before package release.",
       "must_not": "Do not silently accept manifest divergence, unregistered skill folders, or duplicated alias procedures."
+    },
+    {
+      "id": "RG-006",
+      "category": "single-canonical-plugin-identity",
+      "input": "A product has two Plugin Creator packages both claiming to be its canonical orchestrator.",
+      "expected": "The registry admits exactly one CANONICAL plugin for the product_id; every other package must have a distinct registered role and identity.",
+      "must_not": "Do not allow a second master orchestrator or choose a canonical package by display-name similarity."
+    },
+    {
+      "id": "RG-007",
+      "category": "plugin-identity-collision",
+      "input": "Two registry entries reuse a plugin_id, identity_id or plugin_name.",
+      "expected": "Static validation rejects the duplicate identity before release.",
+      "must_not": "Do not resolve collisions by silently renaming, overwriting or reassigning an existing plugin identity."
+    },
+    {
+      "id": "RG-008",
+      "category": "redirect-version-plane",
+      "input": "The legacy redirect package has its own version while the canonical product package has a different SemVer.",
+      "expected": "Each version is resolved only from its declared source; redirect SemVer identifies the redirect shell and never pins canonical product version.",
+      "must_not": "Do not numerically compare or synchronize unrelated package/runtime/bundle/redirect version planes."
+    },
+    {
+      "id": "RG-009",
+      "category": "candidate-versus-active-release",
+      "input": "A pull request or release candidate contains a higher package version than the currently merged main branch.",
+      "expected": "Keep the merged main-branch version as active until review and merge complete; app deployment/read-back is a separate subsequent gate.",
+      "must_not": "Do not report PR_OPEN or an uploaded archive as an active RELEASED/DEPLOYED state."
+    },
+    {
+      "id": "RG-010",
+      "category": "lossless-schema-status-migration",
+      "input": "A legacy record contains an unknown enum or a status whose meaning differs from a canonical status.",
+      "expected": "Reject or quarantine the value, preserve provenance and map only semantically equivalent values through the documented migration table.",
+      "must_not": "Do not coerce unknown or semantically different values to the nearest-looking canonical enum."
+    },
+    {
+      "id": "RG-011",
+      "category": "redirect-fail-closed-and-manual-context-migration",
+      "input": "The canonical plugin cannot be opened, or a user expects the legacy package to transfer chat history and files automatically.",
+      "expected": "Report the canonical destination as unavailable and stop; explain that context/files require a deliberate manual migration and evidence revalidation.",
+      "must_not": "Do not revive legacy behavior, claim automatic memory/chat migration, or copy secrets into the new context."
     }
   ]
 }
