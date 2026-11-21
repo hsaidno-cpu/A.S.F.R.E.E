@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asfree.dev/schemas/security/host-quota-receipt.schema.json",
+  "title": "A.S.F.R.E.E Host Quota Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "receipt_id",
+    "tenant_id",
+    "job_id",
+    "host_id",
+    "runtime_id",
+    "image_digest",
+    "policy_digest",
+    "started_at",
+    "ended_at",
+    "limits",
+    "observed",
+    "exit_status",
+    "kid",
+    "signature"
+  ],
+  "properties": {
+    "receipt_id": {
+      "type": "string",
+      "minLength": 16
+    },
+    "tenant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "job_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "host_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "runtime_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "image_digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "policy_digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "limits": {
+      "type": "object",
+      "required": [
+        "cpu_millis",
+        "memory_bytes",
+        "pids",
+        "wall_time_ms",
+        "stdout_bytes",
+        "stderr_bytes"
+      ],
+      "properties": {
+        "cpu_millis": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "memory_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pids": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "wall_time_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "stdout_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stderr_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "observed": {
+      "type": "object",
+      "required": [
+        "cpu_millis",
+        "peak_memory_bytes",
+        "peak_pids",
+        "wall_time_ms",
+        "stdout_bytes",
+        "stderr_bytes"
+      ],
+      "properties": {
+        "cpu_millis": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "peak_memory_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "peak_pids": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "wall_time_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stdout_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stderr_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "exit_status": {
+      "type": "integer"
+    },
+    "quota_exceeded": {
+      "type": "boolean"
+    },
+    "kid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "signature": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]+$"
+    }
+  }
+}
