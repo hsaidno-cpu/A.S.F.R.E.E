@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/trust/encrypted-stream-header.schema.json",
+  "title": "Authenticated encrypted backup/temp stream header",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "ASFREE-ENC-STREAM-1"
+    },
+    "algorithm": {
+      "const": "AES-256-GCM"
+    },
+    "tenant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "object_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "encrypted_data_key": {
+      "type": "string",
+      "minLength": 16
+    },
+    "nonce": {
+      "type": "string",
+      "minLength": 16
+    },
+    "aad_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "key_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "key_version": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "format",
+    "algorithm",
+    "tenant_id",
+    "object_id",
+    "purpose",
+    "schema_version",
+    "encrypted_data_key",
+    "nonce",
+    "aad_sha256",
+    "key_ref",
+    "key_version"
+  ]
+}
