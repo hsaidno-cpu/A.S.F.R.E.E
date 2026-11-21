@@ -8,7 +8,7 @@ A.S.F.R.E.E is a modular intelligence system for authorized forensic analysis, a
 
 ## Current baseline
 
-- **Canonical plugin package:** v0.3.0 in [`plugin/`](plugin/).
+- **Canonical plugin package:** v0.3.2 in [`plugin/`](plugin/).
 - **Architecture:** one M00 master orchestrator and twelve specialist skills O01–O12.
 - **P0 reference runtime:** local Python implementation of Evidence Management, Master Orchestration & Contract Engine, and Supervised Change & Independent Verification.
 - **Acceptance specifications:** 30 baseline + 37 P0 + 8 P0 hardening + 33 P1 security cases. The executable runtime suite has 79 P0 + 31 P1 tests (110 total); specifications and executed tests remain distinct.
@@ -31,6 +31,12 @@ P1 adds an integration layer around P0, not a hosted multi-tenant platform:
 
 P1 contributes 31 executable security tests. Together with P0, 110 tests pass locally. These results do not prove a live IdP, KMS, encrypted metadata, external audit anchoring, cloud tenant isolation, kernel/container isolation or production readiness. See [P1 foundations](docs/implementation/P1-SECURITY-FOUNDATIONS.md), [P1 threat model](docs/implementation/P1-THREAT-MODEL.md) and [P1 operator notes](docs/implementation/P1-OPERATIONS.md).
 
+## Release and routing governance
+
+The portable plugin package is versioned independently from the local reference runtime and its source bundles. `plugin/plugin.json` is the repository's package-version authority; the compatibility manifest and package README must match it. Plugin Creator is a separate app-release registry and must be updated from a reviewed source snapshot, then read back before the app is called synchronized.
+
+M00 and numbered O01–O12 are the only canonical specialist procedures. Historical unnumbered skill folders are retained only as redirect-only compatibility aliases. See [Release, Source-of-Truth & Routing Governance](docs/architecture/RELEASE-AND-ROUTING-GOVERNANCE.md).
+ 
 ## Repository layout
 
 ```text
@@ -38,13 +44,9 @@ P1 contributes 31 executable security tests. Together with P0, 110 tests pass lo
 ├── plugin/                 # Canonical skills-only package v0.3.0
 │   ├── plugin.json
 │   ├── .codex-plugin/
-│   ├── skills/              # M00 + O01–O12 and compatibility aliases
+│   ├── skills/              # M00 + O01–O12; historical names are redirect-only aliases
 │   ├── references/          # architecture, contracts, JSON Schemas and controls
 │   └── tests/               # baseline + P0 acceptance specifications
-├── runtime/                # Separate local Python reference implementation
-│   ├── asfree/              # evidence, contracts, orchestration, security and changes
-│   ├── tests/               # executable unit/recovery tests
-│   └── examples/            # end-to-end local quickstart
 ├── docs/implementation/    # P0/P1 architecture and threat models
 ├── implementation-bundles/ # SHA-256-pinned P0/P1 source overlays
 ├── scripts/                # deterministic validator and P0/P1 bundle appliers
@@ -72,7 +74,7 @@ The tests use the Python standard library; no third-party runtime dependency is 
 
 P0 remains an executable **local, single-node, workspace-bounded reference**. P1 adds local OIDC validation and policy facades, tenant-partitioned stores, blob envelope encryption, and a fail-closed OCI execution adapter. It is still not a deployed or production-verified service. There is no configured IdP, live cloud KMS, encrypted SQLite metadata/WAL/logs/backups, externally anchored WORM audit, independently isolated cloud tenant storage, provisioned OCI runtime/quota provider, HTTP/MCP service, worker fleet, HA, backup/restore, retention/deletion or production release. The authorization capability is process-local; the legacy P0 ChangeManager actor-string interface still needs a request-bound policy adapter. Confidential/sensitive metadata remains rejected. Actual OCI execution and hostile-workload isolation are NOT_RUN. Staging and production changes remain disabled.
 
-See [`runtime/README.md`](runtime/README.md), [`P0-FOUNDATIONS.md`](docs/implementation/P0-FOUNDATIONS.md), [`THREAT-MODEL.md`](docs/implementation/THREAT-MODEL.md), and the P1 documents linked above.
+See [Local Reference Runtime Source & Reproduction Notes](docs/implementation/RUNTIME-REFERENCE.md) for the exact bundle reconstruction sequence and verification limits.
 
 ## Contributing and license
 
