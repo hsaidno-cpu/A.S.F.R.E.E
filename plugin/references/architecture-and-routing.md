@@ -49,4 +49,10 @@ The canonical alias map and release-version authority are maintained in [Release
 ## Release synchronization boundary
 
 The repository package manifest is the source version authority for a portable package release. The compatibility manifest and package README must match it. The Plugin Creator app release is a separate deployed artifact and must be updated from the reviewed source package, then verified by metadata and file read-back. Runtime and source-bundle versions are independent version planes. A commit, open pull request, package upload, app release, and production deployment are distinct lifecycle states.
+## P1.1 cross-layer security contract
 
+O11 governs the trust policy and hard gates across L01–L08; O09 owns runtime/provider capability evidence; O12 evaluates validity, test coverage and residual risk; M00 retains case-level arbitration. No additional case-level orchestrator is introduced.
+
+The security facade must sit at the operation boundary rather than only at the API entry point. Every SCIVE transition is separately authorized and tenant-bound. Cross-process delegation must be signed, audience/action/resource-bound, attenuable, expiring, replay-protected and revocable. Sensitive storage coverage includes metadata, WAL, temp, logs, audit and backup, not just blob content.
+
+Production execution is not established by container flags or a command builder. Require host-provisioned sandbox and quota enforcement, bounded streaming, real tenant isolation tests, external WORM read-back, concurrency testing and independent human review. See [P1.1 Security-to-Production Readiness Contract](p1.1-security-production-readiness.md).
