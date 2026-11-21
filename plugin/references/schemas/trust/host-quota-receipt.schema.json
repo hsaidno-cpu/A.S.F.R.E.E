@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/trust/host-quota-receipt.schema.json",
+  "title": "Signed host filesystem quota enforcement receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "receipt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tenant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "job_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "max_bytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_files": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "enforcement_mode": {
+      "enum": [
+        "xfs-project-quota",
+        "ext4-project-quota",
+        "btrfs-qgroup",
+        "zfs-dataset"
+      ]
+    },
+    "issued_at": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "expires_at": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "signature": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "receipt_id",
+    "tenant_id",
+    "job_id",
+    "path",
+    "max_bytes",
+    "max_files",
+    "enforcement_mode",
+    "issued_at",
+    "expires_at",
+    "signature"
+  ]
+}
