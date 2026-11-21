@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/trust/worm-anchor-receipt.schema.json",
+  "title": "Externally anchored WORM audit receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tenant_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{24}$"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "previous_anchor_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "immutable_object_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retention_mode": {
+      "enum": [
+        "COMPLIANCE",
+        "GOVERNANCE"
+      ]
+    },
+    "retention_until": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "signature": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "provider",
+    "tenant_fingerprint",
+    "sequence",
+    "event_id",
+    "event_hash",
+    "previous_anchor_hash",
+    "immutable_object_version",
+    "retention_mode",
+    "retention_until",
+    "idempotency_key",
+    "signature"
+  ]
+}
