@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asfree.dev/schemas/security/external-audit-anchor.schema.json",
+  "title": "A.S.F.R.E.E External Audit Anchor",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "anchor_id",
+    "tenant_id",
+    "case_id",
+    "sequence",
+    "previous_hash",
+    "record_hash",
+    "anchored_at",
+    "kid",
+    "signature",
+    "provider_ref",
+    "immutability_mode",
+    "retain_until"
+  ],
+  "properties": {
+    "anchor_id": {
+      "type": "string",
+      "minLength": 16
+    },
+    "tenant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "previous_hash": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(sha256:)?[a-f0-9]{64}$"
+    },
+    "record_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "anchored_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "kid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "signature": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "provider_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "immutability_mode": {
+      "enum": [
+        "COMPLIANCE",
+        "GOVERNANCE_LOCK",
+        "RETENTION_LOCK"
+      ]
+    },
+    "retain_until": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "readback_verified": {
+      "type": "boolean"
+    }
+  }
+}
