@@ -1,0 +1,182 @@
+{
+  "schema_version": "1.0.0",
+  "description": "P2 Security & Trust hardening acceptance specifications. The executable local reference suite contains matching test coverage; provider/infrastructure live status remains separate.",
+  "case_count": 25,
+  "cases": [
+    {
+      "id": "P2-SEC-001",
+      "category": "identity-mfa-profile",
+      "input": "A sensitive identity operation has no trusted provider-specific MFA profile.",
+      "expected": "Deny the operation; a generic caller boolean must not satisfy step-up MFA.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-002",
+      "category": "identity-stale-auth",
+      "input": "MFA auth_time is older than the configured freshness threshold.",
+      "expected": "Reject the stale attestation and require re-authentication.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-003",
+      "category": "delegation-cross-process",
+      "input": "A signed Ed25519 capability is issued by one process and verified by an independent worker keyset.",
+      "expected": "Verify using public-key trust only; never share the issuer private signing key with workers.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-004",
+      "category": "delegation-audience-tamper",
+      "input": "A delegated capability has a different audience or modified payload.",
+      "expected": "Reject signature or issuer/audience mismatch.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-005",
+      "category": "delegation-replay",
+      "input": "A one-time delegated capability is submitted concurrently by separate workers.",
+      "expected": "Only one atomic consume succeeds; later or revoked attempts fail closed.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-006",
+      "category": "delegation-signed-attributes",
+      "input": "A worker receives resource attributes needed for separation-of-duties checks.",
+      "expected": "Use only allowlisted signed resource attributes, not caller-supplied mutable metadata.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-007",
+      "category": "scive-method-coverage",
+      "input": "A public Evidence, Orchestration or Change method has no unique policy registry mapping.",
+      "expected": "Coverage report identifies it and release gate returns HOLD.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-008",
+      "category": "scive-change-proposal-authorizer",
+      "input": "A caller invokes ChangeManager.propose_change without an internal request-bound authorizer.",
+      "expected": "Reject before persisting a proposal; do not rely only on adapter convention.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-009",
+      "category": "oidc-provider-conformance",
+      "input": "OIDC discovery issuer, JWKS or algorithm does not match the server-pinned profile.",
+      "expected": "Conformance fails; do not follow token-controlled key URLs or accept weaker algorithms.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-010",
+      "category": "kms-tenant-context",
+      "input": "An injected KMS client receives a DEK request for a tenant/object.",
+      "expected": "Bind tenant, object and purpose in provider encryption context; no raw key material is logged.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-011",
+      "category": "sqlcipher-no-downgrade",
+      "input": "SQLCipher library is unavailable and ordinary sqlite is present.",
+      "expected": "Fail closed; never open the database in plaintext mode.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-012",
+      "category": "db-key-sidecar",
+      "input": "A tenant database key sidecar is created or rewrapped.",
+      "expected": "Persist only KMS-wrapped key, tenant-bound context and authenticated metadata.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-013",
+      "category": "db-key-concurrency",
+      "input": "Two threads or processes initialize tenant DB encryption concurrently.",
+      "expected": "Inter-process coordination returns one consistent key state; no competing key sidecars.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-014",
+      "category": "encrypted-log-sink",
+      "input": "Structured audit/log records are sent to a storage backend.",
+      "expected": "Backend receives ciphertext envelope, not plaintext payload.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-015",
+      "category": "encrypted-backup-tamper",
+      "input": "An encrypted stream backup is truncated or has an altered authentication tag.",
+      "expected": "Reject integrity failure and abort transactional plaintext sink; publish no partial plaintext.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-016",
+      "category": "stream-output-flood",
+      "input": "An untrusted workload floods stdout/stderr beyond retained log caps.",
+      "expected": "Drain streams without unbounded memory; record bytes seen and truncation.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-017",
+      "category": "host-quota-receipt",
+      "input": "A streaming OCI job has no valid, current, correctly scoped host quota receipt.",
+      "expected": "Do not spawn the workload.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-018",
+      "category": "worm-anchor-receipt",
+      "input": "A durable access event must be anchored externally and reconciled.",
+      "expected": "Verify signed immutable receipt, sequence and hashes; hold protected operations if unavailable.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-019",
+      "category": "worm-test-double-boundary",
+      "input": "An in-memory WORM test double is used in a production policy path.",
+      "expected": "Refuse to treat the test anchor as compliance-grade external immutability.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-020",
+      "category": "tenant-dedicated-receipt",
+      "input": "Infrastructure provider returns a signed dedicated database receipt.",
+      "expected": "Verify tenant, IAM/network/KMS references, freshness, isolation mode and signature.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-021",
+      "category": "tenant-resource-cross-reuse",
+      "input": "Different Redis clients claim the same physical backend resource for different tenants.",
+      "expected": "Shared atomic binding registry rejects the second tenant.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-022",
+      "category": "tenant-binding-backend-down",
+      "input": "Shared infrastructure binding registry is unavailable.",
+      "expected": "Fail closed; do not fall back to a local process map only.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-023",
+      "category": "production-attestation",
+      "input": "Infrastructure attestation omits or stales a required control.",
+      "expected": "ProductionAdmissionGate returns HOLD for the exact release commit.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-024",
+      "category": "human-security-review",
+      "input": "Reviewer is same as author, scope incomplete or review signature invalid.",
+      "expected": "Production admission rejects the review.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    },
+    {
+      "id": "P2-SEC-025",
+      "category": "production-admission-two-keys",
+      "input": "Infrastructure and human review are signed under separate trust keys and exact release hash.",
+      "expected": "Admission may pass only when every required evidence record is valid; this does not deploy infrastructure.",
+      "must_not": "Do not claim live provider or production deployment from a mocked adapter or local unit test."
+    }
+  ]
+}
