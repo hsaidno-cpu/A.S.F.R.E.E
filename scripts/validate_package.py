@@ -29,7 +29,7 @@ if not isinstance(manifest, dict):
     print("- plugin manifest is unavailable")
     sys.exit(1)
 check(manifest.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "plugin manifest schema is missing/incorrect")
-EXPECTED_PLUGIN_VERSION = "0.3.2"
+EXPECTED_PLUGIN_VERSION = "0.4.0-rc.1"
 check(manifest.get("version") == EXPECTED_PLUGIN_VERSION, f"canonical plugin manifest must be version {EXPECTED_PLUGIN_VERSION}")
 check(bool(re.fullmatch(r"[a-z0-9](?:[a-z0-9.-]{0,62}[a-z0-9])?", manifest.get("name", ""))), "invalid plugin name")
 check(bool(re.fullmatch(r"\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?", manifest.get("version", ""))), "plugin version is not strict SemVer")
@@ -54,8 +54,8 @@ package_readme_path = PKG / "README.md"
 root_readme_path = ROOT / "README.md"
 package_readme = package_readme_path.read_text(encoding="utf-8") if package_readme_path.is_file() else ""
 root_readme = root_readme_path.read_text(encoding="utf-8") if root_readme_path.is_file() else ""
-check("**Version:** 0.3.2" in package_readme, "plugin README version must match 0.3.2")
-check("Canonical plugin package:** v0.3.2" in root_readme, "root README plugin version must match 0.3.2")
+check(f"**Version:** {EXPECTED_PLUGIN_VERSION}" in package_readme, "plugin README version must match canonical manifest")
+check("Canonical plugin candidate:** v0.4.0-rc.1" in root_readme, "root README candidate version must match canonical manifest")
 check("docs/implementation/RUNTIME-REFERENCE.md" in root_readme, "root README must link to the tracked runtime reference")
 check("runtime/README.md" not in root_readme, "root README contains a missing runtime/README.md link")
 
@@ -123,7 +123,7 @@ schema_files = sorted((PKG / "references" / "schemas").rglob("*.json"))
 for schema_path in schema_files:
     schema = load_json(schema_path)
     check(isinstance(schema, dict) and schema.get("$schema") == "https://json-schema.org/draft/2020-12/schema", f"invalid/missing JSON Schema declaration: {schema_path.relative_to(ROOT)}")
-check(len(schema_files) >= 25, f"expected at least 25 P0/P1 JSON schemas, found {len(schema_files)}")
+check(len(schema_files) >= 29, f"expected at least 29 P0/P1/P1.1 JSON schemas, found {len(schema_files)}")
 p0_runtime_schemas = sorted((PKG / "references" / "schemas" / "runtime").glob("*.json"))
 check(len(p0_runtime_schemas) == 5, f"expected five P0 runtime schemas, found {len(p0_runtime_schemas)}")
 
@@ -209,7 +209,25 @@ check(len(p1_ids) == len(set(p1_ids)), "duplicate P1 security acceptance IDs")
 if isinstance(p1_cases, dict):
     check(p1_cases.get("case_count") == len(p1_list), "P1 security case_count does not match cases length")
 p1_security_schemas = sorted((PKG/"references"/"schemas"/"security").glob("*.json"))
-check(len(p1_security_schemas) == 5, f"expected five P1 security schemas, found {len(p1_security_schemas)}")
+check(len(p1_security_schemas) == 9, f"expected nine P1.0/P1.1 security schemas, found {len(p1_security_schemas)}")
+
+p11_required_schemas = {"delegated-capability.schema.json", "host-quota-receipt.schema.json", "external-audit-anchor.schema.json", "human-security-review.schema.json"}
+found_p11_schemas = {p.name for p in p1_security_schemas}
+check(p11_required_schemas.issubset(found_p11_schemas), f"missing P1.1 security schemas: {sorted(p11_required_schemas-found_p11_schemas)}")
+p11_cases = load_json(PKG/"tests"/"p1-security-hardening-cases.json")
+p11_list = p11_cases.get("cases", []) if isinstance(p11_cases, dict) else []
+p11_ids = [case.get("id") for case in p11_list if isinstance(case, dict)]
+check(len(p11_list) == 20, f"expected 20 P1.1 security acceptance specifications, found {len(p11_list)}")
+check(len(p11_ids) == len(set(p11_ids)), "duplicate P1.1 security acceptance IDs")
+if isinstance(p11_cases, dict):
+    check(p11_cases.get("schema_version") == "1.0.0", "P1.1 acceptance schema_version must be 1.0.0")
+    check(p11_cases.get("case_count") == len(p11_list), "P1.1 acceptance case_count does not match cases length")
+    check(p11_cases.get("execution_status") == "SPECIFICATION_ONLY", "P1.1 acceptance fixture status must remain SPECIFICATION_ONLY")
+check(all(case.get("execution_status") == "SPECIFICATION_ONLY" for case in p11_list if isinstance(case, dict)), "P1.1 acceptance cases must not imply test execution")
+p11_reference = PKG/"references"/"p1.1-security-production-readiness.md"
+p11_reconstruction = ROOT/"docs"/"implementation"/"P1.1-SECURITY-RECONSTRUCTION.md"
+check(p11_reference.is_file(), "missing P1.1 security-to-production readiness contract")
+check(p11_reconstruction.is_file(), "missing P1.1 reconstruction evidence-boundary document")
 
 try:
     runtime_project = tomllib.loads((ROOT/"runtime"/"pyproject.toml").read_text(encoding="utf-8"))
@@ -251,5 +269,5 @@ print(
     "STATIC VALIDATION: PASS — "
     f"{len(required_canonical)} canonical skills/{len(skill_dirs)} total skill folders, "
     f"{len(schema_files)} JSON schemas, "
-    f"{len(base_cases['cases'])} baseline cases, {len(p0_cases['cases'])} P0 cases, {len(hardening_list)} P0 hardening cases, {len(p1_list)} P1 security cases, {len(p0_runtime_schemas)} P0 runtime schemas, {len(p1_security_schemas)} P1 security schemas"
+    f"{len(base_cases['cases'])} baseline cases, {len(p0_cases['cases'])} P0 cases, {len(hardening_list)} P0 hardening cases, {len(p1_list)} P1 security cases, {len(p11_list)} P1.1 specification cases, {len(p0_runtime_schemas)} P0 runtime schemas, {len(p1_security_schemas)} P1 security schemas"
 )
