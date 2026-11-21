@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/trust/scive-operation-coverage.schema.json",
+  "title": "SCIVE public operation policy coverage report",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "report_version": {
+      "const": "1.0.0"
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "evidence",
+          "orchestration",
+          "changes"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "registered_operation_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "unmapped_public_methods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "service": {
+            "type": "string",
+            "minLength": 1
+          },
+          "method": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "service",
+          "method"
+        ]
+      }
+    },
+    "duplicate_routes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "missing_policy_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "HOLD"
+      ]
+    }
+  },
+  "required": [
+    "report_version",
+    "services",
+    "registered_operation_ids",
+    "unmapped_public_methods",
+    "duplicate_routes",
+    "missing_policy_ids",
+    "status"
+  ]
+}
