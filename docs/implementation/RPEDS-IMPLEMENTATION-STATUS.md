@@ -6,7 +6,7 @@
 - Baseline portable package candidate: 0.4.0-rc.1.
 - Proposed package candidate: 0.5.0-rc.1.
 - Delivery method: feature branch and pull request; no direct edit to main.
-- RPEDS package scope: one bounded control-plane skill, four reference modules, six JSON Schemas, acceptance specifications, M00/O12/architecture/data-contract integration and documentation.
+- RPEDS package scope: one bounded control-plane skill, four reference modules, seven JSON Schemas including the work-item contract, 24 behavioral acceptance specifications, 14 schema fixtures, semantic dependency/reference checks, M00/O03–O12 conditional routing and documentation.
 
 ## What this change does
 
@@ -26,10 +26,11 @@ Notion databases are a human-operable tracking surface. The portable plugin is a
 
 ## Verification plan
 
-1. Static package validator checks manifest parity, skill registration, RPEDS module presence, six schemas and acceptance fixture shape.
-2. GitHub Actions runs the existing checksum-verified P0/P1 reconstruction, runtime test suite, package validator and quickstart on the exact PR head.
-3. PR review inspects routing and responsibility boundaries, schema quality, evidence claims and version changes.
-4. After merge (not part of this change), the installed Plugin Creator package must be independently updated and read back against the merged source commit.
-5. Runtime scheduler, persistence, automatic sync or dynamic roadmap actions require a separately scoped implementation and test project.
+1. Static package validator checks manifest parity, skill registration, seven RPEDS schemas and behavioral acceptance fixture shape.
+2. The RPEDS contract validator meta-validates all Draft 2020-12 schemas, executes 14 positive/negative schema fixtures, and executes four semantic graph scenarios for acyclic dependencies, cycles, duplicate IDs and dangling references.
+3. GitHub Actions runs the existing checksum-verified P0/P1 reconstruction, RPEDS contract validation, runtime test suite, package validator and quickstart on the exact PR head.
+4. PR review inspects routing and responsibility boundaries, schema quality, evidence claims and version changes.
+5. After merge (not part of this change), the installed Plugin Creator package must be independently updated and read back against the merged source commit.
+6. Runtime scheduler, persistence, automatic sync or dynamic roadmap actions require a separately scoped implementation and test project.
 
 Current execution status must be read from the exact PR/CI run. Specification presence is not test execution or deployment evidence.
