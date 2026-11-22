@@ -149,14 +149,33 @@ The portable RPEDS package is a skills-and-contract specification. A persistent 
 
 ## Trigger precedence and conditional specialist routes
 
-RPEDS is selected only when the user needs lifecycle governance across multiple phases, milestones, iterations, or revisions. Do not activate it for a standalone O12 evaluation, a one-off bug fix, a one-time architecture review, a short checklist, or a direct implementation request whose scope does not require roadmap state. In those cases, M00 routes to the relevant O01–O12 specialist and may create a roadmap only if the user explicitly needs longitudinal governance.
+RPEDS is selected only for lifecycle governance across multiple phases, milestones, iterations or roadmap revisions. A one-off checklist, standalone evaluation, one-time architecture review, single bug fix or direct implementation request without longitudinal state does not activate RPEDS.
 
-Select specialists by required output, not by a fixed bundle:
-- O01/O02 for verified baseline, decomposition and dependency mapping;
-- O03 when value preservation or positive capability trade-offs are material;
-- O04 when risk, failure, misuse or adversarial analysis is material;
-- O05 when more than one feasible adaptation path must be compared;
-- O06 when reproduced defects or unexplained variance drive a replan;
-- O07/O08/O09/O10/O11/O12 for the bounded responsibilities already assigned to them.
+### Route selection
 
-M00 arbitrates overlapping triggers, resolves duplicate ownership, and receives every material handoff. RPEDS never invokes all specialists by default and never claims a separate agent ran unless the host supplies invocation evidence.
+M00 decides each route separately. Use the route only when its distinct output can change a preservation constraint, risk posture, candidate ranking, diagnosis, acceptance gate or next action.
+
+| Specialist | Select when | Output required by RPEDS |
+|---|---|---|
+| O03 | A roadmap/revision change may destroy or alter evidenced capability, stakeholder value, differentiator, reusable behavior or compatibility. | Verified-vs-potential value register; hard/soft preservation invariants; regression/acceptance conditions; enhancement opportunities. |
+| O04 | A credible adverse scenario, security/privacy exposure, dependency/failure mode, misuse path or material side effect must influence roadmap design/approval. | Scenario-based risk register; epistemic status; severity/likelihood separated; controls, residual risk and safe verification route. |
+| O05 | Two or more feasible roadmap paths, versions or adaptation alternatives must be chosen on normalized criteria. | Comparable candidate set; criteria and hard gates; trade-offs/deltas; missing data; sensitivity and conditional recommendation. |
+| O06 | An observed/reported mismatch, failed behavior, regression or unexplained variance must be diagnosed before planning a correction. | Valid test oracle; expected/observed record; reproduction state; competing causal hypotheses; falsification path and root-cause confidence. |
+
+### Decision and sequencing rules
+
+1. Establish current source/version/baseline through O01/O02 when needed.
+2. Select O03 only when a preservation/value question exists; O04 only when an adverse-risk question exists. They may run in parallel on one authorized baseline only when their outputs are independent.
+3. Select O06 only for an observed anomaly or bounded suspicion requiring diagnosis. An unconfirmed suspicion remains unconfirmed; a hypothesis is not a defect.
+4. Select O05 only after real candidates and the decision question are defined. Feed it O03 preservation constraints and O04 risk constraints when relevant. If candidates cannot be normalized, report non-comparability.
+5. Route material threats/security decisions to O11; actual test execution/independent verification to O10; supported runtime evidence to O09; evaluation criteria, measurement validity and judgment to O12; accepted engineering changes to O07/O08.
+6. No route may self-approve, mutate a target, accept a risk, mark a milestone PASS or bypass M00/human authority.
+
+### Routing observability and stop conditions
+
+For each O03–O06 record separately:
+- `route_decision`: `REQUIRED`, `OPTIONAL`, `NOT_REQUIRED` or `UNRESOLVED`, with rationale.
+- `execution_state`: `INVOKED`, `PROCEDURE_APPLIED`, `BEHAVIOR_ONLY`, `NOT_RUN`, `BLOCKED` or `UNAVAILABLE`.
+- `handoff_ref`, evidence refs, limitations, next owner and acceptance criterion.
+
+Never claim `INVOKED` without host evidence. A materially triggered route lacking authority, source, data or environment remains `UNRESOLVED`/`BLOCKED`, not silently skipped. Standalone evaluation routes to O12; one-off defect/remediation routes to O06 then O07/O08 as appropriate; a simple checklist has no RPEDS lifecycle overhead. M00 arbitrates overlap, prevents duplicate deliverables and owns final synthesis.
