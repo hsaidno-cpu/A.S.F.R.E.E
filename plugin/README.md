@@ -31,6 +31,8 @@ The repository package version is declared by `plugin.json`; `.codex-plugin/plug
 - `.codex-plugin/plugin.json` — synchronized compatibility manifest.
 - `skills/` — M00 and O01–O12 instructions.
 - `references/` — architecture, release/routing governance, P1.1 security-to-production readiness, data contracts, evaluation, forensic limits, lifecycle/recovery, security/authority, tool-adapter contract, and JSON Schemas.
+- `references/schemas/rpeds/` — seven Draft 2020-12 contracts for roadmap, milestone, iteration, progress, adaptation, risk and work item.
+- `tests/rpeds-schema-fixtures.json` and `scripts/validate_rpeds_contracts.py` — executable schema and graph-integrity checks; 24 behavioral acceptance cases remain specification-only.
 - `tests/acceptance-cases.json` — 30 baseline fixtures; `tests/release-governance-cases.json` — five release/routing fixtures; `tests/p1-security-hardening-cases.json` — 20 P1.1 security acceptance specifications. Fixtures are specifications, not test execution evidence.
 - `LICENSE` — PolyForm Noncommercial 1.0.0.
 - `TRADEMARKS.md` — separate brand and trademark notice.
