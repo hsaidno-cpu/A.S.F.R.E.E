@@ -66,5 +66,6 @@ jobs:
             plugin/tests/p0-hardening-cases.json
             plugin/tests/p1-security-cases.json
             plugin/tests/p1-security-hardening-cases.json
+            plugin/tests/rpeds-acceptance-cases.json
           if-no-files-found: error
           retention-days: 7
