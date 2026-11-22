@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "description": "Positive and negative Draft 2020-12 fixtures for all seven RPEDS contracts plus cross-record graph-integrity scenarios.",
-  "fixture_count": 14,
+  "fixture_count": 15,
   "semantic_scenario_count": 4,
   "fixtures": [
     {
@@ -669,6 +669,66 @@
         "verified_at": "2026-11-22T00:00:00Z",
         "created_at": "2026-11-22T00:00:00Z",
         "updated_at": "2026-11-22T00:00:00Z"
+      },
+      "expected_valid": false
+    },
+    {
+      "schema_file": "adaptation-decision.schema.json",
+      "fixture_id": "adaptation-with-unsupported-alternative-action",
+      "instance": {
+        "schema_version": "1.0.0",
+        "decision_id": "ASRDEC-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "from_revision": 1,
+        "to_revision": null,
+        "action": "RESEQUENCE",
+        "trigger": {
+          "category": "OTHER",
+          "description": "Schema test sample",
+          "evidence_refs": [
+            "EVD-TRIGGER"
+          ],
+          "confidence": "MEDIUM"
+        },
+        "alternatives": [
+          {
+            "action": "UNSUPPORTED_ACTION",
+            "trade_offs": [
+              "Keep sequence"
+            ],
+            "selected": false
+          },
+          {
+            "action": "RESEQUENCE",
+            "trade_offs": [
+              "Change sequence"
+            ],
+            "selected": true
+          }
+        ],
+        "rationale": "Sample proposed adaptation.",
+        "impact_analysis": {
+          "scope": [],
+          "dependencies": [],
+          "schedule": [],
+          "resources": [],
+          "compatibility": [],
+          "risk": [],
+          "stakeholders": []
+        },
+        "status": "PROPOSED",
+        "decision_owner": null,
+        "approval_required": false,
+        "approval_refs": [],
+        "approved_by": null,
+        "approved_at": null,
+        "o11_authorization_ref": null,
+        "o12_evaluation_ref": null,
+        "implementation_ref": null,
+        "verification_refs": [],
+        "residual_risk": [],
+        "decided_at": null,
+        "review_trigger": null
       },
       "expected_valid": false
     }
