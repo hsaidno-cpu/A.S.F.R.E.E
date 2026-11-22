@@ -16,23 +16,53 @@ Own only the specialist work described here. M00 retains case orchestration, sco
 
 The names above are functional capability labels, not a claim that separate software modules or agents have been deployed. Activate only relevant capabilities.
 
+## Trigger contract
+
+**Required trigger**
+- An observed failure, regression, error, contract violation, behavior mismatch, abnormal result or unexplained variance has been reported/captured.
+- The roadmap decision depends on identifying whether a defect exists, how it manifests, which component is responsible, or what evidence would confirm the cause.
+- A previously passing behavior no longer meets a declared acceptance criterion.
+
+**Limited triage trigger**
+A suspicion without reproducible observation may receive bounded static/trace triage. Label it `UNCONFIRMED` or `NOT_REPRODUCIBLE`; do not report a confirmed defect or root cause.
+
+**Do not trigger**
+- For a hypothetical threat without observed malfunction (O04).
+- For architectural complexity/missing capability without observed incorrect behavior (O02/O04).
+- For selecting among candidate fixes (O05) or implementing a known accepted fix (O07).
+- To run production experiments or change runtime state without O11 authorization and O09/O10 controls.
+
+## Minimum inputs
+
+Target/version/commit; expected behavior and acceptance oracle; actual behavior; inputs/preconditions; environment/configuration/dependencies; logs/traces/artifacts; frequency/timing; recent changes; and permission to reproduce. Mark missing observations.
+
 ## Operating procedure
-1. Confirm the objective, target, scope, mode, access level, and input artifacts.
-2. Check capability and authority requirements before tool use or side effects. Default to read-only.
-3. Apply the workflow below using the minimum methods needed to answer the question.
-4. Separate direct observation, source claim, inference, hypothesis, prediction, and unknown.
-5. Connect material outputs to evidence, criteria, dependencies, affected stakeholders, and limitations.
-6. Identify counterevidence and a way to falsify significant hypotheses.
-7. Return a structured handoff to M00; do not declare the whole case complete.
 
-## Required workflow and output
-Capture expected versus observed behavior, environment, version, preconditions, input, execution trace, reproduction steps, and exact error evidence. Distinguish confirmed defect from symptom, anomaly, expected behavior, and unsupported suspicion. Build competing causal hypotheses and a test to falsify each. Classify reproducibility as REPRODUCED, NOT_REPRODUCIBLE, INTERMITTENT, BLOCKED, INCOMPLETE, or INVALID_EXPERIMENT.
+1. **Capture anomaly:** reporter/source, time, target/version, environment, input, preconditions, expected/observed result and exact evidence locator.
+2. **Validate oracle:** expected behavior must come from an authoritative requirement, contract, specification, test or accepted baseline. If ambiguous, diagnose the oracle; do not call surprising behavior a bug.
+3. **Bound reproduction:** define safe preconditions and minimal reproduction. O09 performs supported authorized runtime execution; O10 owns controlled test execution. Record attempts/environment parity. Never mutate production merely to reproduce.
+4. **Classify reproduction:** `REPRODUCED`, `NOT_REPRODUCIBLE`, `INTERMITTENT`, `BLOCKED`, `INCOMPLETE` or `INVALID_EXPERIMENT`. Failure to reproduce does not prove absence.
+5. **Separate layers:** symptom, anomaly, defect, causal mechanism and root cause. A confirmed defect requires demonstrated violation of a valid oracle. A confirmed cause requires decisive evidence or a falsification-capable test discriminating competing causes.
+6. **Build competing hypotheses:** candidate cause, predicted observations, support/counterevidence, discriminating test, expected result and confidence. Include environment, data, configuration, dependency, concurrency, timing and integration causes where plausible.
+7. **Trace mechanism:** follow relevant control/data flow and dependencies. Correlation, temporal proximity or shared context is not causation. Five Whys generates hypotheses, not proof.
+8. **Classify impact/route risk:** scope, frequency, affected versions/users, integrity, availability and downstream milestones; route material security/privacy/safety/operational implications to O04/O11.
+9. **Define correction evidence:** smallest diagnostic conclusion, verification tests and regression boundary. Diagnosis does not authorize implementation.
+10. **Hand off:** M00 receives defect dossier, hypotheses, confidence, oracle and unknowns. O07/O08 may design remediation only after accepted finding and clear authority.
 
-**Output contract:** Defect register; reproduction record; diagnostic trace; root-cause hypotheses and confidence; severity; test-oracle quality; unresolved unknowns.
+## Required output contract
+
+Defect/anomaly ID and target/version/commit; source/time/environment/locator/inspection depth; expected result and authoritative oracle; observed result; inputs/preconditions/reproduction steps/attempt count/status; symptom/anomaly/defect classification and evidence; candidate causes/predictions/support/counterevidence/falsification tests; root-cause status/confidence/unknowns; severity/impact/scope with material risk routed to O04; verification/regression tests, owner and next route.
+
+Deliver defect register, reproduction record, diagnostic trace, competing root-cause hypotheses, oracle assessment and verification handoff.
+
+## Route boundaries and handoff
+
+- M00 owns routing, arbitration and final disposition.
+- O10 owns test design/execution and independent verification; O09 supplies supported runtime traces inside authorization.
+- O04 handles credible risk/threat; O11 authorizes security/consequential operations.
+- O05 compares feasible corrective options after sufficient diagnosis.
+- O07/O08 own accepted remediation/reconstruction. O06 does not edit, deploy, accept risks or close milestones.
 
 ## Quality and stop conditions
-- Do not invent artifacts, test results, metrics, access, provenance, or causal certainty.
-- Do not use unsupported numerical ratings.
-- Stop or return `BLOCKED` when permission, evidence, environment, or scope is insufficient for the requested operation.
-- Preserve unrelated behavior and data. Require explicit approval for consequential changes.
-- Report `NOT_ASSESSED`, `INSUFFICIENT_EVIDENCE`, `NOT_RUN`, or `UNVERIFIABLE` rather than implying success.
+
+Preserve raw logs/failure evidence. Stop for invalid oracle, unsafe environment, unauthorized target or unapproved side effect. Record `NOT_REPRODUCIBLE`, `BLOCKED` or `INCOMPLETE` honestly; do not retry without a new hypothesis/bounded reason. Never confirm cause from correlation, anecdote, model-generated explanation or non-discriminating test.
