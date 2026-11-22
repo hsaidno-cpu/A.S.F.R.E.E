@@ -127,8 +127,18 @@
         ],
         "properties": {
           "action": {
-            "type": "string",
-            "minLength": 1
+            "enum": [
+              "CONTINUE",
+              "RESEQUENCE",
+              "REBASELINE",
+              "SPLIT",
+              "MERGE",
+              "DEFER",
+              "PILOT",
+              "ROLLBACK",
+              "STOP",
+              "CLOSE"
+            ]
           },
           "trade_offs": {
             "type": "array",
