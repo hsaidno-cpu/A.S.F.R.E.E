@@ -71,3 +71,10 @@ No number without definition, method, unit/rubric, and evidence. No weight witho
 - `E7 META-EVALUATION`: audit rubric, evaluator bias, coverage, repeatability, metric gaming, and calibration.
 
 Run stages proportionately. A completed test does not imply E5/E6, and a planned evaluation does not prove impact.
+
+
+## RPEDS integration boundary
+
+RPEDS uses the E0–E7 lifecycle as evaluation checkpoints inside its wider roadmap lifecycle; it does not rename or replace those checkpoints. RPEDS maintains the schedule, phase/milestone linkage, progress ledger and decision references. O12 retains evaluation method/criteria/indicator validity, measurement interpretation, disposition, impact and meta-evaluation. O10 retains test execution and actual test-result records.
+
+Roadmap progress is multi-dimensional. Report verified work-item completion, accepted milestone ratio, executed verification coverage, indicator outcome attainment, schedule variance and risk posture separately. Use evidence-based denominators; do not treat unknown as zero or a missing test as PASS. A single weighted score is prohibited by default and requires comparable normalized dimensions, documented rationale, approved weights, O12 validation and decision-owner approval. A hard gate or P0/P1 blocker overrides an otherwise favorable aggregate.
