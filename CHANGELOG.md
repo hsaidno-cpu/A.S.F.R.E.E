@@ -4,7 +4,7 @@
 
 - Add RPEDS as a subordinate roadmap lifecycle control plane governed by M00; retain O01–O12 as the canonical numbered specialist set.
 - Add four bounded RPEDS modules for roadmap architecture, progressive development, continuous evaluation scheduling, and adaptive roadmap optimization.
-- Add six RPEDS JSON Schemas and 24 acceptance specifications covering baseline integrity, dependency DAGs, evidence-based progress, evaluation authority, hard gates, approvals, revision history and source-of-truth boundaries.
+- Add seven RPEDS JSON Schemas, including the missing work-item contract; add 14 executable positive/negative schema fixtures and four semantic dependency/reference scenarios alongside 24 still-specification-only behavioral acceptance cases.
 - Integrate RPEDS routing and authority boundaries into M00, O12, architecture, evaluation and data-contract documentation.
 - Add RPEDS architecture and implementation-status documentation; explicitly state that no persistent scheduler, automatic monitor, runtime database or automatic GitHub–Notion sync is deployed by this package.
 - Establish package version candidate 0.5.0-rc.1; local runtime and source-bundle version planes remain unchanged.
