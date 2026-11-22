@@ -71,5 +71,8 @@ jobs:
             plugin/tests/p1-security-cases.json
             plugin/tests/p1-security-hardening-cases.json
             plugin/tests/rpeds-acceptance-cases.json
+            plugin/tests/rpeds-schema-fixtures.json
+            plugin/references/schemas/rpeds/
+            scripts/validate_rpeds_contracts.py
           if-no-files-found: error
           retention-days: 7
