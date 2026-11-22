@@ -6,6 +6,7 @@
 - Add four bounded RPEDS modules for roadmap architecture, progressive development, continuous evaluation scheduling, and adaptive roadmap optimization.
 - Add seven RPEDS JSON Schemas, including the missing work-item contract; add 14 executable positive/negative schema fixtures and four semantic dependency/reference scenarios alongside 24 still-specification-only behavioral acceptance cases.
 - Integrate RPEDS routing and authority boundaries into M00, O12, architecture, evaluation and data-contract documentation.
+- Define explicit conditional O03–O06 route contracts: positive-value preservation, adversarial risk, normalized option comparison, and observed-defect diagnosis, with distinct triggers/non-triggers, handoff fields, sequence/parallelism and authority boundaries.
 - Add RPEDS architecture and implementation-status documentation; explicitly state that no persistent scheduler, automatic monitor, runtime database or automatic GitHub–Notion sync is deployed by this package.
 - Establish package version candidate 0.5.0-rc.1; local runtime and source-bundle version planes remain unchanged.
 
