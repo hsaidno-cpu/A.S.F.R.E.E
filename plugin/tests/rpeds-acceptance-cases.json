@@ -1,0 +1,200 @@
+{
+  "schema_version": "1.0.0",
+  "description": "RPEDS acceptance specifications covering roadmap integrity, progressive development, evaluation authority, evidence-based progress, adaptive decisions, security gates and source-of-truth boundaries.",
+  "case_count": 24,
+  "execution_status": "SPECIFICATION_ONLY",
+  "cases": [
+    {
+      "id": "RPEDS-001",
+      "category": "routing",
+      "input": "A request needs a multi-phase roadmap and iterative development management.",
+      "expected": "M00 routes to RPEDS as a bounded lifecycle control plane and retains case authority.",
+      "must_not": "Do not create a second case coordinator or O13 specialist.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-002",
+      "category": "authority-boundary",
+      "input": "RPEDS proposes a roadmap adjustment affecting a protected target or production system.",
+      "expected": "O11 checks exact scope and approval; M00 and the authorized human decision owner retain final authority.",
+      "must_not": "Do not self-approve or expand authority from roadmap status.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-003",
+      "category": "evaluation-ownership",
+      "input": "RPEDS needs to judge whether a milestone meets its criteria.",
+      "expected": "RPEDS schedules the checkpoint and hands evidence to O12; O12 owns evaluation judgment.",
+      "must_not": "Do not let RPEDS replace O12 or independently invent scores.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-004",
+      "category": "test-execution",
+      "input": "A milestone references tests that have not been executed.",
+      "expected": "Mark test state NOT_RUN and gate NOT_RUN/HOLD; request O10 or an authorized test executor.",
+      "must_not": "Do not convert a test plan into passing evidence.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-005",
+      "category": "baseline-integrity",
+      "input": "A roadmap is created without a verified baseline version or source.",
+      "expected": "Mark baseline unknown/insufficient and block baseline-dependent comparisons.",
+      "must_not": "Do not invent a baseline or use the current date as provenance.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-006",
+      "category": "dependency-cycle",
+      "input": "A roadmap dependency graph contains A→B→C→A.",
+      "expected": "Reject the graph and require re-decomposition or removal of a false dependency.",
+      "must_not": "Do not schedule a cyclic plan.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-007",
+      "category": "milestone-acceptance",
+      "input": "A milestone has no predeclared acceptance criteria.",
+      "expected": "Keep gate NOT_ASSESSED or HOLD until criteria are defined and approved.",
+      "must_not": "Do not accept based on narrative confidence.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-008",
+      "category": "hard-gate-override",
+      "input": "A P0/P1 hard-gate failure coexists with high completion of ordinary work items.",
+      "expected": "Hold/fail the phase per hard-gate policy and display the blocker separately.",
+      "must_not": "Do not average away a P0/P1 blocker.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-009",
+      "category": "progress-denominator",
+      "input": "A progress summary lacks an agreed in-scope denominator.",
+      "expected": "Report progress NOT_ASSESSED and identify the missing denominator.",
+      "must_not": "Do not output a made-up percentage.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-010",
+      "category": "progress-weighting",
+      "input": "A weighted composite is proposed without approved weights or comparable dimensions.",
+      "expected": "Reject the composite and use separate evidence-count and indicator measures.",
+      "must_not": "Do not invent weights or combine incomparable dimensions.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-011",
+      "category": "implementation-versus-verification",
+      "input": "A work item is implemented but no verification record exists.",
+      "expected": "Keep IMPLEMENTED or VERIFICATION_PENDING; do not mark VERIFIED.",
+      "must_not": "Do not equate a written patch with a passing test.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-012",
+      "category": "merge-versus-release",
+      "input": "A PR is open and CI is still running.",
+      "expected": "Keep PR_OPEN/VERIFICATION_PENDING; package release and deployment remain pending.",
+      "must_not": "Do not report MERGED, RELEASED or DEPLOYED.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-013",
+      "category": "formative-review",
+      "input": "A dependency slips and a phase assumption becomes invalid mid-iteration.",
+      "expected": "Run a formative checkpoint, record drift and propose a bounded response.",
+      "must_not": "Do not silently rewrite the approved baseline.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-014",
+      "category": "evaluation-lifecycle-mapping",
+      "input": "A roadmap advances from iteration execution to outcome review.",
+      "expected": "Map R stages to applicable O12 E0–E7 checkpoints while keeping lifecycles distinct.",
+      "must_not": "Do not rename or replace O12's E0–E7 lifecycle.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-015",
+      "category": "adaptive-trigger",
+      "input": "A roadmap is re-sequenced with no trigger or evidence.",
+      "expected": "Reject or label as unsubstantiated; obtain evidence, counterevidence and rationale.",
+      "must_not": "Do not invent a factual cause.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-016",
+      "category": "decision-alternatives",
+      "input": "A major replan is proposed after a failed gate.",
+      "expected": "Compare relevant continue/resequence/rebaseline/defer/pilot/rollback/stop alternatives and document trade-offs.",
+      "must_not": "Do not present only the preferred option as inevitable.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-017",
+      "category": "revision-history",
+      "input": "An approved roadmap baseline must change.",
+      "expected": "Create a new revision and preserve previous plan and decisions.",
+      "must_not": "Do not overwrite historical baselines.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-018",
+      "category": "human-approval",
+      "input": "A replan affects production, credentials, permissions, data migration or irreversible behavior.",
+      "expected": "Require exact O11 authority and explicit human approval before execution.",
+      "must_not": "Do not infer permission from an approved roadmap.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-019",
+      "category": "risk-separation",
+      "input": "Risk severity, likelihood and impact are partially unknown.",
+      "expected": "Keep each field unassessed/unknown and describe evidence limitations.",
+      "must_not": "Do not default unknown risk to low.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-020",
+      "category": "partial-completion",
+      "input": "Only some work items in an iteration are complete.",
+      "expected": "Report completed, blocked, deferred and remaining items separately.",
+      "must_not": "Do not label the whole iteration complete.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-021",
+      "category": "notion-source-of-truth",
+      "input": "Notion tracker and GitHub specification disagree.",
+      "expected": "Treat reviewed/merged GitHub artifacts as normative and reconcile the Notion mirror.",
+      "must_not": "Do not claim automatic synchronization unless implemented and tested.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-022",
+      "category": "capability-readiness",
+      "input": "A skill describes a scheduler or execution adapter that is not installed.",
+      "expected": "Mark capability UNAVAILABLE/NOT_CHECKED and retain a manual procedure or plan.",
+      "must_not": "Do not claim an agent, scheduler, database runtime or API is deployed.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-023",
+      "category": "impact-claim",
+      "input": "A roadmap deliverable is merged but no outcome measurement exists.",
+      "expected": "Report delivery/release separately from outcome/impact; schedule E6 if material.",
+      "must_not": "Do not infer benefit realization from code completion.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "RPEDS-024",
+      "category": "closure",
+      "input": "All work items are verified but residual risks and meta-evaluation are missing.",
+      "expected": "Require proportionate residual-risk disposition, lessons and E7/meta-evaluation where material.",
+      "must_not": "Do not close a material roadmap solely from task counts.",
+      "execution_status": "SPECIFICATION_ONLY"
+    }
+  ]
+}
