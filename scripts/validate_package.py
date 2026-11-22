@@ -29,7 +29,7 @@ if not isinstance(manifest, dict):
     print("- plugin manifest is unavailable")
     sys.exit(1)
 check(manifest.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "plugin manifest schema is missing/incorrect")
-EXPECTED_PLUGIN_VERSION = "0.4.0-rc.1"
+EXPECTED_PLUGIN_VERSION = "0.5.0-rc.1"
 check(manifest.get("version") == EXPECTED_PLUGIN_VERSION, f"canonical plugin manifest must be version {EXPECTED_PLUGIN_VERSION}")
 check(bool(re.fullmatch(r"[a-z0-9](?:[a-z0-9.-]{0,62}[a-z0-9])?", manifest.get("name", ""))), "invalid plugin name")
 check(bool(re.fullmatch(r"\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?", manifest.get("version", ""))), "plugin version is not strict SemVer")
@@ -55,7 +55,7 @@ root_readme_path = ROOT / "README.md"
 package_readme = package_readme_path.read_text(encoding="utf-8") if package_readme_path.is_file() else ""
 root_readme = root_readme_path.read_text(encoding="utf-8") if root_readme_path.is_file() else ""
 check(f"**Version:** {EXPECTED_PLUGIN_VERSION}" in package_readme, "plugin README version must match canonical manifest")
-check("Canonical plugin candidate:** v0.4.0-rc.1" in root_readme, "root README candidate version must match canonical manifest")
+check("Canonical plugin candidate:** v0.5.0-rc.1" in root_readme, "root README candidate version must match canonical manifest")
 check("docs/implementation/RUNTIME-REFERENCE.md" in root_readme, "root README must link to the tracked runtime reference")
 check("runtime/README.md" not in root_readme, "root README contains a missing runtime/README.md link")
 
@@ -70,7 +70,9 @@ required_canonical = {
     ], 1)}
 }
 found_dirs = {p.name for p in skill_dirs}
+rpeds_control_planes = {"rpeds-progressive-development"}
 check(required_canonical.issubset(found_dirs), f"missing canonical skills: {sorted(required_canonical-found_dirs)}")
+check(rpeds_control_planes.issubset(found_dirs), f"missing registered RPEDS control plane: {sorted(rpeds_control_planes-found_dirs)}")
 frontmatter_names = []
 for folder in skill_dirs:
     skill = folder / "SKILL.md"
@@ -106,7 +108,7 @@ legacy_aliases = {
     "security-governance": "o11-security-governance",
     "validation-quality-assurance": "o10-validation-qa",
 }
-check(found_dirs == required_canonical | set(legacy_aliases), "skill folders must be exactly the canonical M00/O01–O12 set plus registered compatibility aliases")
+check(found_dirs == required_canonical | set(legacy_aliases) | rpeds_control_planes, "skill folders must be exactly M00/O01–O12, registered aliases, and the RPEDS lifecycle control plane")
 for alias, canonical in legacy_aliases.items():
     alias_path = skills_root / alias / "SKILL.md"
     canonical_path = skills_root / canonical / "SKILL.md"
@@ -161,6 +163,32 @@ check(len(release_list) == 11, f"expected eleven release-governance acceptance s
 check(len(release_ids) == len(set(release_ids)), "duplicate release-governance acceptance IDs")
 if isinstance(release_cases, dict):
     check(release_cases.get("case_count") == len(release_list), "release-governance case_count does not match cases length")
+
+rpeds_cases = load_json(PKG/"tests"/"rpeds-acceptance-cases.json")
+rpeds_list = rpeds_cases.get("cases", []) if isinstance(rpeds_cases, dict) else []
+rpeds_ids = [case.get("id") for case in rpeds_list if isinstance(case, dict)]
+check(len(rpeds_list) == 24, f"expected 24 RPEDS acceptance specifications, found {len(rpeds_list)}")
+check(len(rpeds_ids) == len(set(rpeds_ids)), "duplicate RPEDS acceptance IDs")
+if isinstance(rpeds_cases, dict):
+    check(rpeds_cases.get("schema_version") == "1.0.0", "RPEDS acceptance schema_version must be 1.0.0")
+    check(rpeds_cases.get("case_count") == len(rpeds_list), "RPEDS acceptance case_count does not match cases length")
+    check(rpeds_cases.get("execution_status") == "SPECIFICATION_ONLY", "RPEDS acceptance fixture status must remain SPECIFICATION_ONLY")
+check(all(case.get("execution_status") == "SPECIFICATION_ONLY" for case in rpeds_list if isinstance(case, dict)), "RPEDS acceptance cases must not imply test execution")
+rpeds_skill_path = PKG/"skills"/"rpeds-progressive-development"/"SKILL.md"
+check(rpeds_skill_path.is_file(), "missing RPEDS lifecycle-control skill")
+rpeds_modules = [
+    PKG/"references"/"rpeds"/"roadmap-architecture.md",
+    PKG/"references"/"rpeds"/"progressive-development-manager.md",
+    PKG/"references"/"rpeds"/"continuous-evaluation-engine.md",
+    PKG/"references"/"rpeds"/"adaptive-roadmap-optimizer.md",
+]
+for module_path in rpeds_modules:
+    check(module_path.is_file(), f"missing RPEDS module: {module_path.relative_to(ROOT)}")
+rpeds_schema_dir = PKG/"references"/"schemas"/"rpeds"
+rpeds_schemas = sorted(rpeds_schema_dir.glob("*.json")) if rpeds_schema_dir.exists() else []
+check(len(rpeds_schemas) == 6, f"expected six RPEDS schemas, found {len(rpeds_schemas)}")
+for required_doc in ("docs/architecture/RPEDS-ARCHITECTURE.md", "docs/implementation/RPEDS-IMPLEMENTATION-STATUS.md"):
+    check((ROOT/required_doc).is_file(), f"missing RPEDS documentation: {required_doc}")
 
 runtime_archive = ROOT/"implementation-bundles"/"asfree-p0-foundations-v0.3.0.tar.gz"
 runtime_checksum = ROOT/"implementation-bundles"/"asfree-p0-foundations-v0.3.0.tar.gz.sha256"
