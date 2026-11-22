@@ -1,0 +1,340 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/rpeds/work-item.schema.json",
+  "title": "A.S.F.R.E.E RPEDS Development Work Item",
+  "description": "Atomic, roadmap-linked unit of work with distinct implementation and verification evidence. Work-item state must not collapse merge, release, deployment or impact.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "work_item_id",
+    "roadmap_id",
+    "milestone_id",
+    "title",
+    "type",
+    "status",
+    "priority",
+    "acceptance_criteria",
+    "dependency_refs",
+    "implementation_evidence_refs",
+    "verification_evidence_refs",
+    "test_refs",
+    "blocker_refs",
+    "source_refs",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "work_item_id": {
+      "type": "string",
+      "pattern": "^ASRWRK-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "roadmap_id": {
+      "type": "string",
+      "pattern": "^ASRMAP-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "milestone_id": {
+      "type": "string",
+      "pattern": "^ASRMIL-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "iteration_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^ASRITR-[A-Z0-9][A-Z0-9._-]*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "enum": [
+        "ARCHITECTURE",
+        "SPECIFICATION",
+        "IMPLEMENTATION",
+        "TEST",
+        "DOCUMENTATION",
+        "INTEGRATION",
+        "GOVERNANCE",
+        "RESEARCH"
+      ]
+    },
+    "status": {
+      "enum": [
+        "BACKLOG",
+        "READY",
+        "IN_PROGRESS",
+        "BLOCKED",
+        "REVIEW",
+        "IMPLEMENTED",
+        "VERIFICATION_PENDING",
+        "VERIFIED",
+        "DEFERRED",
+        "CANCELLED"
+      ]
+    },
+    "priority": {
+      "enum": [
+        "P0_CRITICAL",
+        "P1_HIGH",
+        "P2_MEDIUM",
+        "P3_LOW"
+      ]
+    },
+    "owner": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "objective_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "dependency_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "implementation_evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "verification_evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "test_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "blocker_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "github_issue_uri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "pull_request_uri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "commit_shas": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9a-fA-F]{7,64}$"
+      },
+      "uniqueItems": true
+    },
+    "scope_change_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "disposition_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "start_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "due_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "implemented_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "verified_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "IMPLEMENTED",
+              "VERIFICATION_PENDING",
+              "VERIFIED"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "implementation_evidence_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "implementation_evidence_refs"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "VERIFIED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "verification_evidence_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "verified_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "verification_evidence_refs",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "BLOCKED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "blocker_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "blocker_refs"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "DEFERRED",
+              "CANCELLED"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "disposition_reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "disposition_reason"
+        ]
+      }
+    }
+  ]
+}
