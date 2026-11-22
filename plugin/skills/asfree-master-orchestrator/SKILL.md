@@ -76,6 +76,7 @@ Select the smallest mode that satisfies user intent:
 - `VALIDATION`: design or execute permitted tests and report actual outcomes.
 - `EVALUATION`: define criteria and judge quality, suitability, impact, and residual risk.
 - `FULL_CYCLE`: coordinate only the relevant lifecycle stages from intake through verified handoff.
+- `ROADMAP_DEVELOPMENT`: govern a multi-phase, milestone-driven development roadmap through RPEDS; M00 remains the case-level coordinator.
 
 Do not run every specialist for every request. Do not let a skill name override the dominant objective, scope, evidence, or permission gates.
 
@@ -133,6 +134,8 @@ M00 is the only case-level coordinator. Route by dominant intent, target, eviden
 | O11 | `skills/o11-security-governance/SKILL.md` | Authorization, trust, security, privacy, secrets, side effects | Security and authority decision |
 | O12 | `skills/o12-evaluation-intelligence/SKILL.md` | Criteria, indicators, measurement, judgment, impact, meta-evaluation | Evaluation charter and disposition |
 
+RPEDS (`skills/rpeds-progressive-development/SKILL.md`) is a subordinate roadmap lifecycle control plane, not an additional numbered specialist or case-level coordinator. Its four bounded modules live under `references/rpeds/`; it routes through M00 and delegates evaluation, QA, security and engineering to existing O01–O12 authorities.
+
 ### Routing patterns
 
 - Supplied files, packages, manifests, versions, or provenance: O01 → O02; add O12 when evaluation is material.
@@ -145,6 +148,7 @@ M00 is the only case-level coordinator. Route by dominant intent, target, eviden
 - Rebuild/adapt/migrate: O08 with O01/O02 baseline, O11 controls, and O10/O12 assurance.
 - API/MCP/tool/runtime: O09 with O11 readiness and O10 contract tests.
 - Full system audit: M00 + relevant O01–O06 + O11 + O12. Activate O07–O10 only when transformation or runtime work is requested and feasible.
+- Multi-phase roadmap, milestone tracking, iterative development, or adaptive replanning: M00 → RPEDS; use O01/O02 for baseline and anatomy, O12 for evaluation authority, O11 for approval/governance, O07/O08 for accepted change design, O09 for supported execution, and O10 for actual verification. M00 retains final arbitration.
 
 ### Routing observability
 
@@ -334,3 +338,14 @@ For each product:
 A compatibility redirect may identify the canonical destination and explain migration only. It must never execute the old workflow, maintain independent product logic, or fall back to superseded behavior. If the canonical destination is unavailable, stop with a blocker.
 
 Apply `references/migration-and-deprecation-policy.md` before moving schemas, status values, user workflows, or persisted artifacts. Preserve provenance; quarantine ambiguity; require validation and a recovery point. The registry and policy are governance documents enforced by static validation and release review, not a claim that a live registry service or automatic migration engine is deployed.
+
+
+## 15. RPEDS progressive development control plane
+
+When ROADMAP_DEVELOPMENT is selected, use the bounded RPEDS procedure and its four reference modules. RPEDS governs roadmap revisions, objective/phase/milestone structure, iteration planning, work-item state, progress denominators, evaluation checkpoint scheduling, and evidence-driven adaptation proposals. It is not a new case-level master, does not add O13, and cannot override M00 or O01–O12.
+
+The roadmap-management lifecycle is R0 INTAKE → R1 STRATEGY & BASELINE → R2 ROADMAP DESIGN → R3 APPROVAL & BASELINE FREEZE → R4 ITERATION EXECUTION → R5 FORMATIVE CHECK → R6 MILESTONE ACCEPTANCE → R7 OUTCOME & IMPACT → R8 ADAPTATION → R9 CLOSURE. These R stages map to, but do not replace, O12's E0–E7 evaluation lifecycle.
+
+RPEDS reports delivery completion, milestone acceptance, verification coverage, outcome attainment, schedule variance and risk posture separately. Default to evidence-count progress. A weighted composite requires comparable normalized indicators, an approved rationale/weight set, O12 validity review, and decision-owner approval. Hard gates override averages. Never invent dates, resource capacity, owners, scores, or progress values.
+
+A replan preserves the previous roadmap revision, cites trigger evidence and counterevidence, compares feasible alternatives, records impact and residual risk, obtains O11 approval when required, and returns the recommendation to M00 and the authorized human decision owner. Skills and schemas alone do not imply a persistent scheduler, runtime database, automatic monitor, GitHub/Notion synchronization, or deployed service.
