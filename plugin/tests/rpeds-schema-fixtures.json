@@ -1,0 +1,770 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Positive and negative Draft 2020-12 fixtures for all seven RPEDS contracts plus cross-record graph-integrity scenarios.",
+  "fixture_count": 14,
+  "semantic_scenario_count": 4,
+  "fixtures": [
+    {
+      "schema_file": "roadmap.schema.json",
+      "fixture_id": "roadmap-valid",
+      "instance": {
+        "schema_version": "1.0.0",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "title": "RPEDS schema test roadmap",
+        "status": "DRAFT",
+        "target": {
+          "target_id": "ASFREE",
+          "target_type": "PLUGIN",
+          "name": "A.S.F.R.E.E",
+          "version_or_ref": "0.5.0-rc.1",
+          "source_uri": "https://github.com/hsaidno-cpu/A.S.F.R.E.E"
+        },
+        "objective": "Validate roadmap contract behavior.",
+        "scope": {
+          "in_scope": [
+            "RPEDS"
+          ],
+          "out_of_scope": [
+            "Runtime deployment"
+          ]
+        },
+        "baseline": {
+          "status": "VERIFIED",
+          "version_or_ref": "main@5dff096",
+          "commit_sha": "5dff096a03cbfb7d089f43fdfcdf39ae1e3c6133",
+          "captured_at": "2026-11-22T00:00:00Z",
+          "evidence_refs": [
+            "EVD-BASELINE"
+          ],
+          "limitations": []
+        },
+        "target_state": {
+          "description": "Schema test target",
+          "success_conditions": [
+            "All schema tests pass"
+          ]
+        },
+        "phases": [
+          {
+            "phase_id": "ASRPH-01",
+            "name": "Test phase",
+            "sequence": 1,
+            "objective": "Validate schema",
+            "entry_criteria": [],
+            "exit_criteria": [
+              "Schema validated"
+            ],
+            "milestone_refs": [
+              "ASRMIL-01"
+            ],
+            "dependencies": [],
+            "gate_owner": "M00"
+          }
+        ],
+        "dependencies": [],
+        "progress_policy": {
+          "method": "INDICATOR_DASHBOARD",
+          "weights_approved": false
+        },
+        "governance": {
+          "decision_owner": "human-owner",
+          "approval_required": false,
+          "approval_state": "NOT_REQUIRED",
+          "authority_level": "S2"
+        },
+        "revision": 1,
+        "supersedes": null,
+        "assumptions": [],
+        "risks": [],
+        "source_refs": [
+          "SRC-REPO"
+        ],
+        "created_at": "2026-11-22T00:00:00Z",
+        "updated_at": "2026-11-22T00:00:00Z",
+        "last_replanned_at": null
+      },
+      "expected_valid": true
+    },
+    {
+      "schema_file": "roadmap.schema.json",
+      "fixture_id": "roadmap-approved-without-approval-evidence",
+      "instance": {
+        "schema_version": "1.0.0",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "title": "RPEDS schema test roadmap",
+        "status": "APPROVED",
+        "target": {
+          "target_id": "ASFREE",
+          "target_type": "PLUGIN",
+          "name": "A.S.F.R.E.E",
+          "version_or_ref": "0.5.0-rc.1",
+          "source_uri": "https://github.com/hsaidno-cpu/A.S.F.R.E.E"
+        },
+        "objective": "Validate roadmap contract behavior.",
+        "scope": {
+          "in_scope": [
+            "RPEDS"
+          ],
+          "out_of_scope": [
+            "Runtime deployment"
+          ]
+        },
+        "baseline": {
+          "status": "VERIFIED",
+          "version_or_ref": "main@5dff096",
+          "commit_sha": "5dff096a03cbfb7d089f43fdfcdf39ae1e3c6133",
+          "captured_at": "2026-11-22T00:00:00Z",
+          "evidence_refs": [
+            "EVD-BASELINE"
+          ],
+          "limitations": []
+        },
+        "target_state": {
+          "description": "Schema test target",
+          "success_conditions": [
+            "All schema tests pass"
+          ]
+        },
+        "phases": [
+          {
+            "phase_id": "ASRPH-01",
+            "name": "Test phase",
+            "sequence": 1,
+            "objective": "Validate schema",
+            "entry_criteria": [],
+            "exit_criteria": [
+              "Schema validated"
+            ],
+            "milestone_refs": [
+              "ASRMIL-01"
+            ],
+            "dependencies": [],
+            "gate_owner": "M00"
+          }
+        ],
+        "dependencies": [],
+        "progress_policy": {
+          "method": "INDICATOR_DASHBOARD",
+          "weights_approved": false
+        },
+        "governance": {
+          "decision_owner": "human-owner",
+          "approval_required": false,
+          "approval_state": "NOT_REQUIRED",
+          "authority_level": "S2"
+        },
+        "revision": 1,
+        "supersedes": null,
+        "assumptions": [],
+        "risks": [],
+        "source_refs": [
+          "SRC-REPO"
+        ],
+        "created_at": "2026-11-22T00:00:00Z",
+        "updated_at": "2026-11-22T00:00:00Z",
+        "last_replanned_at": null
+      },
+      "expected_valid": false
+    },
+    {
+      "schema_file": "milestone.schema.json",
+      "fixture_id": "milestone-valid",
+      "instance": {
+        "schema_version": "1.0.0",
+        "milestone_id": "ASRMIL-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "phase_id": "ASRPH-01",
+        "name": "Test milestone",
+        "sequence": 1,
+        "objective": "Validate milestone gates",
+        "status": "PLANNED",
+        "entry_criteria": [],
+        "acceptance_criteria": [
+          "A passing gate has evidence"
+        ],
+        "dependencies": [],
+        "planned_start": null,
+        "target_date": null,
+        "accepted_at": null,
+        "gate_disposition": "NOT_RUN",
+        "required_test_refs": [
+          "TST-01"
+        ],
+        "actual_test_refs": [],
+        "verification_refs": [],
+        "evaluation_ref": null,
+        "approval_required": false,
+        "approval_ref": null,
+        "evidence_refs": [],
+        "blocker_refs": [],
+        "gate_rationale": null,
+        "owner": null,
+        "limitations": []
+      },
+      "expected_valid": true
+    },
+    {
+      "schema_file": "milestone.schema.json",
+      "fixture_id": "milestone-accepted-with-failing-gate",
+      "instance": {
+        "schema_version": "1.0.0",
+        "milestone_id": "ASRMIL-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "phase_id": "ASRPH-01",
+        "name": "Test milestone",
+        "sequence": 1,
+        "objective": "Validate milestone gates",
+        "status": "ACCEPTED",
+        "entry_criteria": [],
+        "acceptance_criteria": [
+          "A passing gate has evidence"
+        ],
+        "dependencies": [],
+        "planned_start": null,
+        "target_date": null,
+        "accepted_at": "2026-11-22T00:00:00Z",
+        "gate_disposition": "FAIL",
+        "required_test_refs": [
+          "TST-01"
+        ],
+        "actual_test_refs": [],
+        "verification_refs": [],
+        "evaluation_ref": null,
+        "approval_required": false,
+        "approval_ref": null,
+        "evidence_refs": [],
+        "blocker_refs": [],
+        "gate_rationale": null,
+        "owner": null,
+        "limitations": []
+      },
+      "expected_valid": false
+    },
+    {
+      "schema_file": "iteration.schema.json",
+      "fixture_id": "iteration-valid",
+      "instance": {
+        "schema_version": "1.0.0",
+        "iteration_id": "ASRITR-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "sequence": 1,
+        "title": "Schema validation iteration",
+        "objective": "Validate contract samples.",
+        "status": "PLANNED",
+        "baseline_ref": "main@5dff096",
+        "baseline_evidence_refs": [
+          "EVD-BASELINE"
+        ],
+        "committed_work_item_refs": [
+          "ASRWRK-01"
+        ],
+        "milestone_refs": [
+          "ASRMIL-01"
+        ],
+        "dependency_refs": [],
+        "exit_criteria": [
+          "All positive and negative schema fixtures behave as expected."
+        ],
+        "start_at": null,
+        "end_at": null,
+        "actual_outcomes": [],
+        "test_refs": [],
+        "evaluation_refs": [],
+        "evidence_refs": [],
+        "retrospective": null,
+        "owner": "M00",
+        "accepted_at": null,
+        "disposition_reason": null,
+        "created_at": "2026-11-22T00:00:00Z",
+        "updated_at": "2026-11-22T00:00:00Z"
+      },
+      "expected_valid": true
+    },
+    {
+      "schema_file": "iteration.schema.json",
+      "fixture_id": "iteration-accepted-without-review-evidence",
+      "instance": {
+        "schema_version": "1.0.0",
+        "iteration_id": "ASRITR-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "sequence": 1,
+        "title": "Schema validation iteration",
+        "objective": "Validate contract samples.",
+        "status": "ACCEPTED",
+        "baseline_ref": "main@5dff096",
+        "baseline_evidence_refs": [
+          "EVD-BASELINE"
+        ],
+        "committed_work_item_refs": [
+          "ASRWRK-01"
+        ],
+        "milestone_refs": [
+          "ASRMIL-01"
+        ],
+        "dependency_refs": [],
+        "exit_criteria": [
+          "All positive and negative schema fixtures behave as expected."
+        ],
+        "start_at": null,
+        "end_at": null,
+        "actual_outcomes": [],
+        "test_refs": [],
+        "evaluation_refs": [],
+        "evidence_refs": [],
+        "retrospective": null,
+        "owner": "M00",
+        "accepted_at": null,
+        "disposition_reason": null,
+        "created_at": "2026-11-22T00:00:00Z",
+        "updated_at": "2026-11-22T00:00:00Z"
+      },
+      "expected_valid": false
+    },
+    {
+      "schema_file": "progress-measurement.schema.json",
+      "fixture_id": "measurement-valid",
+      "instance": {
+        "schema_version": "1.0.0",
+        "measurement_id": "ASREVL-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "subject_type": "ROADMAP",
+        "subject_id": "ASRMAP-RPEDS",
+        "indicator_id": "RPEDS-SCHEMA-VALIDITY",
+        "dimension": "Technical Quality",
+        "definition": "Share of RPEDS schema fixtures matching their expected validity outcome.",
+        "measurement_type": "QUANTITATIVE",
+        "method": "JSON Schema Draft 2020-12 validation",
+        "unit_or_rubric": "valid/invalid instances",
+        "direction": "HIGHER_IS_BETTER",
+        "baseline": 0,
+        "target": 1,
+        "observed_value": 1,
+        "status": "OBSERVED",
+        "evidence_refs": [
+          "EVD-SCHEMA-TEST"
+        ],
+        "source_version": "0.5.0-rc.1",
+        "environment": "GitHub Actions Python 3.12",
+        "observed_at": "2026-11-22T00:00:00Z",
+        "confidence": "HIGH",
+        "uncertainty": [],
+        "limitations": []
+      },
+      "expected_valid": true
+    },
+    {
+      "schema_file": "progress-measurement.schema.json",
+      "fixture_id": "observed-with-null-value",
+      "instance": {
+        "schema_version": "1.0.0",
+        "measurement_id": "ASREVL-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "subject_type": "ROADMAP",
+        "subject_id": "ASRMAP-RPEDS",
+        "indicator_id": "RPEDS-SCHEMA-VALIDITY",
+        "dimension": "Technical Quality",
+        "definition": "Share of RPEDS schema fixtures matching their expected validity outcome.",
+        "measurement_type": "QUANTITATIVE",
+        "method": "JSON Schema Draft 2020-12 validation",
+        "unit_or_rubric": "valid/invalid instances",
+        "direction": "HIGHER_IS_BETTER",
+        "baseline": 0,
+        "target": 1,
+        "observed_value": null,
+        "status": "OBSERVED",
+        "evidence_refs": [
+          "EVD-SCHEMA-TEST"
+        ],
+        "source_version": "0.5.0-rc.1",
+        "environment": "GitHub Actions Python 3.12",
+        "observed_at": "2026-11-22T00:00:00Z",
+        "confidence": "HIGH",
+        "uncertainty": [],
+        "limitations": []
+      },
+      "expected_valid": false
+    },
+    {
+      "schema_file": "adaptation-decision.schema.json",
+      "fixture_id": "adaptation-valid",
+      "instance": {
+        "schema_version": "1.0.0",
+        "decision_id": "ASRDEC-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "from_revision": 1,
+        "to_revision": null,
+        "action": "RESEQUENCE",
+        "trigger": {
+          "category": "OTHER",
+          "description": "Schema test sample",
+          "evidence_refs": [
+            "EVD-TRIGGER"
+          ],
+          "confidence": "MEDIUM"
+        },
+        "alternatives": [
+          {
+            "action": "CONTINUE",
+            "trade_offs": [
+              "Keep sequence"
+            ],
+            "selected": false
+          },
+          {
+            "action": "RESEQUENCE",
+            "trade_offs": [
+              "Change sequence"
+            ],
+            "selected": true
+          }
+        ],
+        "rationale": "Sample proposed adaptation.",
+        "impact_analysis": {
+          "scope": [],
+          "dependencies": [],
+          "schedule": [],
+          "resources": [],
+          "compatibility": [],
+          "risk": [],
+          "stakeholders": []
+        },
+        "status": "PROPOSED",
+        "decision_owner": null,
+        "approval_required": false,
+        "approval_refs": [],
+        "approved_by": null,
+        "approved_at": null,
+        "o11_authorization_ref": null,
+        "o12_evaluation_ref": null,
+        "implementation_ref": null,
+        "verification_refs": [],
+        "residual_risk": [],
+        "decided_at": null,
+        "review_trigger": null
+      },
+      "expected_valid": true
+    },
+    {
+      "schema_file": "adaptation-decision.schema.json",
+      "fixture_id": "approved-without-approval",
+      "instance": {
+        "schema_version": "1.0.0",
+        "decision_id": "ASRDEC-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "from_revision": 1,
+        "to_revision": null,
+        "action": "RESEQUENCE",
+        "trigger": {
+          "category": "OTHER",
+          "description": "Schema test sample",
+          "evidence_refs": [
+            "EVD-TRIGGER"
+          ],
+          "confidence": "MEDIUM"
+        },
+        "alternatives": [
+          {
+            "action": "CONTINUE",
+            "trade_offs": [
+              "Keep sequence"
+            ],
+            "selected": false
+          },
+          {
+            "action": "RESEQUENCE",
+            "trade_offs": [
+              "Change sequence"
+            ],
+            "selected": true
+          }
+        ],
+        "rationale": "Sample proposed adaptation.",
+        "impact_analysis": {
+          "scope": [],
+          "dependencies": [],
+          "schedule": [],
+          "resources": [],
+          "compatibility": [],
+          "risk": [],
+          "stakeholders": []
+        },
+        "status": "APPROVED",
+        "decision_owner": null,
+        "approval_required": true,
+        "approval_refs": [],
+        "approved_by": null,
+        "approved_at": null,
+        "o11_authorization_ref": null,
+        "o12_evaluation_ref": null,
+        "implementation_ref": null,
+        "verification_refs": [],
+        "residual_risk": [],
+        "decided_at": null,
+        "review_trigger": null
+      },
+      "expected_valid": false
+    },
+    {
+      "schema_file": "risk.schema.json",
+      "fixture_id": "risk-valid",
+      "instance": {
+        "schema_version": "1.0.0",
+        "risk_id": "ASRRSK-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "title": "Unassessed sample risk",
+        "category": "RISK",
+        "status": "OPEN",
+        "epistemic_status": "UNKNOWN",
+        "severity": "UNASSESSED",
+        "likelihood": "UNASSESSED",
+        "impact": [],
+        "trigger": [
+          "Sample scenario only"
+        ],
+        "evidence_refs": [],
+        "counterevidence_refs": [],
+        "limitations": [
+          "No empirical evidence supplied."
+        ],
+        "treatment": [
+          "Collect evidence"
+        ],
+        "owner": null,
+        "residual_risk": [],
+        "review_at": null,
+        "risk_acceptance_ref": null,
+        "accepted_by": null,
+        "accepted_at": null,
+        "resolution_evidence_refs": [],
+        "resolved_at": null,
+        "resolution_note": null
+      },
+      "expected_valid": true
+    },
+    {
+      "schema_file": "risk.schema.json",
+      "fixture_id": "accepted-risk-without-acceptance-ref",
+      "instance": {
+        "schema_version": "1.0.0",
+        "risk_id": "ASRRSK-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "title": "Unassessed sample risk",
+        "category": "RISK",
+        "status": "ACCEPTED",
+        "epistemic_status": "UNKNOWN",
+        "severity": "UNASSESSED",
+        "likelihood": "UNASSESSED",
+        "impact": [],
+        "trigger": [
+          "Sample scenario only"
+        ],
+        "evidence_refs": [],
+        "counterevidence_refs": [],
+        "limitations": [
+          "No empirical evidence supplied."
+        ],
+        "treatment": [
+          "Collect evidence"
+        ],
+        "owner": null,
+        "residual_risk": [],
+        "review_at": null,
+        "risk_acceptance_ref": null,
+        "accepted_by": null,
+        "accepted_at": null,
+        "resolution_evidence_refs": [],
+        "resolved_at": null,
+        "resolution_note": null
+      },
+      "expected_valid": false
+    },
+    {
+      "schema_file": "work-item.schema.json",
+      "fixture_id": "work-item-valid",
+      "instance": {
+        "schema_version": "1.0.0",
+        "work_item_id": "ASRWRK-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "milestone_id": "ASRMIL-01",
+        "iteration_id": "ASRITR-01",
+        "title": "Validate work-item contract",
+        "type": "TEST",
+        "status": "VERIFIED",
+        "priority": "P1_HIGH",
+        "owner": "O10",
+        "objective_ref": "OBJ-01",
+        "acceptance_criteria": [
+          "A verification evidence reference is present."
+        ],
+        "dependency_refs": [],
+        "implementation_evidence_refs": [
+          "EVD-IMPLEMENTED"
+        ],
+        "verification_evidence_refs": [
+          "EVD-VERIFIED"
+        ],
+        "test_refs": [
+          "TST-01"
+        ],
+        "blocker_refs": [],
+        "source_refs": [
+          "SRC-REPO"
+        ],
+        "github_issue_uri": null,
+        "pull_request_uri": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/pull/10",
+        "commit_shas": [
+          "2df4aa461bacdaae382360c7ecd5696c20c10279"
+        ],
+        "scope_change_ref": null,
+        "disposition_reason": null,
+        "start_at": "2026-11-22T00:00:00Z",
+        "due_at": null,
+        "implemented_at": "2026-11-22T00:00:00Z",
+        "verified_at": "2026-11-22T00:00:00Z",
+        "created_at": "2026-11-22T00:00:00Z",
+        "updated_at": "2026-11-22T00:00:00Z"
+      },
+      "expected_valid": true
+    },
+    {
+      "schema_file": "work-item.schema.json",
+      "fixture_id": "verified-without-verification-evidence",
+      "instance": {
+        "schema_version": "1.0.0",
+        "work_item_id": "ASRWRK-01",
+        "roadmap_id": "ASRMAP-RPEDS",
+        "milestone_id": "ASRMIL-01",
+        "iteration_id": "ASRITR-01",
+        "title": "Validate work-item contract",
+        "type": "TEST",
+        "status": "VERIFIED",
+        "priority": "P1_HIGH",
+        "owner": "O10",
+        "objective_ref": "OBJ-01",
+        "acceptance_criteria": [
+          "A verification evidence reference is present."
+        ],
+        "dependency_refs": [],
+        "implementation_evidence_refs": [
+          "EVD-IMPLEMENTED"
+        ],
+        "verification_evidence_refs": [],
+        "test_refs": [
+          "TST-01"
+        ],
+        "blocker_refs": [],
+        "source_refs": [
+          "SRC-REPO"
+        ],
+        "github_issue_uri": null,
+        "pull_request_uri": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/pull/10",
+        "commit_shas": [
+          "2df4aa461bacdaae382360c7ecd5696c20c10279"
+        ],
+        "scope_change_ref": null,
+        "disposition_reason": null,
+        "start_at": "2026-11-22T00:00:00Z",
+        "due_at": null,
+        "implemented_at": "2026-11-22T00:00:00Z",
+        "verified_at": "2026-11-22T00:00:00Z",
+        "created_at": "2026-11-22T00:00:00Z",
+        "updated_at": "2026-11-22T00:00:00Z"
+      },
+      "expected_valid": false
+    }
+  ],
+  "semantic_scenarios": [
+    {
+      "scenario_id": "SEM-DAG-01",
+      "records": [
+        {
+          "id": "ASRMIL-01",
+          "refs": []
+        },
+        {
+          "id": "ASRMIL-02",
+          "refs": [
+            "ASRMIL-01"
+          ]
+        },
+        {
+          "id": "ASRMIL-03",
+          "refs": [
+            "ASRMIL-02"
+          ]
+        }
+      ],
+      "edges": [
+        [
+          "ASRMIL-02",
+          "ASRMIL-01"
+        ],
+        [
+          "ASRMIL-03",
+          "ASRMIL-02"
+        ]
+      ],
+      "expected_valid": true
+    },
+    {
+      "scenario_id": "SEM-CYCLE-01",
+      "records": [
+        {
+          "id": "ASRMIL-01",
+          "refs": []
+        },
+        {
+          "id": "ASRMIL-02",
+          "refs": []
+        },
+        {
+          "id": "ASRMIL-03",
+          "refs": []
+        }
+      ],
+      "edges": [
+        [
+          "ASRMIL-01",
+          "ASRMIL-02"
+        ],
+        [
+          "ASRMIL-02",
+          "ASRMIL-03"
+        ],
+        [
+          "ASRMIL-03",
+          "ASRMIL-01"
+        ]
+      ],
+      "expected_valid": false
+    },
+    {
+      "scenario_id": "SEM-DUP-01",
+      "records": [
+        {
+          "id": "ASRMIL-01",
+          "refs": []
+        },
+        {
+          "id": "ASRMIL-01",
+          "refs": []
+        }
+      ],
+      "edges": [],
+      "expected_valid": false
+    },
+    {
+      "scenario_id": "SEM-DANGLING-01",
+      "records": [
+        {
+          "id": "ASRMIL-01",
+          "refs": [
+            "ASRMIL-99"
+          ]
+        }
+      ],
+      "edges": [],
+      "expected_valid": false
+    }
+  ]
+}
