@@ -13,6 +13,10 @@ RPEDS is part of the A.S.F.R.E.E ecosystem, but it is not a ninth architectural 
 | Case intent, scope, routing, arbitration, final disposition | M00 |
 | Target anatomy, system decomposition and dependencies | O02 |
 | Baseline artifact/source inventory | O01 |
+| Verified strength/value preservation where a change may destroy existing value | O03 |
+| Adversarial risk, misuse and failure-mode analysis | O04 |
+| Normalized comparison of alternative replan paths | O05 |
+| Reproduction/diagnosis of defects driving a replan | O06 |
 | Evaluation charter, criteria, measurement validity, judgment, impact and meta-evaluation | O12 |
 | Test design/execution, actual outcome and independent verification | O10 |
 | Corrective/preventive change design | O07 |
@@ -36,7 +40,7 @@ The modules are bounded procedures and references, not claims that separate auto
 
 R0 INTAKE → R1 STRATEGY & BASELINE → R2 ROADMAP DESIGN → R3 APPROVAL & BASELINE FREEZE → R4 ITERATION EXECUTION → R5 FORMATIVE CHECK → R6 MILESTONE ACCEPTANCE → R7 OUTCOME & IMPACT → R8 ADAPTATION → R9 CLOSURE.
 
-The lifecycle loops when evidence requires re-sequencing or replanning. O12's E0–E7 evaluation lifecycle remains distinct and is mapped onto the R stages rather than replaced.
+The lifecycle loops when evidence requires re-sequencing or replanning. O12's E0–E7 lifecycle remains distinct: E0–E2 establish charter/baseline/evidence, E3–E5 inform formative and milestone/post-change evaluation, E6 evaluates outcomes, and E7 performs meta-evaluation at R9 or a declared periodic review. R8 uses current E3–E6 evidence to adapt; it does not wait for or substitute E7.
 
 ## State and hard-gate design
 
@@ -77,9 +81,9 @@ A material change produces a new revision and decision record. Supported actions
 
 ## Canonical contracts
 
-Machine-readable contracts reside under plugin/references/schemas/rpeds/: roadmap, milestone, iteration, progress measurement, adaptation decision and risk.
+Machine-readable contracts reside under plugin/references/schemas/rpeds/: roadmap, milestone, iteration, progress measurement, adaptation decision, risk and work item. The canonical ID prefixes align with Notion's generated IDs: ASRMAP, ASRPH, ASRMIL, ASRITR, ASRWRK, ASREVL, ASRDEC and ASRRSK.
 
-Acceptance specifications reside in plugin/tests/rpeds-acceptance-cases.json. They remain SPECIFICATION_ONLY until executed by a named test harness with evidence.
+Behavioral acceptance specifications reside in plugin/tests/rpeds-acceptance-cases.json and remain SPECIFICATION_ONLY until executed by a named harness. Schema fixtures in plugin/tests/rpeds-schema-fixtures.json are executable positive/negative contract examples. scripts/validate_rpeds_contracts.py meta-validates Draft 2020-12 schemas and checks record-reference and dependency-DAG invariants. These contract tests do not prove that RPEDS works as a host-model behavior or deployed runtime.
 
 ## Notion operating surface
 
