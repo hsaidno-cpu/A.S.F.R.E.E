@@ -186,9 +186,11 @@ for module_path in rpeds_modules:
     check(module_path.is_file(), f"missing RPEDS module: {module_path.relative_to(ROOT)}")
 rpeds_schema_dir = PKG/"references"/"schemas"/"rpeds"
 rpeds_schemas = sorted(rpeds_schema_dir.glob("*.json")) if rpeds_schema_dir.exists() else []
-check(len(rpeds_schemas) == 6, f"expected six RPEDS schemas, found {len(rpeds_schemas)}")
+check(len(rpeds_schemas) == 7, f"expected seven RPEDS schemas, found {len(rpeds_schemas)}")
 for required_doc in ("docs/architecture/RPEDS-ARCHITECTURE.md", "docs/implementation/RPEDS-IMPLEMENTATION-STATUS.md"):
     check((ROOT/required_doc).is_file(), f"missing RPEDS documentation: {required_doc}")
+check((PKG/"tests"/"rpeds-schema-fixtures.json").is_file(), "missing RPEDS schema/semantic fixtures")
+check((ROOT/"scripts"/"validate_rpeds_contracts.py").is_file(), "missing executable RPEDS contract validator")
 
 runtime_archive = ROOT/"implementation-bundles"/"asfree-p0-foundations-v0.3.0.tar.gz"
 runtime_checksum = ROOT/"implementation-bundles"/"asfree-p0-foundations-v0.3.0.tar.gz.sha256"
