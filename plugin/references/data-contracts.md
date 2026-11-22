@@ -47,3 +47,14 @@ Use case-local identifiers such as `CASE-`, `TARGET-`, `SRC-`, `CLM-`, `EVD-`, `
 ## Schema versioning
 
 All contract changes must update schema version and compatibility notes. Prefer additive optional fields for minor revisions. Breaking field/enum changes require a major schema version and an explicit migration map. Reject or quarantine unknown enum values rather than guessing. Validate producer output and consumer input at handoff boundaries.
+
+
+## RPEDS roadmap contracts
+
+RPEDS contracts are defined under schemas/rpeds/: roadmap, milestone, iteration, progress measurement, adaptation decision, and risk. They are normative schemas/specifications, not a deployed roadmap service or persistent runtime database.
+
+RPEDS stable identifier families: RPDS- roadmap, RPM- milestone, RPI- iteration, RPV- progress measurement, RPD- adaptation decision, and RPR- risk/blocker. Keep revision, phase, milestone, iteration, work-item and decision relationships explicit. Preserve superseded roadmap revisions rather than overwriting them.
+
+A progress measurement must carry its indicator definition, method, unit/rubric, baseline, target, observed value only when measured, evidence refs, time/version, confidence and limitations. A missing or stale observation is not zero. Distinct measures must not be aggregated unless normalization, weight rationale, approval and O12 validity review are recorded.
+
+RPEDS records preserve the trace chain OBJECTIVE → ROADMAP REVISION → PHASE → MILESTONE → WORK ITEM/ITERATION → TEST/EVALUATION EVIDENCE → ADAPTATION DECISION → NEXT REVISION. Typed dependency edges and observed/documented/inferred/hypothesis status remain explicit; the graph is not proof of causation.
