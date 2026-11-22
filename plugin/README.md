@@ -1,8 +1,8 @@
 # A.S.F.R.E.E — AI Systems Forensics & Reconstruction Evaluation Engine
 
-**Version:** 0.4.0-rc.1  
+**Version:** 0.5.0-rc.1  
 **Package type:** Portable skills-only plugin  
-**Architecture:** M00 + O01–O12; eight system layers; cross-cutting O11 Security & Governance and O12 Evaluation Intelligence  
+**Architecture:** M00 + O01–O12; subordinate RPEDS roadmap lifecycle control plane; eight system layers; cross-cutting O11 Security & Governance and O12 Evaluation Intelligence  
 **Operating model:** Evidence-led supervised engineering; read-only by default  
 **Implementation boundary:** The portable plugin contains instruction and contract files only. The separate local Python reference runtime is distributed through checksum-pinned source bundles under `../implementation-bundles/` and reconstructed by repository scripts for local/CI validation; it is not bundled with this plugin.
 
@@ -57,3 +57,8 @@ These are hard gates and acceptance specifications, not proof that production pr
 ## Ecosystem identity and migration governance
 
 This package follows the ecosystem's Single Canonical Source of Truth contract. The identity catalog is [Ecosystem Identity Registry](references/ecosystem-identity-registry.json); migration and retirement rules are in [Migration and Deprecation Policy](references/migration-and-deprecation-policy.md). Every product has one canonical plugin identity; redirect packages are registered aliases, not alternate orchestrators. The canonical version comes from the reviewed repository manifest merged into `main`; Plugin Creator deployment metadata is verified separately by read-back.
+
+
+## RPEDS progressive roadmap control plane
+
+RPEDS manages versioned roadmaps, phases, milestones, iterations, work-item states, evidence-count progress, evaluation checkpoints and adaptive replan proposals. It is subordinate to M00 and delegates evaluation judgment to O12, actual test verification to O10, authorization to O11, engineering to O07/O08, and supported execution to O09. It is not an additional case-level orchestrator or O13 specialist. The portable package adds instructions, reference modules, schemas and acceptance specifications only; it does not deploy a persistent scheduler, automatic monitor, runtime database or GitHub–Notion synchronizer.
