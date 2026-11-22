@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/rpeds/iteration.schema.json",
   "title": "A.S.F.R.E.E RPEDS Development Iteration",
-  "description": "Bounded development cycle with declared baseline, committed scope, exit criteria and observed outcomes.",
+  "description": "A bounded development cycle with a declared baseline, committed work scope, exit criteria, actual outcomes and review evidence.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -13,6 +14,7 @@
     "objective",
     "status",
     "baseline_ref",
+    "baseline_evidence_refs",
     "committed_work_item_refs",
     "exit_criteria",
     "created_at",
@@ -24,11 +26,11 @@
     },
     "iteration_id": {
       "type": "string",
-      "pattern": "^RPI-[A-Z0-9][A-Z0-9._-]*$"
+      "pattern": "^ASRITR-[A-Z0-9][A-Z0-9._-]*$"
     },
     "roadmap_id": {
       "type": "string",
-      "pattern": "^RPDS-[A-Z0-9][A-Z0-9._-]*$"
+      "pattern": "^ASRMAP-[A-Z0-9][A-Z0-9._-]*$"
     },
     "sequence": {
       "type": "integer",
@@ -57,17 +59,28 @@
       "type": "string",
       "minLength": 1
     },
-    "committed_work_item_refs": {
+    "baseline_evidence_refs": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "committed_work_item_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^ASRWRK-[A-Z0-9][A-Z0-9._-]*$"
       },
       "uniqueItems": true
     },
     "milestone_refs": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "pattern": "^ASRMIL-[A-Z0-9][A-Z0-9._-]*$"
       },
       "uniqueItems": true
     },
@@ -114,11 +127,11 @@
     },
     "exit_criteria": {
       "type": "array",
-      "minItems": 1,
       "items": {
         "type": "string",
         "minLength": 1
-      }
+      },
+      "minItems": 1
     },
     "start_at": {
       "type": [
@@ -137,20 +150,31 @@
     "actual_outcomes": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
     },
     "test_refs": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       },
       "uniqueItems": true
     },
     "evaluation_refs": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
       },
       "uniqueItems": true
     },
@@ -166,6 +190,19 @@
         "null"
       ]
     },
+    "accepted_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "disposition_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "created_at": {
       "type": "string",
       "format": "date-time"
@@ -174,5 +211,85 @@
       "type": "string",
       "format": "date-time"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "ACCEPTED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "actual_outcomes",
+          "evidence_refs",
+          "evaluation_refs",
+          "retrospective",
+          "accepted_at"
+        ],
+        "properties": {
+          "actual_outcomes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "evidence_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "evaluation_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "retrospective": {
+            "type": "string",
+            "minLength": 1
+          },
+          "accepted_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "ABANDONED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "disposition_reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "disposition_reason"
+        ]
+      }
+    }
+  ]
 }
