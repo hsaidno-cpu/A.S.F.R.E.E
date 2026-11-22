@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/rpeds/roadmap.schema.json",
   "title": "A.S.F.R.E.E RPEDS Roadmap",
-  "description": "Versioned roadmap contract; a plan is not evidence that work executed.",
+  "description": "Versioned roadmap contract. Lifecycle states that assert approval or closure carry their own approval/closure evidence.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -16,6 +17,7 @@
     "target_state",
     "phases",
     "progress_policy",
+    "governance",
     "revision",
     "source_refs",
     "created_at",
@@ -27,7 +29,7 @@
     },
     "roadmap_id": {
       "type": "string",
-      "pattern": "^RPDS-[A-Z0-9][A-Z0-9._-]*$"
+      "pattern": "^ASRMAP-[A-Z0-9][A-Z0-9._-]*$"
     },
     "title": {
       "type": "string",
@@ -107,13 +109,15 @@
         "in_scope": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           }
         },
         "out_of_scope": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           }
         }
       }
@@ -122,10 +126,20 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
+        "status",
         "captured_at",
-        "evidence_refs"
+        "evidence_refs",
+        "limitations"
       ],
       "properties": {
+        "status": {
+          "enum": [
+            "VERIFIED",
+            "PARTIAL",
+            "UNKNOWN",
+            "NOT_ASSESSED"
+          ]
+        },
         "version_or_ref": {
           "type": [
             "string",
@@ -146,14 +160,16 @@
         "evidence_refs": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           },
           "uniqueItems": true
         },
         "limitations": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           }
         }
       }
@@ -162,7 +178,8 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "description"
+        "description",
+        "success_conditions"
       ],
       "properties": {
         "description": {
@@ -178,8 +195,10 @@
         "success_conditions": {
           "type": "array",
           "items": {
-            "type": "string"
-          }
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
         }
       }
     },
@@ -200,7 +219,7 @@
         "properties": {
           "phase_id": {
             "type": "string",
-            "minLength": 1
+            "pattern": "^ASRPH-[A-Z0-9][A-Z0-9._-]*$"
           },
           "name": {
             "type": "string",
@@ -217,20 +236,23 @@
           "entry_criteria": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           },
           "exit_criteria": {
             "type": "array",
-            "minItems": 1,
             "items": {
-              "type": "string"
-            }
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
           },
           "milestone_refs": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "uniqueItems": true
           },
@@ -367,6 +389,11 @@
     "governance": {
       "type": "object",
       "additionalProperties": false,
+      "required": [
+        "decision_owner",
+        "approval_required",
+        "approval_state"
+      ],
       "properties": {
         "decision_owner": {
           "type": [
@@ -376,6 +403,14 @@
         },
         "approval_required": {
           "type": "boolean"
+        },
+        "approval_state": {
+          "enum": [
+            "NOT_REQUIRED",
+            "PENDING",
+            "APPROVED",
+            "REJECTED"
+          ]
         },
         "approved_by": {
           "type": [
@@ -389,6 +424,14 @@
             "null"
           ],
           "format": "date-time"
+        },
+        "approval_evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
         },
         "authority_level": {
           "enum": [
@@ -415,21 +458,55 @@
     "assumptions": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
     },
     "risks": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
     },
     "source_refs": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       },
       "uniqueItems": true
+    },
+    "closure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "closed_at",
+        "closure_evidence_refs",
+        "residual_risk_disposition"
+      ],
+      "properties": {
+        "closed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "closure_evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "residual_risk_disposition": {
+          "enum": [
+            "RESOLVED",
+            "ACCEPTED",
+            "TRANSFERRED",
+            "OPEN_WITH_OWNER"
+          ]
+        }
+      }
     },
     "created_at": {
       "type": "string",
@@ -446,5 +523,143 @@
       ],
       "format": "date-time"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "APPROVED",
+              "ACTIVE",
+              "COMPLETED"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "governance": {
+            "required": [
+              "decision_owner",
+              "approval_state",
+              "approved_by",
+              "approved_at",
+              "approval_evidence_refs"
+            ],
+            "properties": {
+              "decision_owner": {
+                "type": "string",
+                "minLength": 1
+              },
+              "approval_state": {
+                "const": "APPROVED"
+              },
+              "approved_by": {
+                "type": "string",
+                "minLength": 1
+              },
+              "approved_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "approval_evidence_refs": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "COMPLETED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "closure"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "SUPERSEDED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "supersedes"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "progress_policy": {
+            "properties": {
+              "method": {
+                "const": "APPROVED_WEIGHTED_COMPOSITE"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          }
+        },
+        "required": [
+          "progress_policy"
+        ]
+      },
+      "then": {
+        "properties": {
+          "progress_policy": {
+            "required": [
+              "weights_approved",
+              "weight_rationale",
+              "approved_by",
+              "o12_validation_ref"
+            ],
+            "properties": {
+              "weights_approved": {
+                "const": true
+              },
+              "weight_rationale": {
+                "type": "string",
+                "minLength": 1
+              },
+              "approved_by": {
+                "type": "string",
+                "minLength": 1
+              },
+              "o12_validation_ref": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }
