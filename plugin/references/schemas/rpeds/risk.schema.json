@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/rpeds/risk.schema.json",
+  "title": "A.S.F.R.E.E RPEDS Risk, Assumption and Blocker",
+  "description": "Roadmap-linked risk record separating evidence status, severity, likelihood, impact, treatment and resolution/acceptance decisions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "risk_id",
+    "roadmap_id",
+    "title",
+    "category",
+    "status",
+    "epistemic_status",
+    "severity",
+    "likelihood",
+    "impact",
+    "trigger",
+    "evidence_refs",
+    "limitations",
+    "treatment",
+    "residual_risk"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "risk_id": {
+      "type": "string",
+      "pattern": "^ASRRSK-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "roadmap_id": {
+      "type": "string",
+      "pattern": "^ASRMAP-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "enum": [
+        "RISK",
+        "BLOCKER",
+        "ASSUMPTION",
+        "DEPENDENCY",
+        "ISSUE",
+        "OPPORTUNITY"
+      ]
+    },
+    "status": {
+      "enum": [
+        "OPEN",
+        "ASSESSING",
+        "MITIGATING",
+        "BLOCKED",
+        "ACCEPTED",
+        "RESOLVED",
+        "CLOSED"
+      ]
+    },
+    "epistemic_status": {
+      "enum": [
+        "OBSERVED",
+        "INFERRED",
+        "HYPOTHESIS",
+        "UNKNOWN"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "P0_CRITICAL",
+        "P1_HIGH",
+        "P2_MEDIUM",
+        "P3_LOW",
+        "UNASSESSED"
+      ]
+    },
+    "likelihood": {
+      "enum": [
+        "RARE",
+        "UNLIKELY",
+        "POSSIBLE",
+        "LIKELY",
+        "ALMOST_CERTAIN",
+        "UNASSESSED"
+      ]
+    },
+    "impact": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "trigger": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "counterevidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "treatment": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "owner": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "residual_risk": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "review_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "risk_acceptance_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "accepted_by": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "accepted_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "resolution_evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "resolved_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "resolution_note": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "epistemic_status": {
+            "const": "UNKNOWN"
+          }
+        },
+        "required": [
+          "epistemic_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "limitations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "limitations"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "ACCEPTED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "risk_acceptance_ref",
+          "accepted_by",
+          "accepted_at"
+        ],
+        "properties": {
+          "risk_acceptance_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "accepted_by": {
+            "type": "string",
+            "minLength": 1
+          },
+          "accepted_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "RESOLVED",
+              "CLOSED"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "resolution_evidence_refs",
+          "resolved_at",
+          "resolution_note"
+        ],
+        "properties": {
+          "resolution_evidence_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "resolved_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "resolution_note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  ]
+}

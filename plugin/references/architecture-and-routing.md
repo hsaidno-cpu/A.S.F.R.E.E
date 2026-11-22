@@ -56,3 +56,8 @@ O11 governs the trust policy and hard gates across L01–L08; O09 owns runtime/p
 The security facade must sit at the operation boundary rather than only at the API entry point. Every SCIVE transition is separately authorized and tenant-bound. Cross-process delegation must be signed, audience/action/resource-bound, attenuable, expiring, replay-protected and revocable. Sensitive storage coverage includes metadata, WAL, temp, logs, audit and backup, not just blob content.
 
 Production execution is not established by container flags or a command builder. Require host-provisioned sandbox and quota enforcement, bounded streaming, real tenant isolation tests, external WORM read-back, concurrency testing and independent human review. See [P1.1 Security-to-Production Readiness Contract](p1.1-security-production-readiness.md).
+
+
+## RPEDS — roadmap lifecycle control plane
+
+RPEDS is a subordinate, cross-cutting lifecycle control capability that spans planning, development sequencing, progress visibility, evaluation checkpoints and adaptive replanning. It is not a ninth architectural layer, not a case-level orchestrator, and not an additional numbered O specialist. M00 remains the sole case coordinator. RPEDS delegates anatomy to O02, evaluation authority to O12, test execution/verification to O10, authorization to O11, change design to O07/O08, and supported execution to O09. The four bounded RPEDS modules and lifecycle are specified in skills/rpeds-progressive-development/SKILL.md and references/rpeds/.

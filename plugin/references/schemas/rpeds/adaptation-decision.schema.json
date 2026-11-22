@@ -1,0 +1,440 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/A.S.F.R.E.E/blob/main/plugin/references/schemas/rpeds/adaptation-decision.schema.json",
+  "title": "A.S.F.R.E.E RPEDS Adaptation Decision",
+  "description": "An evidence-backed, approval-aware roadmap change. Approved decisions and verified implementation have mandatory provenance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_id",
+    "roadmap_id",
+    "from_revision",
+    "action",
+    "trigger",
+    "alternatives",
+    "rationale",
+    "impact_analysis",
+    "status",
+    "approval_required",
+    "approval_refs",
+    "verification_refs",
+    "residual_risk"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "decision_id": {
+      "type": "string",
+      "pattern": "^ASRDEC-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "roadmap_id": {
+      "type": "string",
+      "pattern": "^ASRMAP-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "from_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "to_revision": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "action": {
+      "enum": [
+        "CONTINUE",
+        "RESEQUENCE",
+        "REBASELINE",
+        "SPLIT",
+        "MERGE",
+        "DEFER",
+        "PILOT",
+        "ROLLBACK",
+        "STOP",
+        "CLOSE"
+      ]
+    },
+    "trigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "description",
+        "evidence_refs"
+      ],
+      "properties": {
+        "category": {
+          "enum": [
+            "GATE_FAILURE",
+            "SCOPE_DRIFT",
+            "DEPENDENCY_DRIFT",
+            "RESOURCE_CONSTRAINT",
+            "RISK_CHANGE",
+            "OUTCOME_VARIANCE",
+            "NEW_OPPORTUNITY",
+            "EXTERNAL_CHANGE",
+            "OTHER"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "confidence": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "UNASSESSED"
+          ]
+        }
+      }
+    },
+    "alternatives": {
+      "type": "array",
+      "minItems": 2,
+      "contains": {
+        "type": "object",
+        "properties": {
+          "selected": {
+            "const": true
+          }
+        },
+        "required": [
+          "selected"
+        ]
+      },
+      "maxContains": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action",
+          "trade_offs",
+          "selected"
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "trade_offs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "selected": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "impact_analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "dependencies",
+        "risk",
+        "stakeholders"
+      ],
+      "properties": {
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "schedule": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "compatibility": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "risk": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "stakeholders": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "PROPOSED",
+        "NEEDS_APPROVAL",
+        "APPROVED",
+        "REJECTED",
+        "IMPLEMENTING",
+        "IMPLEMENTED",
+        "VERIFICATION_PENDING",
+        "VERIFIED",
+        "SUPERSEDED"
+      ]
+    },
+    "decision_owner": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "approval_required": {
+      "type": "boolean"
+    },
+    "approval_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "approved_by": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "approved_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "o11_authorization_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "o12_evaluation_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "implementation_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verification_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "residual_risk": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "decided_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "review_trigger": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "APPROVED",
+              "IMPLEMENTING",
+              "IMPLEMENTED",
+              "VERIFICATION_PENDING",
+              "VERIFIED"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "decision_owner",
+          "decided_at",
+          "to_revision"
+        ],
+        "properties": {
+          "decision_owner": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decided_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to_revision": {
+            "type": "integer",
+            "minimum": 2
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "approval_required": {
+            "const": true
+          }
+        },
+        "required": [
+          "approval_required"
+        ]
+      },
+      "then": {
+        "required": [
+          "approval_refs"
+        ],
+        "properties": {
+          "approval_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "APPROVED",
+              "IMPLEMENTING",
+              "IMPLEMENTED",
+              "VERIFICATION_PENDING",
+              "VERIFIED"
+            ]
+          },
+          "approval_required": {
+            "const": true
+          }
+        },
+        "required": [
+          "status",
+          "approval_required"
+        ]
+      },
+      "then": {
+        "required": [
+          "approved_by",
+          "approved_at"
+        ],
+        "properties": {
+          "approved_by": {
+            "type": "string",
+            "minLength": 1
+          },
+          "approved_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "VERIFIED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "implementation_ref",
+          "verification_refs"
+        ],
+        "properties": {
+          "implementation_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "verification_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -47,3 +47,21 @@ Use case-local identifiers such as `CASE-`, `TARGET-`, `SRC-`, `CLM-`, `EVD-`, `
 ## Schema versioning
 
 All contract changes must update schema version and compatibility notes. Prefer additive optional fields for minor revisions. Breaking field/enum changes require a major schema version and an explicit migration map. Reject or quarantine unknown enum values rather than guessing. Validate producer output and consumer input at handoff boundaries.
+
+
+## RPEDS roadmap contracts
+
+RPEDS contracts are defined under schemas/rpeds/: roadmap, milestone, iteration, progress measurement, adaptation decision, and risk. They are normative schemas/specifications, not a deployed roadmap service or persistent runtime database.
+
+RPEDS/Notion canonical identifier families: ASRMAP- roadmap, ASRPH- phase, ASRMIL- milestone, ASRITR- iteration, ASRWRK- work item, ASREVL- evaluation/progress measurement, ASRDEC- adaptation decision, and ASRRSK- risk/blocker. IDs are stable references, not proof of persistence or execution. Producers and consumers must preserve the exact ID; do not silently translate to RPDS/RPM/RPI/RPV/RPD/RPR aliases. Keep revision and parent/child references explicit, and preserve superseded roadmap revisions rather than overwriting them.
+
+A progress measurement must carry its indicator definition, method, unit/rubric, baseline, target, observed value only when measured, evidence refs, time/version, confidence and limitations. A missing or stale observation is not zero. Distinct measures must not be aggregated unless normalization, weight rationale, approval and O12 validity review are recorded.
+
+RPEDS records preserve the trace chain OBJECTIVE → ROADMAP REVISION → PHASE → MILESTONE → WORK ITEM/ITERATION → TEST/EVALUATION EVIDENCE → ADAPTATION DECISION → NEXT REVISION. Typed dependency edges and observed/documented/inferred/hypothesis status remain explicit; the graph is not proof of causation.
+
+
+## RPEDS schema inventory and evolution
+
+The RPEDS contract set contains seven Draft 2020-12 JSON Schemas: roadmap, milestone, iteration, progress measurement, adaptation decision, risk, and work item. A schema version identifies the contract independently of the plugin SemVer. The initial contract baseline is 1.0.0; additive compatible fields may be introduced under the documented migration policy, while changed required fields, status semantics, or ID patterns require a new major schema version and explicit migration tests.
+
+JSON Schema validates record shape and local state invariants. It cannot by itself prove cross-record referential integrity, ID uniqueness, dependency acyclicity, authorization validity, or real test execution. The executable RPEDS contract validator therefore checks schema meta-validity, positive/negative examples, duplicate IDs, dangling references and dependency cycles. Runtime and host-model behavioral tests remain separate gates.

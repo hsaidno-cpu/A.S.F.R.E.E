@@ -56,3 +56,12 @@ Hard-gate policy:
 - Production disposition requires successful staging evidence, adversarial and concurrency testing, restore/key-lifecycle evidence, external audit read-back, and independent signed human review.
 
 P1.1 evaluation outputs: security evaluation charter; control-to-evidence matrix; adversarial/concurrency test matrix; provider and infrastructure readiness record; independent-review record; residual-risk register; disposition with explicit blockers.
+
+
+## RPEDS evaluation authority and handoff
+
+When RPEDS is active, O12 remains authoritative for the evaluation charter, construct validity, criteria, indicator definitions, methods, baselines/targets, thresholds, uncertainty, evaluation disposition, outcome/impact judgment and meta-evaluation. RPEDS schedules E0–E7 checkpoints, maintains roadmap-level progress records, and presents evidence to O12; it must not independently score a milestone or override an O12 disposition.
+
+O10 owns actual test execution and observed test results. A planned test, mocked provider, static specification, or NOT_RUN record cannot satisfy a milestone verification gate. O12 must distinguish evidence strength, confidence, severity, likelihood, importance and impact, and must reject incomparable aggregation or unsupported weighted progress. Any composite progress formula requires a defined construct, normalized dimensions, approved weights, sensitivity review and a named decision owner.
+
+Return to RPEDS/M00: evaluation stage, criteria, indicators and methods applied, observed evidence refs, test execution state, disposition, hard-gate failures, uncertainty/limitations, impact, and recommended next gate. Human decision authority remains with the authorized owner; O12 does not approve implementation or production release.
