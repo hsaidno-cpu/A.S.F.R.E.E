@@ -27,6 +27,20 @@ RPEDS is part of the A.S.F.R.E.E ecosystem, but it is not a ninth architectural 
 
 RPEDS orchestrates when these responsibilities are needed; it does not reimplement them. It receives their structured outputs and returns roadmap decisions to M00.
 
+## Conditional O03–O06 route selection
+
+M00 selects each route independently from the actual decision need:
+
+- **O03** when a change could remove/regress evidenced value or capability, or when explicit preservation constraints are required. Output: realized-versus-potential value register, preservation invariants and non-regression criteria.
+- **O04** when credible failure, misuse, security/privacy exposure, dependency risk or harmful side effects could change the roadmap. Output: scenario-based risk/failure dossier, evidence status, controls and residual risk.
+- **O05** when at least two feasible alternatives or a valid baseline-to-target comparison must be judged. Output: comparability assessment, normalized criteria, hard gates, trade-offs and conditional recommendation.
+- **O06** when an observed/reported failure, regression, contract mismatch or unexplained variance needs bounded reproduction and root-cause diagnosis. Output: expected/observed record, oracle, reproduction state, competing hypotheses and falsification path.
+
+Do not activate a route for its non-trigger: O03 is not generic praise; O04 is not unsupported worst-case storytelling; O05 does not invent candidates or compare unlike contexts; O06 does not call an untested suspicion a confirmed defect. O03/O04 can run in parallel on a shared baseline only when their questions are independent. O05 consumes real candidates and can use O03/O04 constraints. O06 precedes remediation design and may precede option comparison. M00 records route decision separately from invocation/execution state and resolves overlap.
+
+No O03–O06 specialist authorizes target mutation, accepts risk, approves a roadmap or marks a gate PASS. O11 owns authorization/security, O10 owns test execution and independent verification, O12 owns evaluation judgment, O09 owns supported runtime execution, and O07/O08 own accepted change design.
+
+
 ## Four internal capability modules
 
 1. **Roadmap Architecture Planner** — objective hierarchy, roadmap revisions, phases, milestone design, dependency DAG, feasibility and baseline.
