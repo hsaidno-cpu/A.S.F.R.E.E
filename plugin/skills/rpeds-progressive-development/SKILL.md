@@ -1,0 +1,147 @@
+---
+name: rpeds-progressive-development
+description: Use when a system, product, plugin, repository, capability, or program needs a phased development roadmap with milestones, iterations, evidence-based progress evaluation, stage gates, or adaptive replanning.
+---
+
+# RPEDS — Roadmap Progressive Evaluation & Development System
+
+## Mission and architectural position
+
+RPEDS manages the development lifecycle of a roadmap: objective decomposition, progressive delivery, evidence-backed evaluation, adaptive replanning, and closure. It is a lifecycle control plane governed by M00, not a second case-level orchestrator, not an O13 specialist, and not a runtime scheduler by implication.
+
+A.S.F.R.E.E authority boundaries remain unchanged:
+- **M00:** case identity, scope, authority, specialist routing, arbitration, final synthesis, and case disposition.
+- **O11:** authorization, security, privacy, consequential-action approval, and governance.
+- **O12:** evaluation purpose, criteria, measurement validity, evidence interpretation, judgment, impact, and meta-evaluation.
+- **O10:** actual test design/execution records and independent verification.
+- **O07/O08:** accepted remediation and reconstruction/change design.
+- **O09:** supported integration/runtime execution and execution receipts.
+
+RPEDS may schedule and coordinate those responsibilities, but may not absorb, override, or counterfeit them.
+
+## Trigger and non-trigger
+
+Activate RPEDS when a request materially involves:
+- creating or governing a multi-phase development roadmap;
+- translating strategy into phases, milestones, work items, and dependencies;
+- progressive delivery across iterations or versions;
+- longitudinal progress monitoring;
+- milestone/phase readiness and exit criteria;
+- roadmap adaptation after verified evaluation, drift, blockers, changed constraints, or new evidence.
+
+Do not activate merely to create a short checklist, a one-off fix, or a single evaluation record. Do not invent work, owners, time estimates, dates, baselines, resource capacity, progress, or approval.
+
+## Four bounded capability modules
+
+1. **Roadmap Architecture Planner:** strategy, objective hierarchy, roadmap decomposition, baselines, dependencies, phase and milestone design.
+2. **Progressive Development Manager:** iterations, work-item orchestration, scope commitment, delivery states, milestone tracking.
+3. **Continuous Evaluation Engine:** evaluation checkpoints, measurement registry, progress dimensions, evidence, gates, and handoff to O12/O10.
+4. **Adaptive Roadmap Optimization Engine:** drift detection, reprioritization, rebaseline, controlled replanning, decision history, and closure.
+
+These are bounded procedures within RPEDS. They are not separate case coordinators or autonomous agents unless the host explicitly exposes and invokes them. Detailed procedures live under the RPEDS reference directory.
+
+## RPEDS lifecycle
+
+Use the following lifecycle proportionately. R stages are roadmap-management states; they do not replace O12's E0–E7 evaluation lifecycle.
+
+| Stage | Name | Required outcome |
+|---|---|---|
+| R0 | INTAKE | Intent, target, owner/authority, scope, non-goals, constraints, decision need |
+| R1 | STRATEGY & BASELINE | Objective hierarchy, target state, observed baseline, provenance, constraints |
+| R2 | ROADMAP DESIGN | Phases, milestones, work items, dependencies, resources, exit criteria, risk assumptions |
+| R3 | APPROVAL & BASELINE FREEZE | Roadmap version, decision owner, approved scope, approval evidence, change boundary |
+| R4 | ITERATION EXECUTION | Small bounded commitments, actual work states, change/evidence links |
+| R5 | FORMATIVE CHECK | Drift, blockers, emerging risks, invalid assumptions, scope and evidence health |
+| R6 | MILESTONE ACCEPTANCE | Exit criteria, actual tests, independent verification, O12 disposition, gate decision |
+| R7 | OUTCOME & IMPACT | Intended outcome, operational/human impact, benefits, harms, residual risk |
+| R8 | ADAPTATION | Continue, resequence, rebaseline, split, merge, defer, pilot, rollback, stop, or close |
+| R9 | CLOSURE & LEARNING | Final state, delivered evidence, unresolved risks, lessons, next owner/handoff |
+
+A roadmap may loop from R5/R6/R7 to R8 and back to R2/R4. Do not force every small task through every stage.
+
+## Mandatory records and traceability
+
+For a material roadmap, maintain:
+- Roadmap: stable ID, objective, scope/non-goals, target/system, baseline/version/ref, target state, owner/decision authority, phases, dependency model, progress policy, risk tolerance, source provenance, revision history.
+- Phase: sequence, objective, entry/exit criteria, dependencies, target window only where approved, milestones, gate result, evidence.
+- Milestone: stable ID, acceptance criteria, dependency references, owner if assigned, target date if committed, gate state, evidence and decision.
+- Iteration: objective, baseline, committed scope, work items, exit criteria, start/end only when known, actual outcome, retrospective.
+- Progress measurement: indicator definition, method, unit/rubric, baseline, target, observed value, evidence, uncertainty, confidence, environment, version, timestamp.
+- Adaptation decision: trigger, evidence, alternatives, selected action, rationale, owner, required approval, implementation status, impact, residual risk, superseded revision.
+- Risk/blocker: category, severity, likelihood where justified, impact, trigger, treatment, owner if assigned, status, review/evidence.
+
+Use the JSON Schemas under the RPEDS schemas directory. Keep identifiers stable and link records rather than duplicating mutable facts.
+
+## Progress measurement policy
+
+Progress is multi-dimensional. Never collapse delivery, verification, quality, outcome attainment, and impact into an unqualified single percentage.
+
+Minimum separate measures:
+- Delivery completion: verified in-scope work items / total in-scope work items.
+- Milestone acceptance: accepted milestones / total approved milestones.
+- Verification coverage: required tests actually executed with recorded outcomes / declared required tests.
+- Outcome attainment: measured indicator compared with its approved target, using that indicator's defined unit and direction.
+- Risk posture: open/accepted/resolved risks with severity and uncertainty visible.
+- Schedule variance: only when baseline dates, approved changes, and actual dates exist.
+
+Default progress method is evidence-count based. Weighted progress is permitted only when weights are justified, approved by the decision owner, comparable, normalized, recorded, and validated by O12. Hard gates override averages. Unassessed, stale, blocked, NOT_RUN, UNVERIFIABLE, or missing evidence is never silently counted as PASS or completion.
+
+A roadmap-level summary must show measurement date, denominator, scope, excluded items, status definitions, evidence coverage, and uncertainty. Do not report a fabricated percentage when the denominator or state is unknown.
+
+## Gate and decision rules
+
+A milestone can be accepted only when:
+1. entry/exit and acceptance criteria were declared before evaluation;
+2. scope and baseline are clear;
+3. required work items have a recorded implementation state;
+4. required tests have actual results from O10 or a declared authorized test executor;
+5. O12 has evaluated the relevant evidence against the charter;
+6. no unresolved hard-gate failure/P0/P1 blocker remains, unless applicable policy expressly allows a documented hold or risk acceptance by the authorized owner;
+7. required approvals and evidence locators exist.
+
+Valid gate dispositions: NOT_RUN, NOT_ASSESSED, PASS, PASS_WITH_CAVEATS, HOLD, FAIL, BLOCKED, NOT_APPLICABLE. NOT_RUN, NOT_ASSESSED, HOLD, FAIL, and BLOCKED are not PASS.
+
+M00 and the authorized human decision owner retain final authority. RPEDS produces recommendations, not self-approval.
+
+## Adaptive roadmap rules
+
+Replan only from a material trigger:
+- failed/held milestone or evaluation gate;
+- evidence-backed scope, baseline, dependency, or assumption drift;
+- newly observed security, legal, technical, operational, cost, or human-impact risk;
+- dependency failure or resource/capacity constraint;
+- validated opportunity with documented trade-off;
+- measured outcome materially diverging from an approved target.
+
+For each adaptation:
+1. preserve the prior roadmap revision;
+2. record the trigger and evidence;
+3. compare DO_NOTHING, CONTINUE, RESEQUENCE, REBASELINE, SPLIT, MERGE, DEFER, PILOT, ROLLBACK, STOP, and CLOSE as applicable;
+4. show scope, dependency, date, resource, compatibility, risk, and stakeholder impact;
+5. identify decision owner and required authority/approval;
+6. create a new roadmap revision or explicit delta; never overwrite history;
+7. validate affected milestones and indicators with O10/O12 as relevant.
+
+Replanning must not bypass O11, convert a failed gate into a pass, or erase inconvenient evidence.
+
+## Handoff contract
+
+Return to M00:
+- roadmap ID/revision and target;
+- lifecycle stage and current state;
+- baseline and evidence provenance;
+- phase/milestone/iteration/work-item references;
+- separate progress measures and their denominators;
+- gate dispositions, actual tests, and O12 evaluation references;
+- blockers/risks/assumptions and counterevidence;
+- adaptation options and recommended decision;
+- approval/authority requirements;
+- next owner, next gate, and explicit unknowns.
+
+Use PROCEDURE_APPLIED if the host does not expose a distinct RPEDS invocation; never claim an autonomous service, agent, scheduler, database engine, or background monitor is running without evidence.
+
+## Stop conditions
+
+Stop or hold when target/authority is unclear, baseline is materially changed without authorization, critical evidence is missing or contradicted, a dependency cycle is unresolved, a P0/P1 risk is uncontrolled, required verification failed/not run, the decision owner is absent, or a requested mutation lacks exact approval.
+
+The portable RPEDS package is a skills-and-contract specification. A persistent service, automatic GitHub/Notion synchronization, scheduled monitoring, runtime database, and autonomous replanning engine are not provided by this package.
