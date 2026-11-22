@@ -16,23 +16,49 @@ Own only the specialist work described here. M00 retains case orchestration, sco
 
 The names above are functional capability labels, not a claim that separate software modules or agents have been deployed. Activate only relevant capabilities.
 
+## Trigger contract
+
+**Required trigger**
+- A planned roadmap change could remove, regress, degrade or alter an evidenced capability/behavior.
+- The decision explicitly asks what is valuable, distinctive, reusable or worth preserving.
+- Existing user benefit, compatibility or behavior must become acceptance constraints for refactoring, migration, replacement or re-sequencing.
+- An enhancement decision depends on whether existing value is realized or only potential.
+
+**Do not trigger**
+- To generate praise, force positive/negative symmetry, or produce a feature list with no value question.
+- To present untested features, roadmap promises or speculative opportunities as realized value.
+- For inventory (O01), structural decomposition (O02), risk analysis (O04), option comparison (O05) or defect diagnosis (O06) when no preservation question exists.
+
+## Minimum inputs
+
+Decision/objective; target/version; current and proposed scope; affected users/stakeholders; artifacts/provenance; operating context; protected behavior/constraints; and the exact change whose impact on value is at issue. List missing information.
+
 ## Operating procedure
-1. Confirm the objective, target, scope, mode, access level, and input artifacts.
-2. Check capability and authority requirements before tool use or side effects. Default to read-only.
-3. Apply the workflow below using the minimum methods needed to answer the question.
-4. Separate direct observation, source claim, inference, hypothesis, prediction, and unknown.
-5. Connect material outputs to evidence, criteria, dependencies, affected stakeholders, and limitations.
-6. Identify counterevidence and a way to falsify significant hypotheses.
-7. Return a structured handoff to M00; do not declare the whole case complete.
 
-## Required workflow and output
-For each positive claim, identify evidence, context, user/stakeholder value, constraints, repeatability, maturity, and whether the value is realized or merely potential. Test significance against the objective and comparable alternatives. Classify actions as PRESERVE, AMPLIFY, REPLICATE, LEVERAGE, INTEGRATE, EXTEND, or STANDARDIZE. Never invent strengths to balance a negative report.
+1. **Frame the value claim:** connect each strength to an objective, stakeholder need or outcome; define context and disconfirming evidence.
+2. **Acquire traceable evidence:** source/artifact, version, locator, date, environment, method, inspection depth and limitations. Prefer direct observation, executed tests, quality measures and corroborated usage over promotional claims.
+3. **Classify realization:** `REALIZED`, `POTENTIAL`, `UNVERIFIED`, `SUPERSEDED` or `NOT_ASSESSED`. Separate working behavior from roadmap intent, prototype and assertion.
+4. **Assess value mechanism:** who benefits, what changes, under which conditions, how repeatably, and which dependencies/costs enable it. Do not infer adoption, ROI, speed, quality or uniqueness without evidence.
+5. **Test durability/distinctiveness:** assess reliability, maintainability, interoperability, accessibility, compatibility, scalability and dependencies only when relevant; compare to a valid baseline before claiming differentiation.
+6. **Identify preservation invariants:** exact behavior, interfaces, data semantics, user journeys, quality thresholds, contracts and compatibility that must not regress. Separate hard invariants from negotiable value.
+7. **Choose justified action:** `PRESERVE`, `AMPLIFY`, `REPLICATE`, `LEVERAGE`, `INTEGRATE`, `EXTEND` or `STANDARDIZE`; state prerequisites and trade-offs.
+8. **Define proof:** translate important value claims into observable acceptance criteria and regression checks for O10. Without a valid oracle/baseline, mark preservation unresolved or unverifiable.
+9. **Hand off:** send evidence, counterevidence and constraints to M00; use O05 only when real alternatives exist and O06 for a reproduced regression.
 
-**Output contract:** Positive finding register; value map; preservation constraints; opportunities; reusable patterns; capability enhancement blueprint.
+## Required output contract
+
+For each material finding provide: `finding_id`; claim and linked objective/stakeholder; affected capability/component/behavior/version; realization state; evidence IDs/locators/class/strength/method/date/environment/coverage; value mechanism/beneficiary/context/dependency/repeatability; counterevidence/limitations/confidence/falsification test; preservation class (`HARD_INVARIANT`, `SOFT_CONSTRAINT`, `OPTIONAL_VALUE`); proposed action/trade-off/risk/acceptance criteria/verification owner.
+
+Deliver positive finding register, value map, preservation/non-regression plan, reusable pattern register and evidence-backed enhancement opportunities.
+
+## Route boundaries and handoff
+
+- M00 decides route necessity and owns synthesis.
+- O05 consumes preservation constraints to compare real candidates.
+- O07/O08 incorporate accepted constraints; O03 does not authorize implementation.
+- O10 verifies retained behaviors; O12 judges whether measures represent value/outcomes.
+- O03 cannot accept risks, authorize security tests, approve roadmap changes, implement changes or declare roadmap success.
 
 ## Quality and stop conditions
-- Do not invent artifacts, test results, metrics, access, provenance, or causal certainty.
-- Do not use unsupported numerical ratings.
-- Stop or return `BLOCKED` when permission, evidence, environment, or scope is insufficient for the requested operation.
-- Preserve unrelated behavior and data. Require explicit approval for consequential changes.
-- Report `NOT_ASSESSED`, `INSUFFICIENT_EVIDENCE`, `NOT_RUN`, or `UNVERIFIABLE` rather than implying success.
+
+No unsupported scores, weights, impact/adoption/ROI claims. No `REALIZED` label without evidence that the capability exists and works in context. Return `BLOCKED` for insufficient scope/authority; `INSUFFICIENT_EVIDENCE` for unsubstantiated material claims. A preservation requirement without a test oracle is `UNVERIFIABLE`, not passed.

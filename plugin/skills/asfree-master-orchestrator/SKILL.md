@@ -353,18 +353,47 @@ A replan preserves the previous roadmap revision, cites trigger evidence and cou
 
 ## 16. Conditional RPEDS specialist routing
 
-M00 remains the sole case-level orchestrator. When ROADMAP_DEVELOPMENT is selected, RPEDS is the lifecycle coordinator for roadmap structure, iterations, progress records and adaptive proposals; use existing specialists only when their distinct output is required:
+M00 is the sole case-level orchestrator and owns route selection, scope arbitration, duplicate-work prevention, specialist handoffs and final synthesis. RPEDS coordinates roadmap records and lifecycle stages; it does not become a second master. O03–O06 are conditional analytical routes, not a compulsory four-specialist bundle.
 
-- O01: establish artifact/source/version baseline and provenance.
-- O02: decompose target structure, interfaces, dependencies and capability boundaries.
-- O03: identify verified value and behavior that must be preserved before re-sequencing or reconstruction.
-- O04: red-team material roadmap risks, failure modes, abuse paths and unintended consequences.
-- O05: compare feasible roadmap/adaptation alternatives against common criteria and explicit trade-offs.
-- O06: diagnose a reproduced defect or unexplained variance that is driving a roadmap change.
-- O07/O08: design accepted remediation or reconstruction; do not use RPEDS itself as the code-change authority.
-- O09: execute only supported and authorized integrations/runtime actions.
-- O10: design/run tests and report actual verification evidence.
-- O11: gate authorization, security, privacy, consequential actions and external side effects.
-- O12: own evaluation charters, criteria, measurement validity, judgment, impact and meta-evaluation.
+### 16.1 Route-selection procedure
 
-This is conditional routing, not a mandatory activation of all O01–O12 on every roadmap. A standalone evaluation without longitudinal development routes to O12; a one-off fix/reconstruction without roadmap governance routes to O06/O07/O08 as appropriate; a simple checklist does not activate RPEDS. Route collisions are resolved by dominant intent and output ownership; do not run duplicate procedures for the same deliverable. Every handoff returns to M00 for arbitration.
+For each roadmap decision or material change:
+
+1. State the decision question; identify target, roadmap revision, affected scope, stakeholders and decision owner.
+2. Establish the available baseline through O01/O02 or cited current evidence. Record source, version, date, environment and inspection depth. Do not infer missing context.
+3. Evaluate each O03–O06 trigger independently. Select a route only when its distinct deliverable can change a preservation constraint, risk posture, candidate ranking, diagnosis, acceptance gate or next action.
+4. Record route decision per specialist as `REQUIRED`, `OPTIONAL`, `NOT_REQUIRED` or `UNRESOLVED`. `NOT_REQUIRED` requires an explicit trigger check; `UNRESOLVED` means evidence/scope is insufficient to decide.
+5. Record execution state separately: `INVOKED`, `PROCEDURE_APPLIED`, `BEHAVIOR_ONLY`, `NOT_RUN`, `BLOCKED` or `UNAVAILABLE`. Use `INVOKED` only when the host confirms a real skill/tool invocation.
+6. Route every material handoff back to M00. M00 reconciles conflicts and chooses the next dependency; a specialist never expands its own authority.
+
+### 16.2 O03–O06 route matrix
+
+| Route | Select when | Do not select merely because | Minimum distinct output | Typical downstream handoff |
+|---|---|---|---|---|
+| **O03 Positive Intelligence** | A proposed change, migration, refactor, re-sequencing or replacement could remove, weaken or alter an evidenced capability, user benefit, differentiator, reusable pattern or protected behavior; or the decision explicitly asks what value must be preserved/amplified. | Generic praise, a feature inventory without value evidence, or speculative potential presented as achieved benefit. | Positive finding register; realized/potential value classification; preservation constraints and non-regression conditions; enhancement options. | O05 compares alternatives against preservation constraints; O07/O08 incorporate accepted constraints; O10 verifies retained behavior. |
+| **O04 Negative Intelligence** | A material decision exposes the target/stakeholders to credible failure, misuse, security/privacy threat, operational hazard, dependency risk, harmful side effect or worst-credible scenario. | Merely imaginable weaknesses, unverified suspicion without a plausible mechanism, or routine quality review with no material risk question. | Adversarial findings dossier; scenario-based risk/failure-mode register; evidence strength/uncertainty; controls and residual risk. | O11 for authorization/security/governance; O06 for diagnosis of observed defects; O07/O08 for approved controls; O10 for verification. |
+| **O05 Comparative Intelligence** | At least two identifiable feasible candidates/versions/strategies/roadmap paths exist, or a current baseline must be compared with a specified target, and the decision depends on trade-offs. | Single-object assessment, vague/infeasible options, incomparable contexts, or invented alternatives. | Comparable candidate set; normalized criteria and comparability limits; deltas; hard-gate/trade-off matrix; conditional recommendation. | O12 validates evaluation criteria/measurement and any weighting; M00/human owner chooses; O07/O08 design the accepted option. |
+| **O06 Bug Detection & Diagnosis** | An observed/reported mismatch, failure, regression, contract violation, runtime/configuration fault, anomaly or unexplained variance needs diagnosis before a safe roadmap change. | Hypothetical threat (O04), structural design gap without faulty observed behavior (O02/O04), or known accepted fix that needs implementation only. | Defect/anomaly register; expected-versus-observed record; reproduction state/environment; competing causal hypotheses/falsification tests; root-cause confidence. | O10 for tests/independent verification; O09 for authorized runtime evidence; O04 for material risk; O07/O08 after diagnosis and approval. |
+
+### 16.3 Sequencing, parallelism and dependency rules
+
+- **Baseline first:** use O01/O02 when provenance, system anatomy or dependency structure is not already trustworthy and current.
+- **O03 and O04 may run in parallel** only on a shared authorized baseline and only when value-preservation and adverse-risk questions are independent.
+- **O05 is candidate-dependent:** define the decision question and real candidate set first. Use O03 preservation constraints and O04 risk constraints when relevant. If candidates cannot be normalized, report non-comparability, not a winner.
+- **O06 is evidence-dependent:** capture anomaly and reproduction conditions first. It may precede O05 when diagnosis is needed to define viable correction paths, or run alongside O03/O04 for an independent observed issue. A hypothesis is not a confirmed root cause.
+- Findings can coexist; M00 deduplicates by claim, evidence and mechanism. Each handoff states what it does not own.
+- O03–O06 do not authorize actions, run intrusive tests, edit targets, approve risks, accept milestones or declare evaluation PASS. O11 controls authority/security; O10 owns test execution/independent verification; O12 owns evaluation design/judgment; O07/O08 own change design; O09 executes only supported and approved operations.
+
+### 16.4 Minimum handoff contract
+
+Every O03–O06 handoff to M00 includes: `case_id`, `task_id`, `target_id`, roadmap ID/revision, decision question, route trigger/rationale, scope/non-goals, authority and security boundary, evidence IDs/locators, source versions/dates/environment/inspection depth, method and fitness rationale, claim/evidence class, confidence, counterevidence, assumptions/unknowns/limitations, falsification or reproduction path, affected milestones/work items, preservation/risk constraints, recommendation options, execution state, next owner, acceptance criterion and stop conditions.
+
+Mark material missing fields `UNKNOWN`, `NOT_ASSESSED` or `NOT_APPLICABLE`; do not silently omit them. M00 resolves route collisions and returns the consolidated decision to the authorized human owner.
+
+### 16.5 RPEDS-specific route precedence
+
+- A multi-phase roadmap request activates RPEDS; a standalone audit, one-off fix or simple checklist does not.
+- Value-preservation questions select O03; material adverse-risk questions select O04; real multi-option decisions select O05; observed defects/unexplained variance select O06.
+- One roadmap change can need multiple routes, but only activate routes whose outputs change the decision, acceptance criteria, risk posture or preservation boundary.
+- Standalone evaluation remains O12-led. One-off defect/remediation remains O06/O07/O08-led as appropriate. Publication, merge, migration, deletion, deployment and other external side effects remain separately gated by O11 and exact human approval.
+- If a trigger exists but evidence, permission or environment is missing, mark the route `UNRESOLVED` or execution `BLOCKED`; do not silently omit or substitute an unsupported specialist.

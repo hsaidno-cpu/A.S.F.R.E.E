@@ -60,4 +60,21 @@ Production execution is not established by container flags or a command builder.
 
 ## RPEDS — roadmap lifecycle control plane
 
-RPEDS is a subordinate, cross-cutting lifecycle control capability that spans planning, development sequencing, progress visibility, evaluation checkpoints and adaptive replanning. It is not a ninth architectural layer, not a case-level orchestrator, and not an additional numbered O specialist. M00 remains the sole case coordinator. RPEDS delegates anatomy to O02, evaluation authority to O12, test execution/verification to O10, authorization to O11, change design to O07/O08, and supported execution to O09. The four bounded RPEDS modules and lifecycle are specified in skills/rpeds-progressive-development/SKILL.md and references/rpeds/.
+RPEDS is a subordinate, cross-cutting lifecycle capability spanning planning, development sequencing, progress visibility, evaluation checkpoints and adaptive replanning. It is not a ninth architectural layer, not a case-level orchestrator and not O13. M00 remains the sole case coordinator. The four bounded RPEDS modules and lifecycle are specified in `skills/rpeds-progressive-development/SKILL.md` and `references/rpeds/`.
+
+### Conditional O03–O06 routing contract
+
+M00 evaluates each route independently against the decision question, current evidence and scope. A route is not activated merely to complete a fixed bundle.
+
+| Specialist | Trigger condition | Required work product | Explicit non-trigger |
+|---|---|---|---|
+| O03 Positive Intelligence | A material roadmap change may remove/regress evidenced value, capability, compatibility or protected behavior; or the decision asks what must be preserved/amplified. | Evidence-backed value register, realized/potential classification, preservation invariants, non-regression criteria. | Generic praise, unverified potential, or inventory without a value/preservation question. |
+| O04 Negative Intelligence | A credible adverse scenario, failure mode, misuse path, security/privacy exposure or operational hazard could change the decision. | Scenario dossier, epistemic state, impact/severity, likelihood/uncertainty, control gaps and residual risk. | Speculation without a plausible mechanism; an observed defect needing root-cause work alone. |
+| O05 Comparative Intelligence | Two or more feasible options or a baseline-to-target comparison must be judged against common criteria. | Candidate set, comparability analysis, normalized criteria, hard-gate matrix, trade-offs and conditional recommendation. | Single-object assessment or invented/incomparable alternatives. |
+| O06 Bug Detection & Diagnosis | An observed failure, regression, contract mismatch or unexplained variance needs reproduction and causal diagnosis. | Valid oracle, expected/observed record, reproduction state, competing hypotheses, falsification evidence and confidence. | Hypothetical threat or structural design concern with no observed malfunction. |
+
+**Routing sequence:** establish baseline with O01/O02 where necessary; run O03/O04 in parallel only when value and risk questions are independent; run O06 when observed behavior needs diagnosis; invoke O05 when real candidate paths exist and can be normalized. O05 may consume O03 preservation constraints and O04 risk constraints. O06 commonly precedes comparison of corrective options. M00 deduplicates findings and resolves overlap.
+
+**Authority:** O03–O06 analyze and recommend only. O11 controls authorization, security/privacy and risk acceptance; O10 owns test execution and independent verification; O12 owns evaluation criteria, measurement validity and judgment; O09 owns supported runtime execution; O07/O08 own accepted change design. No O03–O06 specialist may approve a roadmap, mutate a target, accept a risk or declare a gate PASS.
+
+Every handoff records route rationale, evidence/provenance, method, claim/evidence class, counterevidence, uncertainty, constraints, next owner, acceptance criterion and stop condition. Route decision (`REQUIRED/OPTIONAL/NOT_REQUIRED/UNRESOLVED`) is separate from execution state (`INVOKED/PROCEDURE_APPLIED/BEHAVIOR_ONLY/NOT_RUN/BLOCKED/UNAVAILABLE`). A selected route lacking permission/evidence remains blocked/unresolved, not silently skipped.

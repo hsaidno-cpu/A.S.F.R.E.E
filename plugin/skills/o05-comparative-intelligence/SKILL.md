@@ -16,23 +16,49 @@ Own only the specialist work described here. M00 retains case orchestration, sco
 
 The names above are functional capability labels, not a claim that separate software modules or agents have been deployed. Activate only relevant capabilities.
 
+## Trigger contract
+
+**Required trigger**
+- At least two identifiable, feasible alternatives could meet the same decision need.
+- A current version/baseline must be compared with a specified target/revision/standard.
+- Roadmap adaptation, architecture choice, migration, prioritization or technology selection depends on explicit trade-offs.
+
+**Do not trigger**
+- For single-object strengths/weaknesses without a comparator.
+- When candidates are vague, infeasible, different in scope or invented to fill a table.
+- To make the final decision; M00 recommends and the authorized human owner decides.
+
+## Minimum inputs
+
+Decision question; baseline/candidate identities and versions; use case/users; scope/exclusions; context/environment/time window; constraints/hard gates; evidence; criteria/policy. If criteria or weights are missing, propose for approval or compare without weights.
+
 ## Operating procedure
-1. Confirm the objective, target, scope, mode, access level, and input artifacts.
-2. Check capability and authority requirements before tool use or side effects. Default to read-only.
-3. Apply the workflow below using the minimum methods needed to answer the question.
-4. Separate direct observation, source claim, inference, hypothesis, prediction, and unknown.
-5. Connect material outputs to evidence, criteria, dependencies, affected stakeholders, and limitations.
-6. Identify counterevidence and a way to falsify significant hypotheses.
-7. Return a structured handoff to M00; do not declare the whole case complete.
 
-## Required workflow and output
-Define the objects, versions, dates, contexts, test environments, and decision question. Normalize criteria and conditions before comparing. Separate positive delta, negative delta, quality gap, risk gap, performance delta, cost/benefit trade-off, and missing evidence. Do not rank unlike objects or invent weights. Include status quo, defer, pilot, or stop when relevant.
+1. **Frame decision:** state decision, owner, horizon and outcome defining suitability.
+2. **Identify candidate set:** include current/status quo and only feasible options; include `DO_NOTHING`, `DEFER`, `PILOT` or `STOP` when real. Record exclusions.
+3. **Test comparability:** align scope, workload, user group, version, environment, method and data freshness. Mark unnormalizable dimensions; do not compare unlike objects as equal.
+4. **Define criteria before scoring:** meaning, direction, unit/rubric, evidence, hard-gate status and relevance. Separate mandatory constraints from preferences. Use O12 for validity/measurement design when weighted or outcome-sensitive judgment matters.
+5. **Normalize evidence:** convert units only validly; align test conditions and denominators; separate measurements, claims and inferences. Missing is `UNKNOWN`, not zero.
+6. **Analyze deltas/trade-offs:** strengths, weaknesses, compatibility, operating cost, dependencies, risks, effort, reversibility and stakeholder impact.
+7. **Control aggregation:** default to unweighted criterion-by-criterion matrix. Weighted composite requires documented rationale, comparable scales, sensitivity analysis, O12 validity review and decision-owner approval. Hard-gate failure cannot be compensated by other scores.
+8. **Check sensitivity/dominance:** identify dominated options, threshold breaches and conclusions that change under reasonable assumptions; state evidence that could reverse the recommendation.
+9. **Recommend conditionally:** specify which option fits which constraints, confidence and risk appetite; include no-decision path where relevant.
+10. **Hand off:** send matrix and limitations to M00; O12 reviews validity as required; M00/human owner retains decision authority.
 
-**Output contract:** Comparative baseline; normalized criteria matrix; positive/negative deltas; evidence/unknowns; trade-off analysis; context-conditioned recommendation.
+## Required output contract
+
+Decision question/owner/horizon; baseline and candidates with version/scope/environment/inclusion rationale; comparability/normalization; criteria register with definition/direction/unit/hard-gate/provenance; candidate evidence values/missingness/uncertainty; deltas/trade-offs/stakeholder effects; weight rationale/approvals or no aggregate; sensitivity/dominance/evidence gaps; conditional recommendation/reversibility/revisit trigger/next owner.
+
+Deliver comparative baseline, normalized criteria matrix, delta/trade-off analysis, comparability limits and decision brief.
+
+## Route boundaries and handoff
+
+- M00 owns scope and synthesis; O05 does not choose for the user.
+- O03 supplies preservation constraints; O04 supplies risk/control constraints.
+- O12 owns evaluation validity, indicators, measurement and interpretation; it validates weights/aggregation where material.
+- O10 supplies actual comparable test results; no invented benchmarks.
+- O07/O08 design the selected option only after M00/human decision and O11 approval where required.
 
 ## Quality and stop conditions
-- Do not invent artifacts, test results, metrics, access, provenance, or causal certainty.
-- Do not use unsupported numerical ratings.
-- Stop or return `BLOCKED` when permission, evidence, environment, or scope is insufficient for the requested operation.
-- Preserve unrelated behavior and data. Require explicit approval for consequential changes.
-- Report `NOT_ASSESSED`, `INSUFFICIENT_EVIDENCE`, `NOT_RUN`, or `UNVERIFIABLE` rather than implying success.
+
+No score/weighted ranking without operational criteria, evidence and defensible scale. Mark unlike contexts `NOT_COMPARABLE`. If only one feasible candidate remains, stop comparison and route to the relevant single-object analysis. Return `BLOCKED` for unclear decision scope/target/data authority, or `INCOMPLETE` with unknowns that could alter the decision.

@@ -6,7 +6,7 @@
 - Baseline portable package candidate: 0.4.0-rc.1.
 - Proposed package candidate: 0.5.0-rc.1.
 - Delivery method: feature branch and pull request; no direct edit to main.
-- RPEDS package scope: one bounded control-plane skill, four reference modules, seven JSON Schemas including the work-item contract, 24 behavioral acceptance specifications, 14 schema fixtures, semantic dependency/reference checks, M00/O03–O12 conditional routing and documentation.
+- RPEDS package scope: one bounded control-plane skill, four reference modules, seven JSON Schemas including the work-item contract, 24 behavioral acceptance specifications, 14 schema fixtures, semantic dependency/reference checks, M00/O03–O12 conditional routing and documentation. The O03–O06 route definitions are explicit and role-specific; their route decisions are separated from execution/invocation states.
 
 ## What this change does
 
