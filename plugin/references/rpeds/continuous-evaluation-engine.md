@@ -6,14 +6,16 @@ Schedule and maintain evaluation checkpoints for the roadmap. O12 retains evalua
 
 ## Evaluation mapping
 
-Map roadmap lifecycle checkpoints to O12's existing evaluation lifecycle:
-- R0–R1: E0 Charter, E1 Baseline & Criteria, E2 Evidence Plan.
-- R4–R5: E3 Formative.
-- R6: E4 Summative and, after a change, E5 Post-Change.
-- R7: E6 Outcome/Impact.
-- R8–R9: E7 Meta-Evaluation and learning review where material.
+Map roadmap lifecycle checkpoints to O12's existing evaluation lifecycle without conflating roadmap control with evaluation authority:
 
-The R and E states are related but not interchangeable. A roadmap phase may revisit multiple E checkpoints; the evaluation stage must be recorded explicitly.
+- R0–R1: E0 Charter, E1 Baseline & Criteria, and E2 Evidence Plan.
+- R4–R5: E3 Formative evaluation for delivery/process drift, evidence gaps, invalid assumptions and emerging risks.
+- R6: E4 Summative acceptance; run E5 Post-Change after a material change or reconstruction.
+- R7: E6 Outcome/Impact for intended benefits, harms and realized effects.
+- R8: use relevant E3–E6 findings, test results and risk evidence as inputs to adaptation. E7 is not a substitute for current milestone evidence and must not be used to turn a failed gate into a pass.
+- R9: E7 Meta-Evaluation reviews the evaluation system itself: criteria, coverage, reliability, evaluator bias, metric gaming, reproducibility and calibration. For long-running roadmaps, E7 may also run at a declared periodic cadence.
+
+The R and E states are related but not interchangeable. A roadmap phase may revisit multiple E checkpoints; every evaluation record must state its E stage, purpose, criteria, evidence, evaluator, disposition and limitations.
 
 ## Measurement protocol
 
