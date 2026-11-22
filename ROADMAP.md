@@ -68,6 +68,6 @@ The P1.1 contract now defines hard gates for real IdP/MFA assurance, asymmetric 
 
 The 0.5.0-rc.1 candidate introduces RPEDS as a subordinate lifecycle control plane for versioned roadmaps, objective/phase/milestone decomposition, iterative development, evidence-based progress measures, evaluation checkpoints and adaptive replanning. It delegates evaluation judgment to O12, actual test execution/verification to O10, authorization to O11, change design to O07/O08 and supported runtime execution to O09. M00 remains the sole case-level coordinator.
 
-**Candidate delivery:** portable RPEDS skill, four bounded reference modules, six JSON Schemas, 24 specification-only acceptance cases, M00/O12/architecture/data-contract integration, and a Notion operational tracking surface.
+**Candidate delivery:** portable RPEDS skill, four bounded reference modules, seven JSON Schemas, 14 executable schema/semantic fixtures, 24 specification-only behavioral cases, conditional M00/O03–O12 integration, and a Notion operational tracking surface.
 
 **Gate:** static package validation and exact pull-request CI must pass; PR review must confirm responsibility boundaries and evidence semantics. Merge, Plugin Creator package publication/read-back, runtime scheduler, persistent service, and automatic GitHub–Notion synchronization are separate future gates. This roadmap entry does not imply a merged or deployed release.
