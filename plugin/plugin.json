@@ -4,7 +4,7 @@
     "email": "harysaidno@gmail.com",
     "name": "Hary Saidno"
   },
-  "description": "A unified, evidence-driven forensic intelligence and supervised engineering orchestrator with explicit P1.1 security-to-production gates.",
+  "description": "Evidence-driven AI/software forensics, supervised engineering, and progressive roadmap evaluation with governed adaptive development.",
   "extensions": {
     "com.openai": {
       "interface": {
@@ -15,7 +15,7 @@
         ],
         "developerName": "Hary Saidno",
         "displayName": "A.S.F.R.E.E",
-        "longDescription": "A.S.F.R.E.E is a modular, evidence-driven orchestrator for authorized AI/software forensics, evaluation, diagnosis, comparison and supervised reconstruction. M00 coordinates canonical specialists O01–O12; O11 governs security and O12 evaluates evidence and impact. The 0.4.0-rc.1 candidate adds explicit P1.1 contracts for verified identity/MFA, signed cross-process delegation, SCIVE policy coverage, complete encryption scope, isolated execution, host-enforced quotas, external WORM audit, infrastructure tenant isolation, concurrency tests and independent human review. These are architecture and acceptance gates, not a claim of production deployment. The portable package remains skills and contracts only.",
+        "longDescription": "A.S.F.R.E.E coordinates authorized AI/software forensics and supervised engineering through M00 and canonical specialists O01–O12. RPEDS adds a governed roadmap lifecycle control plane for phased development, milestones, iterations, evidence-based progress, evaluation checkpoints and adaptive replanning. O11 retains security/authorization; O12 retains evaluation judgment; O10 retains verification. The 0.5.0-rc.1 candidate provides portable skills, reference modules, schemas and acceptance specifications, not a deployed roadmap runtime or automatic synchronization service.",
         "shortDescription": "AI systems forensics"
       }
     }
@@ -32,10 +32,15 @@
     "evidence-driven",
     "reconstruction",
     "quality-assurance",
-    "governance"
+    "governance",
+    "roadmap-management",
+    "progressive-development",
+    "milestone-tracking",
+    "adaptive-roadmaps",
+    "continuous-evaluation"
   ],
   "license": "PolyForm-Noncommercial-1.0.0",
   "name": "asfree",
   "repository": "https://github.com/hsaidno-cpu/A.S.F.R.E.E",
-  "version": "0.4.0-rc.1"
+  "version": "0.5.0-rc.1"
 }
