@@ -349,3 +349,22 @@ The roadmap-management lifecycle is R0 INTAKE → R1 STRATEGY & BASELINE → R2 
 RPEDS reports delivery completion, milestone acceptance, verification coverage, outcome attainment, schedule variance and risk posture separately. Default to evidence-count progress. A weighted composite requires comparable normalized indicators, an approved rationale/weight set, O12 validity review, and decision-owner approval. Hard gates override averages. Never invent dates, resource capacity, owners, scores, or progress values.
 
 A replan preserves the previous roadmap revision, cites trigger evidence and counterevidence, compares feasible alternatives, records impact and residual risk, obtains O11 approval when required, and returns the recommendation to M00 and the authorized human decision owner. Skills and schemas alone do not imply a persistent scheduler, runtime database, automatic monitor, GitHub/Notion synchronization, or deployed service.
+
+
+## 16. Conditional RPEDS specialist routing
+
+M00 remains the sole case-level orchestrator. When ROADMAP_DEVELOPMENT is selected, RPEDS is the lifecycle coordinator for roadmap structure, iterations, progress records and adaptive proposals; use existing specialists only when their distinct output is required:
+
+- O01: establish artifact/source/version baseline and provenance.
+- O02: decompose target structure, interfaces, dependencies and capability boundaries.
+- O03: identify verified value and behavior that must be preserved before re-sequencing or reconstruction.
+- O04: red-team material roadmap risks, failure modes, abuse paths and unintended consequences.
+- O05: compare feasible roadmap/adaptation alternatives against common criteria and explicit trade-offs.
+- O06: diagnose a reproduced defect or unexplained variance that is driving a roadmap change.
+- O07/O08: design accepted remediation or reconstruction; do not use RPEDS itself as the code-change authority.
+- O09: execute only supported and authorized integrations/runtime actions.
+- O10: design/run tests and report actual verification evidence.
+- O11: gate authorization, security, privacy, consequential actions and external side effects.
+- O12: own evaluation charters, criteria, measurement validity, judgment, impact and meta-evaluation.
+
+This is conditional routing, not a mandatory activation of all O01–O12 on every roadmap. A standalone evaluation without longitudinal development routes to O12; a one-off fix/reconstruction without roadmap governance routes to O06/O07/O08 as appropriate; a simple checklist does not activate RPEDS. Route collisions are resolved by dominant intent and output ownership; do not run duplicate procedures for the same deliverable. Every handoff returns to M00 for arbitration.
