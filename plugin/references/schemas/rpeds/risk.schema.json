@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A.S.F.R.E.E RPEDS Risk, Assumption and Blocker",
+  "description": "Roadmap-linked risk record that keeps severity, likelihood, impact, evidence and treatment distinct.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "risk_id",
+    "roadmap_id",
+    "title",
+    "category",
+    "status",
+    "severity",
+    "likelihood",
+    "impact",
+    "evidence_refs",
+    "treatment",
+    "residual_risk"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "risk_id": {
+      "type": "string",
+      "pattern": "^RPR-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "roadmap_id": {
+      "type": "string",
+      "pattern": "^RPDS-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "enum": [
+        "RISK",
+        "BLOCKER",
+        "ASSUMPTION",
+        "DEPENDENCY",
+        "ISSUE",
+        "OPPORTUNITY"
+      ]
+    },
+    "status": {
+      "enum": [
+        "OPEN",
+        "ASSESSING",
+        "MITIGATING",
+        "BLOCKED",
+        "ACCEPTED",
+        "RESOLVED",
+        "CLOSED"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "P0_CRITICAL",
+        "P1_HIGH",
+        "P2_MEDIUM",
+        "P3_LOW",
+        "UNASSESSED"
+      ]
+    },
+    "likelihood": {
+      "enum": [
+        "RARE",
+        "UNLIKELY",
+        "POSSIBLE",
+        "LIKELY",
+        "ALMOST_CERTAIN",
+        "UNASSESSED"
+      ]
+    },
+    "impact": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "trigger": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "counterevidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "treatment": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "owner": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "residual_risk": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}
