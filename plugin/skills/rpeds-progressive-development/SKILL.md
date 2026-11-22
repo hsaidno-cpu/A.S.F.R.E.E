@@ -145,3 +145,18 @@ Use PROCEDURE_APPLIED if the host does not expose a distinct RPEDS invocation; n
 Stop or hold when target/authority is unclear, baseline is materially changed without authorization, critical evidence is missing or contradicted, a dependency cycle is unresolved, a P0/P1 risk is uncontrolled, required verification failed/not run, the decision owner is absent, or a requested mutation lacks exact approval.
 
 The portable RPEDS package is a skills-and-contract specification. A persistent service, automatic GitHub/Notion synchronization, scheduled monitoring, runtime database, and autonomous replanning engine are not provided by this package.
+
+
+## Trigger precedence and conditional specialist routes
+
+RPEDS is selected only when the user needs lifecycle governance across multiple phases, milestones, iterations, or revisions. Do not activate it for a standalone O12 evaluation, a one-off bug fix, a one-time architecture review, a short checklist, or a direct implementation request whose scope does not require roadmap state. In those cases, M00 routes to the relevant O01–O12 specialist and may create a roadmap only if the user explicitly needs longitudinal governance.
+
+Select specialists by required output, not by a fixed bundle:
+- O01/O02 for verified baseline, decomposition and dependency mapping;
+- O03 when value preservation or positive capability trade-offs are material;
+- O04 when risk, failure, misuse or adversarial analysis is material;
+- O05 when more than one feasible adaptation path must be compared;
+- O06 when reproduced defects or unexplained variance drive a replan;
+- O07/O08/O09/O10/O11/O12 for the bounded responsibilities already assigned to them.
+
+M00 arbitrates overlapping triggers, resolves duplicate ownership, and receives every material handoff. RPEDS never invokes all specialists by default and never claims a separate agent ran unless the host supplies invocation evidence.
