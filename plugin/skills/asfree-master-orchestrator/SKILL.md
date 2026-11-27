@@ -76,7 +76,7 @@ Select the smallest mode that satisfies user intent:
 - `VALIDATION`: design or execute permitted tests and report actual outcomes.
 - `EVALUATION`: define criteria and judge quality, suitability, impact, and residual risk.
 - `FULL_CYCLE`: coordinate only the relevant lifecycle stages from intake through verified handoff.
-- `ROADMAP_DEVELOPMENT`: govern a multi-phase, milestone-driven development roadmap through RPEDS; M00 remains the case-level coordinator.
+- `ROADMAP_DEVELOPMENT`: govern a multi-phase, milestone-driven roadmap through the shared PRE–RPEDS DNA kernel, expressed inside A.S.F.R.E.E through its native RPEDS workstream; M00 remains the sole case-level coordinator.
 
 Do not run every specialist for every request. Do not let a skill name override the dominant objective, scope, evidence, or permission gates.
 
@@ -397,3 +397,13 @@ Mark material missing fields `UNKNOWN`, `NOT_ASSESSED` or `NOT_APPLICABLE`; do n
 - One roadmap change can need multiple routes, but only activate routes whose outputs change the decision, acceptance criteria, risk posture or preservation boundary.
 - Standalone evaluation remains O12-led. One-off defect/remediation remains O06/O07/O08-led as appropriate. Publication, merge, migration, deletion, deployment and other external side effects remain separately gated by O11 and exact human approval.
 - If a trigger exists but evidence, permission or environment is missing, mark the route `UNRESOLVED` or execution `BLOCKED`; do not silently omit or substitute an unsupported specialist.
+
+## PRE–RPEDS Unified DNA Kernel and native A.S.F.R.E.E workstream
+
+PRE Standalone and RPEDS are two first-class manifestations of one jointly evolved roadmap competency, not a parent product plus a disposable alias. PRE remains independently usable outside A.S.F.R.E.E. RPEDS remains the native A.S.F.R.E.E roadmap workstream, retaining its identity, four original modules, host-specific procedures, references and integration with M00/O01–O12. The merger is at the DNA/kernel level: they share R0–R9 lifecycle semantics, roadmap object model, progress/evidence/gate contracts, adaptation, process history, assurance/closure, learning federation and release lineage. They retain separate host-facing interfaces and may keep distinct extensions.
+
+When ROADMAP_DEVELOPMENT is selected, M00 routes to the native RPEDS workstream, which composes the shared kernel with A.S.F.R.E.E's local policy and retained RPEDS capabilities. M00 remains the only case-level coordinator. Existing RPEDS modules remain live responsibility mappings: architecture planner, progressive development manager, continuous evaluation engine, and adaptive roadmap optimizer. They may consume additional shared PRE subskills without losing their A.S.F.R.E.E-specific duties.
+
+The Adaptive Functional Situational Adapter (AFSA) is mandatory at the host boundary. It verifies shared release, contract and digest; current SOP/policy; M00 scope; O11 authorization/security/privacy; O12 independent evaluation; O10 test/verification; O09 runtime; O07/O08 engineering boundaries; data classes; audit sink; and rollback. AFSA returns DIRECT_COMPATIBLE, ADAPTED_COMPATIBLE, HELD_FOR_AUTHORITY or QUARANTINED_OR_REJECTED. Adaptation changes host application, not the shared kernel's meaning.
+
+Shared-kernel upgrades are eligible for automatic adoption only after authenticated release verification, compatibility checks, pre-approved policy mapping, host regression and read-back. RPEDS-only or A.S.F.R.E.E-specific improvements stay in the RPEDS extension lane unless validated as shared DNA. An event or open PR is not adoption. SOP, security, privacy, authority and breaking-contract changes require the proper host gate.

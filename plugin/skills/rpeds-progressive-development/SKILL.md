@@ -179,3 +179,13 @@ For each O03–O06 record separately:
 - `handoff_ref`, evidence refs, limitations, next owner and acceptance criterion.
 
 Never claim `INVOKED` without host evidence. A materially triggered route lacking authority, source, data or environment remains `UNRESOLVED`/`BLOCKED`, not silently skipped. Standalone evaluation routes to O12; one-off defect/remediation routes to O06 then O07/O08 as appropriate; a simple checklist has no RPEDS lifecycle overhead. M00 arbitrates overlap, prevents duplicate deliverables and owns final synthesis.
+
+## PRE–RPEDS shared DNA integration contract
+
+RPEDS remains an A.S.F.R.E.E-native roadmap workstream, not an alias-only shim. Its original four modules and A.S.F.R.E.E-specific procedures remain first-class: Roadmap Architecture Planner; Progressive Development Manager; Continuous Evaluation Engine; Adaptive Roadmap Optimizer. They map to the jointly evolved PRE–RPEDS shared DNA kernel; they are not deleted or renamed away.
+
+The shared DNA consists of R0–R9 semantics, roadmap object model, dependency graph, progress/evidence measures, gate semantics, adaptation decisions, process audit, assurance/closure, capability learning and release compatibility. PRE Standalone remains independently usable and may contribute reusable improvements to the common kernel. RPEDS may contribute validated A.S.F.R.E.E patterns to the same kernel. Host-only authority, case evidence, private SOP and security policy never become shared DNA.
+
+M00 remains the sole case coordinator. O11 retains authorization/security/privacy, O12 independent evaluation, O10 test/verification and O09 runtime execution. RPEDS coordinates roadmap work; it does not assume those roles. Route shared-core operations through the host adapter exactly once; preserve RPEDS-native functions in the A.S.F.R.E.E profile.
+
+Use AFSA to classify a proposed core update as DIRECT_COMPATIBLE, ADAPTED_COMPATIBLE, HELD_FOR_AUTHORITY or QUARANTINED_OR_REJECTED. Preserve RPEDS-specific behavior when a PRE update does not subsume it. When one host learns a potentially reusable method, propose it through capability federation with provenance, sanitization, tests and adoption receipt.

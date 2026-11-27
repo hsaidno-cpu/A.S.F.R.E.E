@@ -34,3 +34,12 @@ Notion databases are a human-operable tracking surface. The portable plugin is a
 6. Runtime scheduler, persistence, automatic sync or dynamic roadmap actions require a separately scoped implementation and test project.
 
 Current execution status must be read from the exact PR/CI run. Specification presence is not test execution or deployment evidence.
+
+## PRE–RPEDS shared DNA consolidation amendment — 2026-11-27
+
+- PRE Standalone and RPEDS are peer, first-class manifestations of one jointly evolved roadmap competency, not a parent/alias relationship or replacement.
+- RPEDS remains the native A.S.F.R.E.E roadmap workstream with its identity, four original modules, procedures, references and M00/O01–O12 integration.
+- Shared DNA includes the R0–R9 kernel, roadmap object model, dependencies, progress/evidence/gate contracts, adaptation, process audit, assurance/closure, capability learning and release lineage.
+- PRE current package read-back: v0.1.5, release `pluginrel_6b095bf2f4308191bf7d46ce98da36f7`.
+- AFSA governs application to local SOP/authority/security/privacy/data boundaries; incompatible or authority-sensitive changes are adapted only under approved policy, held or quarantined.
+- This source amendment does not deploy a release registry, webhook/event consumer, host updater, persistent receipt store or cross-host runtime.

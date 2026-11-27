@@ -4,7 +4,7 @@
     "email": "harysaidno@gmail.com",
     "name": "Hary Saidno"
   },
-  "description": "Evidence-driven AI/software forensics, supervised engineering, and progressive roadmap evaluation with governed adaptive development.",
+  "description": "Evidence-driven AI/software forensics and supervised engineering with a jointly evolved PRE–RPEDS roadmap core and A.S.F.R.E.E situational governance.",
   "extensions": {
     "com.openai": {
       "interface": {
@@ -15,7 +15,7 @@
         ],
         "developerName": "Hary Saidno",
         "displayName": "A.S.F.R.E.E",
-        "longDescription": "A.S.F.R.E.E coordinates authorized AI/software forensics and supervised engineering through M00 and canonical specialists O01–O12. RPEDS adds a governed roadmap lifecycle control plane for phased development, milestones, iterations, evidence-based progress, evaluation checkpoints and adaptive replanning. O11 retains security/authorization; O12 retains evaluation judgment; O10 retains verification. The 0.5.0-rc.1 candidate provides portable skills, reference modules, schemas and acceptance specifications, not a deployed roadmap runtime or automatic synchronization service.",
+        "longDescription": "A.S.F.R.E.E coordinates authorized AI/software forensics and supervised engineering through M00 and O01–O12. PRE Standalone and RPEDS are two first-class manifestations of one jointly evolved roadmap DNA: they share the R0–R9 kernel, roadmap model, contracts, measurement, evidence, adaptation, learning and release lineage while preserving their distinct identities, modules and host-specific strengths. PRE remains independently usable outside A.S.F.R.E.E; RPEDS remains the native A.S.F.R.E.E roadmap workstream under M00. The Adaptive Functional Situational Adapter maps shared capabilities to A.S.F.R.E.E SOP, authority, security, privacy and data boundaries without replacing RPEDS or weakening host controls. O11 retains security/authorization; O12 retains independent evaluation judgment; O10 retains verification. Live cross-host release delivery still requires configured credentials, host adapters, tests and adoption receipts.",
         "shortDescription": "AI systems forensics"
       }
     }

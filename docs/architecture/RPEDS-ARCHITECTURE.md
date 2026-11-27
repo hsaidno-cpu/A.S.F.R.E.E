@@ -106,3 +106,19 @@ The A.S.F.R.E.E Control Center has linked data sources for roadmaps, milestones,
 ## Implementation boundary
 
 The RPEDS portable plugin contribution consists of skill instructions, reference modules, schemas, documentation and acceptance specifications. It does not implement a persistent scheduler, automatic monitoring, GitHub/Notion synchronizer, API/MCP service, autonomous worker, or new runtime database. The current local Python runtime is not modified by this RPEDS package change.
+
+## PRE Core identity consolidation amendment — 2026-11-27
+
+The roadmap capability historically named RPEDS is now treated as the A.S.F.R.E.E host adapter for the canonical PRE Core identity. The R0–R9 lifecycle and existing four RPEDS modules are preserved as compatibility mappings; the broader PRE skill set is the shared functional core. No duplicate roadmap state, competing release stream or second coordinator is introduced.
+
+M00 remains the only case-level coordinator. The A.S.F.R.E.E host adapter runs AFSA before invoking shared PRE behavior and preserves O11/O12/O10/O09/O07/O08 authority boundaries. A core upgrade can be applied directly only when version, digest, contract, SOP compatibility and required host checks pass. Otherwise the adapter records an approved adaptation, holds for authority or quarantines the change.
+
+This source amendment does not prove that a live webhook, persistent release registry or cross-host updater is deployed.
+
+## PRE–RPEDS shared DNA merger amendment — 2026-11-27
+
+This architecture does not replace RPEDS with PRE or delete RPEDS. PRE Standalone and RPEDS are two first-class manifestations of one jointly evolved roadmap competency. PRE continues to operate independently outside A.S.F.R.E.E. RPEDS remains the native A.S.F.R.E.E roadmap workstream and retains its identity, four original modules, local procedures, references and M00/O01–O12 integration.
+
+Their shared DNA is the roadmap kernel: R0–R9 semantics, roadmap object model, objective/phase/milestone/work-item relations, dependency graph, multi-dimensional progress, evidence/gate contracts, adaptation semantics, process audit, assurance/closure, capability learning and release compatibility. Host-specific extensions remain separate. Validated, sanitized improvements from either manifestation can become shared DNA; private case records, credentials, host-only SOP and authority do not.
+
+The A.S.F.R.E.E profile uses AFSA before applying a kernel update. The four RPEDS modules map to shared capabilities but are not erased. M00 remains sole case-level coordinator; O11 security/authorization/privacy, O12 independent evaluation, O10 verification and O09 runtime retain their own authority. Automatic kernel adoption requires authenticated release, compatibility, policy disposition, host tests, read-back and receipt; otherwise open a gated PR or hold/quarantine.
