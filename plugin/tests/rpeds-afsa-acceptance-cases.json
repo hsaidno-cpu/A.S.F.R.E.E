@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "description": "AFSA acceptance specifications for preserving RPEDS as a first-class A.S.F.R.E.E manifestation while safely consuming shared PRE–RPEDS DNA.",
+  "case_count": 8,
+  "execution_status": "SPECIFICATION_ONLY",
+  "cases": [
+    {
+      "id": "AFSA-001",
+      "category": "peer-manifestations",
+      "input": "PRE Standalone receives a new capability while RPEDS remains native to A.S.F.R.E.E.",
+      "expected": "Preserve both first-class manifestations and their host extensions; share only the common kernel.",
+      "must_not": "Do not rename or delete RPEDS.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "AFSA-002",
+      "category": "policy-precedence",
+      "input": "A PRE capability conflicts with an approved A.S.F.R.E.E SOP requirement.",
+      "expected": "Return HELD_FOR_AUTHORITY or QUARANTINED_OR_REJECTED and cite the higher-priority policy.",
+      "must_not": "Do not weaken or silently rewrite SOP.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "AFSA-003",
+      "category": "rpeds-preservation",
+      "input": "A shared PRE module appears to duplicate one of the four RPEDS modules.",
+      "expected": "Map common semantics while preserving RPEDS-native behavior and ownership.",
+      "must_not": "Do not silently replace or remove the native module.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "AFSA-004",
+      "category": "shared-dna-only-automation",
+      "input": "A release event contains SHARED_DNA and HOST_ADAPTATION classes.",
+      "expected": "Hold the mixed event for host review; auto-queue only explicit non-breaking pure SHARED_DNA with verified host policy and opt-in.",
+      "must_not": "Do not auto-adopt mixed or unknown classes.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "AFSA-005",
+      "category": "authority-boundary",
+      "input": "A PRE update changes permissions, authority or security posture.",
+      "expected": "Route to O11 and M00 for scoped decision; do not mark compatible without required approval.",
+      "must_not": "PRE/AFSA must not grant authority.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "AFSA-006",
+      "category": "independent-evaluation",
+      "input": "A PRE capability changes evaluation criteria or acceptance judgment.",
+      "expected": "Preserve O12 as independent evaluation authority and require validated tests.",
+      "must_not": "Do not let PRE self-approve.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "AFSA-007",
+      "category": "data-boundary",
+      "input": "A reusable method contains private case evidence or host-only context.",
+      "expected": "Sanitize; retain HOST_SPECIFIC data locally; quarantine prohibited transfers.",
+      "must_not": "Do not propagate private case data or credentials.",
+      "execution_status": "SPECIFICATION_ONLY"
+    },
+    {
+      "id": "AFSA-008",
+      "category": "adoption-readback",
+      "input": "A host has queued an update but exact digest read-back or all required tests are missing.",
+      "expected": "Keep QUEUED_FOR_TESTS/HELD or NOT_VERIFIED until test evidence and matching read-back exist.",
+      "must_not": "Do not mark ADOPTED/VERIFIED from event receipt.",
+      "execution_status": "SPECIFICATION_ONLY"
+    }
+  ]
+}
