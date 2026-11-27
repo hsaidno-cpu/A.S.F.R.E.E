@@ -68,16 +68,19 @@ def check_host_profile() -> dict:
 
     merger = (ROOT / "plugin/references/rpeds/pre-rpeds-shared-dna-and-afsa.md").read_text(encoding="utf-8")
     afsa = (ROOT / "plugin/skills/rpeds-adaptive-functional-situational-adapter/SKILL.md").read_text(encoding="utf-8")
+    profile_modules = {item.get("name") for item in profile.get("preserved_rpeds_modules", [])}
+    if profile_modules != set(MODULE_FILES):
+        fail("host profile must enumerate exactly the four native RPEDS modules")
     for module, ref in MODULE_FILES.items():
         if not (ROOT / ref).is_file():
             fail(f"RPEDS native module reference missing: {module}")
         if module not in merger:
             fail(f"shared DNA contract does not preserve RPEDS native module: {module}")
-        if module not in profile.get("preserved_rpeds_modules", [{}])[0].get("name", "") and module not in json.dumps(profile.get("preserved_rpeds_modules", [])):
-            fail(f"host profile omits RPEDS native module: {module}")
-    for token in ("M00", "O11", "O12", "O10", "O09", "Unknown is not compatible"):
+    for token in ("M00", "O11", "O12", "O10", "O09"):
         if token not in afsa and token not in merger:
-            fail(f"AFSA authority or uncertainty boundary missing: {token}")
+            fail(f"AFSA authority boundary missing: {token}")
+    if "Unknown facts remain" not in afsa and "Unknown is not compatible" not in merger:
+        fail("AFSA must fail closed on unknown policy and authority inputs")
 
     manifest = load_json(ROOT / "plugin/plugin.json")
     if manifest.get("version") != "0.5.0-rc.2" or manifest.get("license") != "PolyForm-Noncommercial-1.0.0":
