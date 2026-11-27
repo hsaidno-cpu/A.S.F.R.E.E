@@ -7,12 +7,12 @@
     ],
     "developerName": "Hary Saidno",
     "displayName": "A.S.F.R.E.E",
-    "longDescription": "A.S.F.R.E.E coordinates authorized AI/software forensics and supervised engineering through M00 and canonical specialists O01–O12. RPEDS adds a governed roadmap lifecycle control plane for phased development, milestones, iterations, evidence-based progress, evaluation checkpoints and adaptive replanning. O11 retains security/authorization; O12 retains evaluation judgment; O10 retains verification. The 0.5.0-rc.1 candidate provides portable skills, reference modules, schemas and acceptance specifications, not a deployed roadmap runtime or automatic synchronization service.",
+    "longDescription": "A.S.F.R.E.E coordinates authorized AI/software forensics and supervised engineering through M00 and canonical specialists O01–O12. One shared PRE Core supplies the roadmap lifecycle; RPEDS is its A.S.F.R.E.E compatibility adapter under M00, not a separate roadmap engine or O13. AFSA maps PRE Core to local SOP, authority, security and data boundaries. O11 retains security/authorization; O12 retains evaluation judgment; O10 retains verification. This 0.5.0-rc.2 source candidate includes the adapter contract and skill; event-driven cross-host adoption still requires configured source registry, event transport, credentials, CI, persistent receipts and end-to-end verification.",
     "shortDescription": "AI systems forensics"
   },
   "name": "asfree",
-  "version": "0.5.0-rc.1",
-  "description": "Evidence-driven AI/software forensics, supervised engineering, and progressive roadmap evaluation with governed adaptive development.",
+  "version": "0.5.0-rc.2",
+  "description": "Evidence-driven AI/software forensics and supervised engineering with one unified PRE Core for progressive roadmap governance, exposed in A.S.F.R.E.E through the RPEDS compatibility adapter.",
   "author": {
     "email": "harysaidno@gmail.com",
     "name": "Hary Saidno"

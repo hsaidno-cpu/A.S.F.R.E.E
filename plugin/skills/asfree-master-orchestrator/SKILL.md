@@ -76,7 +76,7 @@ Select the smallest mode that satisfies user intent:
 - `VALIDATION`: design or execute permitted tests and report actual outcomes.
 - `EVALUATION`: define criteria and judge quality, suitability, impact, and residual risk.
 - `FULL_CYCLE`: coordinate only the relevant lifecycle stages from intake through verified handoff.
-- `ROADMAP_DEVELOPMENT`: govern a multi-phase, milestone-driven development roadmap through RPEDS; M00 remains the case-level coordinator.
+- `ROADMAP_DEVELOPMENT`: govern a multi-phase, milestone-driven roadmap through the unified PRE Core, invoked inside A.S.F.R.E.E through the `RPEDS` compatibility adapter; M00 remains the sole case-level coordinator.
 
 Do not run every specialist for every request. Do not let a skill name override the dominant objective, scope, evidence, or permission gates.
 
@@ -397,3 +397,13 @@ Mark material missing fields `UNKNOWN`, `NOT_ASSESSED` or `NOT_APPLICABLE`; do n
 - One roadmap change can need multiple routes, but only activate routes whose outputs change the decision, acceptance criteria, risk posture or preservation boundary.
 - Standalone evaluation remains O12-led. One-off defect/remediation remains O06/O07/O08-led as appropriate. Publication, merge, migration, deletion, deployment and other external side effects remain separately gated by O11 and exact human approval.
 - If a trigger exists but evidence, permission or environment is missing, mark the route `UNRESOLVED` or execution `BLOCKED`; do not silently omit or substitute an unsupported specialist.
+
+## PRE Core identity and RPEDS compatibility adapter
+
+The canonical roadmap capability identity is **Progressive Roadmap Evaluator (PRE Core)**. The historical A.S.F.R.E.E label **RPEDS** is retained as a host compatibility adapter for this same core; it is not a second roadmap engine, independent roadmap state owner, specialist O13, or case-level orchestrator.
+
+When `ROADMAP_DEVELOPMENT` is selected, M00 invokes PRE Core through the registered RPEDS adapter and receives its roadmap artifacts. Do not run a second local RPEDS lifecycle in parallel. The shared PRE R0–R9 semantics remain canonical; host-specific mapping is handled by `adaptive-functional-situational-adapter` and the A.S.F.R.E.E PRE host profile.
+
+The adapter must verify PRE release/contract/digest, A.S.F.R.E.E policy and authority profile, data boundary, required tools and available audit/test sinks. M00 remains sole case coordinator. O11 controls authorization/security/privacy; O12 retains independent evaluation judgment; O10 retains test execution/verification; O09 retains supported runtime execution; O07/O08 retain accepted remediation/reconstruction design. Unknown authority or incompatible policy returns HOLD/QUARANTINE, never an implicit bypass.
+
+PRE release upgrades are eligible for automatic synchronization only through an authenticated release event and a verified host-adoption receipt. An event, package download or PR opening is not adoption. SOP, security, privacy, authority and breaking-contract changes require the proper host gate.

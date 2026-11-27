@@ -58,9 +58,9 @@ The security facade must sit at the operation boundary rather than only at the A
 Production execution is not established by container flags or a command builder. Require host-provisioned sandbox and quota enforcement, bounded streaming, real tenant isolation tests, external WORM read-back, concurrency testing and independent human review. See [P1.1 Security-to-Production Readiness Contract](p1.1-security-production-readiness.md).
 
 
-## RPEDS — roadmap lifecycle control plane
+## PRE Core (A.S.F.R.E.E compatibility alias: RPEDS) — roadmap lifecycle control plane
 
-RPEDS is a subordinate, cross-cutting lifecycle capability spanning planning, development sequencing, progress visibility, evaluation checkpoints and adaptive replanning. It is not a ninth architectural layer, not a case-level orchestrator and not O13. M00 remains the sole case coordinator. The four bounded RPEDS modules and lifecycle are specified in `skills/rpeds-progressive-development/SKILL.md` and `references/rpeds/`.
+PRE Core is the single canonical roadmap lifecycle capability spanning planning, development sequencing, progress visibility, evaluation checkpoints and adaptive replanning. Within A.S.F.R.E.E it is exposed through the historical `RPEDS` compatibility adapter. RPEDS is not a second engine, ninth architectural layer, case-level orchestrator or O13. M00 remains the sole case coordinator. The four bounded RPEDS modules and lifecycle are specified in `skills/rpeds-progressive-development/SKILL.md` and `references/rpeds/`.
 
 ### Conditional O03–O06 routing contract
 

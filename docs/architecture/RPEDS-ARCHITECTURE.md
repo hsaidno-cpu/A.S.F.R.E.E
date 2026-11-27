@@ -106,3 +106,11 @@ The A.S.F.R.E.E Control Center has linked data sources for roadmaps, milestones,
 ## Implementation boundary
 
 The RPEDS portable plugin contribution consists of skill instructions, reference modules, schemas, documentation and acceptance specifications. It does not implement a persistent scheduler, automatic monitoring, GitHub/Notion synchronizer, API/MCP service, autonomous worker, or new runtime database. The current local Python runtime is not modified by this RPEDS package change.
+
+## PRE Core identity consolidation amendment — 2026-11-27
+
+The roadmap capability historically named RPEDS is now treated as the A.S.F.R.E.E host adapter for the canonical PRE Core identity. The R0–R9 lifecycle and existing four RPEDS modules are preserved as compatibility mappings; the broader PRE skill set is the shared functional core. No duplicate roadmap state, competing release stream or second coordinator is introduced.
+
+M00 remains the only case-level coordinator. The A.S.F.R.E.E host adapter runs AFSA before invoking shared PRE behavior and preserves O11/O12/O10/O09/O07/O08 authority boundaries. A core upgrade can be applied directly only when version, digest, contract, SOP compatibility and required host checks pass. Otherwise the adapter records an approved adaptation, holds for authority or quarantines the change.
+
+This source amendment does not prove that a live webhook, persistent release registry or cross-host updater is deployed.

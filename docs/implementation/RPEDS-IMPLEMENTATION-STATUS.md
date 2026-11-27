@@ -34,3 +34,11 @@ Notion databases are a human-operable tracking surface. The portable plugin is a
 6. Runtime scheduler, persistence, automatic sync or dynamic roadmap actions require a separately scoped implementation and test project.
 
 Current execution status must be read from the exact PR/CI run. Specification presence is not test execution or deployment evidence.
+
+## PRE Core / RPEDS consolidation amendment — 2026-11-27
+
+- Canonical logical roadmap identity: PRE Core (`progressive-roadmap-evaluator`).
+- A.S.F.R.E.E compatibility alias/adapter: RPEDS. Legacy modules and references remain compatible entry points but route to the unified PRE Core rather than maintain a second lifecycle implementation.
+- PRE deployed package observed at v0.1.4, release `pluginrel_6b0953f68ba08191a0893238932c45fa`; host adoption remains pending source review, merge and installed-package read-back.
+- This adapter candidate introduces a policy check before PRE functions are applied inside A.S.F.R.E.E. M00 remains the only case coordinator; O11/O12/O10/O09 retain declared authority boundaries.
+- Cross-host event delivery, host CI adoption, persistent receipt storage, rollback and live deployment have not been proven by this source change alone.
