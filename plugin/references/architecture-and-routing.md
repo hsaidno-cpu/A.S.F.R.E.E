@@ -58,9 +58,9 @@ The security facade must sit at the operation boundary rather than only at the A
 Production execution is not established by container flags or a command builder. Require host-provisioned sandbox and quota enforcement, bounded streaming, real tenant isolation tests, external WORM read-back, concurrency testing and independent human review. See [P1.1 Security-to-Production Readiness Contract](p1.1-security-production-readiness.md).
 
 
-## PRE Core (A.S.F.R.E.E compatibility alias: RPEDS) — roadmap lifecycle control plane
+## PRE–RPEDS shared roadmap DNA — native RPEDS workstream
 
-PRE Core is the single canonical roadmap lifecycle capability spanning planning, development sequencing, progress visibility, evaluation checkpoints and adaptive replanning. Within A.S.F.R.E.E it is exposed through the historical `RPEDS` compatibility adapter. RPEDS is not a second engine, ninth architectural layer, case-level orchestrator or O13. M00 remains the sole case coordinator. The four bounded RPEDS modules and lifecycle are specified in `skills/rpeds-progressive-development/SKILL.md` and `references/rpeds/`.
+PRE Standalone and RPEDS are two first-class manifestations of one jointly evolved roadmap DNA. PRE remains independently usable; RPEDS remains the native A.S.F.R.E.E roadmap workstream, retaining its identity, four original modules and host-specific procedures. They share the R0–R9 kernel, roadmap object model, evidence/measurement/gate contracts, adaptive decisions, process history, assurance/closure, learning federation and release lineage. RPEDS is not deleted, reduced to a name-only redirect or replaced by a competing engine. It remains subordinate to M00, which is the sole case coordinator. The four bounded RPEDS modules and lifecycle are specified in `skills/rpeds-progressive-development/SKILL.md` and `references/rpeds/`.
 
 ### Conditional O03–O06 routing contract
 
@@ -78,3 +78,9 @@ M00 evaluates each route independently against the decision question, current ev
 **Authority:** O03–O06 analyze and recommend only. O11 controls authorization, security/privacy and risk acceptance; O10 owns test execution and independent verification; O12 owns evaluation criteria, measurement validity and judgment; O09 owns supported runtime execution; O07/O08 own accepted change design. No O03–O06 specialist may approve a roadmap, mutate a target, accept a risk or declare a gate PASS.
 
 Every handoff records route rationale, evidence/provenance, method, claim/evidence class, counterevidence, uncertainty, constraints, next owner, acceptance criterion and stop condition. Route decision (`REQUIRED/OPTIONAL/NOT_REQUIRED/UNRESOLVED`) is separate from execution state (`INVOKED/PROCEDURE_APPLIED/BEHAVIOR_ONLY/NOT_RUN/BLOCKED/UNAVAILABLE`). A selected route lacking permission/evidence remains blocked/unresolved, not silently skipped.
+
+## PRE–RPEDS shared DNA and host adaptation
+
+The shared kernel and host manifestations are separate architectural concepts. The kernel owns common roadmap semantics and contract lineage. PRE Standalone and A.S.F.R.E.E RPEDS retain separate host-facing identities, extensions and release/adoption receipts. RPEDS keeps its four original modules and native M00/O01–O12 handoffs. Shared-core behavior must not be duplicated into diverging copies; host-specific logic remains in the host extension.
+
+AFSA evaluates each incoming shared-core release against host-approved SOP, authority, security, privacy, data boundaries, supported tools, audit sink and rollback. Additive compatible changes may auto-adopt after tests. Conflicts must be adapted under authority, held or quarantined. A host-specific extension may be proposed back to the shared kernel only after sanitization, validation and federation review.

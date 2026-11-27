@@ -4,7 +4,7 @@
     "email": "harysaidno@gmail.com",
     "name": "Hary Saidno"
   },
-  "description": "Evidence-driven AI/software forensics and supervised engineering with one unified PRE Core for progressive roadmap governance, exposed in A.S.F.R.E.E through the RPEDS compatibility adapter.",
+  "description": "Evidence-driven AI/software forensics and supervised engineering with a jointly evolved PRE–RPEDS roadmap core and A.S.F.R.E.E situational governance.",
   "extensions": {
     "com.openai": {
       "interface": {
@@ -15,7 +15,7 @@
         ],
         "developerName": "Hary Saidno",
         "displayName": "A.S.F.R.E.E",
-        "longDescription": "A.S.F.R.E.E coordinates authorized AI/software forensics and supervised engineering through M00 and canonical specialists O01–O12. One shared PRE Core supplies the roadmap lifecycle; RPEDS is its A.S.F.R.E.E compatibility adapter under M00, not a separate roadmap engine or O13. AFSA maps PRE Core to local SOP, authority, security and data boundaries. O11 retains security/authorization; O12 retains evaluation judgment; O10 retains verification. This 0.5.0-rc.2 source candidate includes the adapter contract and skill; event-driven cross-host adoption still requires configured source registry, event transport, credentials, CI, persistent receipts and end-to-end verification.",
+        "longDescription": "A.S.F.R.E.E coordinates authorized AI/software forensics and supervised engineering through M00 and O01–O12. PRE Standalone and RPEDS are two first-class manifestations of one jointly evolved roadmap DNA: they share the R0–R9 kernel, contracts, measurement, evidence, adaptation, learning and release lineage while preserving their distinct identity, modules and host-specific strengths. PRE remains independently usable outside A.S.F.R.E.E; RPEDS remains the native roadmap workstream under M00. AFSA adapts shared upgrades to A.S.F.R.E.E SOP, authority, security, privacy and data boundaries. O11 retains security/authorization; O12 retains independent evaluation judgment; O10 retains verification. This source candidate defines the shared-core/adaptor model; live cross-host delivery remains subject to configured release infrastructure and acceptance.",
         "shortDescription": "AI systems forensics"
       }
     }
@@ -42,5 +42,5 @@
   "license": "PolyForm-Noncommercial-1.0.0",
   "name": "asfree",
   "repository": "https://github.com/hsaidno-cpu/A.S.F.R.E.E",
-  "version": "0.5.0-rc.2"
+  "version": "0.5.0-rc.1"
 }

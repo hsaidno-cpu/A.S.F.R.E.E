@@ -42,3 +42,11 @@ Current execution status must be read from the exact PR/CI run. Specification pr
 - PRE deployed package observed at v0.1.4, release `pluginrel_6b0953f68ba08191a0893238932c45fa`; host adoption remains pending source review, merge and installed-package read-back.
 - This adapter candidate introduces a policy check before PRE functions are applied inside A.S.F.R.E.E. M00 remains the only case coordinator; O11/O12/O10/O09 retain declared authority boundaries.
 - Cross-host event delivery, host CI adoption, persistent receipt storage, rollback and live deployment have not been proven by this source change alone.
+
+## PRE–RPEDS shared DNA consolidation amendment — 2026-11-27
+
+- PRE Standalone and RPEDS are peer manifestations of one jointly evolved roadmap competency, not a replacement/alias relationship.
+- RPEDS retains its native A.S.F.R.E.E identity and four original modules, with its existing procedures and M00/O01–O12 integration.
+- Shared DNA includes the R0–R9 kernel, roadmap model, dependencies, progress/evidence/gate contracts, adaptation, process audit, assurance/closure, capability learning and release lineage.
+- AFSA governs application to local SOP/authority/security/privacy/data boundaries; incompatible or authority-sensitive changes are adapted only by approved policy, held or quarantined.
+- This source amendment does not deploy a release registry, webhook/event consumer, host updater, persistent receipt store or cross-host runtime.
