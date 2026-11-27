@@ -43,9 +43,6 @@ jobs:
 
       - name: Reconcile the exact release for this host and download the private artifact
         id: fetch
-        env:
-          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL }}
-          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
         run: |
           node <<'NODE'
           const fs = require("node:fs");
@@ -188,7 +185,7 @@ jobs:
           RELEASE_VERSION: ${{ steps.fetch.outputs.version }}
           ARTIFACT_SHA256: ${{ steps.fetch.outputs.digest }}
           ADAPTER_VERSION: ${{ steps.fetch.outputs.adapter_version }}
-          PR_NUMBER: "TBD"
+          PR_NUMBER: "15"
           POLICY_PROFILE_PATH: plugin/references/afsa/pre-rpeds-shared-dna-0.1.6-acceptance-profile.json
         run: |
           node <<'NODE'
