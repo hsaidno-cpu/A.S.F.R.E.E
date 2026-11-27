@@ -77,6 +77,7 @@ Select the smallest mode that satisfies user intent:
 - `EVALUATION`: define criteria and judge quality, suitability, impact, and residual risk.
 - `FULL_CYCLE`: coordinate only the relevant lifecycle stages from intake through verified handoff.
 - `ROADMAP_DEVELOPMENT`: govern a multi-phase, milestone-driven roadmap through the shared PRE–RPEDS DNA kernel, expressed inside A.S.F.R.E.E through its native RPEDS workstream; M00 remains the sole case-level coordinator.
+  - Before applying a new shared-core capability or resolving a possible SOP/authority/security/privacy conflict, apply `rpeds-adaptive-functional-situational-adapter`. Keep RPEDS as a native first-class A.S.F.R.E.E workstream; AFSA maps shared behavior to host SOP without replacing the four native modules.
 
 Do not run every specialist for every request. Do not let a skill name override the dominant objective, scope, evidence, or permission gates.
 

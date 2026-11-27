@@ -29,7 +29,7 @@ if not isinstance(manifest, dict):
     print("- plugin manifest is unavailable")
     sys.exit(1)
 check(manifest.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "plugin manifest schema is missing/incorrect")
-EXPECTED_PLUGIN_VERSION = "0.5.0-rc.1"
+EXPECTED_PLUGIN_VERSION = "0.5.0-rc.2"
 check(manifest.get("version") == EXPECTED_PLUGIN_VERSION, f"canonical plugin manifest must be version {EXPECTED_PLUGIN_VERSION}")
 check(bool(re.fullmatch(r"[a-z0-9](?:[a-z0-9.-]{0,62}[a-z0-9])?", manifest.get("name", ""))), "invalid plugin name")
 check(bool(re.fullmatch(r"\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?", manifest.get("version", ""))), "plugin version is not strict SemVer")
@@ -55,7 +55,7 @@ root_readme_path = ROOT / "README.md"
 package_readme = package_readme_path.read_text(encoding="utf-8") if package_readme_path.is_file() else ""
 root_readme = root_readme_path.read_text(encoding="utf-8") if root_readme_path.is_file() else ""
 check(f"**Version:** {EXPECTED_PLUGIN_VERSION}" in package_readme, "plugin README version must match canonical manifest")
-check("Canonical plugin candidate:** v0.5.0-rc.1" in root_readme, "root README candidate version must match canonical manifest")
+check("Canonical plugin candidate:** v0.5.0-rc.2" in root_readme, "root README candidate version must match canonical manifest")
 check("docs/implementation/RUNTIME-REFERENCE.md" in root_readme, "root README must link to the tracked runtime reference")
 check("runtime/README.md" not in root_readme, "root README contains a missing runtime/README.md link")
 
@@ -70,7 +70,7 @@ required_canonical = {
     ], 1)}
 }
 found_dirs = {p.name for p in skill_dirs}
-rpeds_control_planes = {"rpeds-progressive-development"}
+rpeds_control_planes = {"rpeds-progressive-development", "rpeds-adaptive-functional-situational-adapter"}
 check(required_canonical.issubset(found_dirs), f"missing canonical skills: {sorted(required_canonical-found_dirs)}")
 check(rpeds_control_planes.issubset(found_dirs), f"missing registered RPEDS control plane: {sorted(rpeds_control_planes-found_dirs)}")
 frontmatter_names = []
@@ -174,6 +174,19 @@ if isinstance(rpeds_cases, dict):
     check(rpeds_cases.get("case_count") == len(rpeds_list), "RPEDS acceptance case_count does not match cases length")
     check(rpeds_cases.get("execution_status") == "SPECIFICATION_ONLY", "RPEDS acceptance fixture status must remain SPECIFICATION_ONLY")
 check(all(case.get("execution_status") == "SPECIFICATION_ONLY" for case in rpeds_list if isinstance(case, dict)), "RPEDS acceptance cases must not imply test execution")
+afsa_skill_path = PKG/"skills"/"rpeds-adaptive-functional-situational-adapter"/"SKILL.md"
+check(afsa_skill_path.is_file(), "missing RPEDS Adaptive Functional Situational Adapter skill")
+afsa_cases = load_json(PKG/"tests"/"rpeds-afsa-acceptance-cases.json")
+afsa_list = afsa_cases.get("cases", []) if isinstance(afsa_cases, dict) else []
+afsa_ids = [case.get("id") for case in afsa_list if isinstance(case, dict)]
+check(len(afsa_list) == 8, f"expected eight RPEDS AFSA acceptance specifications, found {len(afsa_list)}")
+check(len(afsa_ids) == len(set(afsa_ids)), "duplicate RPEDS AFSA acceptance IDs")
+if isinstance(afsa_cases, dict):
+    check(afsa_cases.get("schema_version") == "1.0.0", "RPEDS AFSA schema_version must be 1.0.0")
+    check(afsa_cases.get("case_count") == len(afsa_list), "RPEDS AFSA case_count does not match cases length")
+    check(afsa_cases.get("execution_status") == "SPECIFICATION_ONLY", "RPEDS AFSA fixtures must remain SPECIFICATION_ONLY")
+check(all(case.get("execution_status") == "SPECIFICATION_ONLY" for case in afsa_list if isinstance(case, dict)), "RPEDS AFSA cases must not imply test execution")
+
 rpeds_skill_path = PKG/"skills"/"rpeds-progressive-development"/"SKILL.md"
 check(rpeds_skill_path.is_file(), "missing RPEDS lifecycle-control skill")
 rpeds_modules = [

@@ -189,3 +189,12 @@ The shared DNA consists of R0–R9 semantics, roadmap object model, dependency g
 M00 remains the sole case coordinator. O11 retains authorization/security/privacy, O12 independent evaluation, O10 test/verification and O09 runtime execution. RPEDS coordinates roadmap work; it does not assume those roles. Route shared-core operations through the host adapter exactly once; preserve RPEDS-native functions in the A.S.F.R.E.E profile.
 
 Use AFSA to classify a proposed core update as DIRECT_COMPATIBLE, ADAPTED_COMPATIBLE, HELD_FOR_AUTHORITY or QUARANTINED_OR_REJECTED. Preserve RPEDS-specific behavior when a PRE update does not subsume it. When one host learns a potentially reusable method, propose it through capability federation with provenance, sanitization, tests and adoption receipt.
+
+
+## Shared PRE–RPEDS DNA and mandatory AFSA
+
+PRE Standalone and RPEDS are peer manifestations of the shared `pre-rpeds-shared-roadmap-dna` kernel. RPEDS retains its native A.S.F.R.E.E identity and four modules; it is not replaced by PRE or reduced to a compatibility alias. Shared contracts and validated methods may evolve in either direction without erasing host extensions.
+
+Before a shared release, capability or learned method is applied to A.S.F.R.E.E, apply `rpeds-adaptive-functional-situational-adapter`. It verifies source/release/digest, host SOP/policy, M00 decision rights, O11 security/privacy, data flow, tools, tests, audit sink and rollback; then returns DIRECT_COMPATIBLE, ADAPTED_COMPATIBLE, HELD_FOR_AUTHORITY or QUARANTINED_OR_REJECTED. Unknown is not compatible.
+
+Only an explicitly non-breaking, pure SHARED_DNA update may be eligible for automatic host testing under a verified policy profile and explicit host opt-in. RPEDS-native extensions, HOST_ADAPTATION, HOST_SPECIFIC information or mixed/unknown classes require host review/hold. M00 remains case coordinator; O11/O12/O10/O09 keep their declared authority. No adapter may silently rewrite SOP or self-approve.

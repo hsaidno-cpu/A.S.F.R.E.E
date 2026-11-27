@@ -1,3 +1,10 @@
+## 0.5.0-rc.2 — 2026-11-27
+
+- Add `rpeds-adaptive-functional-situational-adapter` as a registered A.S.F.R.E.E host subskill for PRE–RPEDS shared-DNA compatibility, SOP mapping, authority preservation, data-boundary control and adoption receipts.
+- Preserve PRE Standalone and RPEDS as peer manifestations of the shared roadmap kernel; retain RPEDS's four native modules and M00/O01–O12 integration.
+- Add eight AFSA acceptance specifications and register the new subskill in package validation.
+- Keep package, runtime, source-bundle and Plugin Creator deployment versions independent; this release candidate does not prove installed host activation or live cross-host synchronization.
+
 # Changelog
 
 ## 0.5.0-rc.1 — 2026-11-22
