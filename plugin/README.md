@@ -1,8 +1,8 @@
 # A.S.F.R.E.E — AI Systems Forensics & Reconstruction Evaluation Engine
 
-**Version:** 0.5.0-rc.1  
+**Version:** 0.5.0-rc.2  
 **Package type:** Portable skills-only plugin  
-**Architecture:** M00 + O01–O12; subordinate RPEDS roadmap lifecycle control plane; eight system layers; cross-cutting O11 Security & Governance and O12 Evaluation Intelligence  
+**Architecture:** M00 + O01–O12; shared PRE–RPEDS roadmap DNA; native RPEDS four-module workstream plus AFSA host adapter; eight system layers; cross-cutting O11 and O12  
 **Operating model:** Evidence-led supervised engineering; read-only by default  
 **Implementation boundary:** The portable plugin contains instruction and contract files only. The separate local Python reference runtime is distributed through checksum-pinned source bundles under `../implementation-bundles/` and reconstructed by repository scripts for local/CI validation; it is not bundled with this plugin.
 
@@ -29,13 +29,19 @@ The repository package version is declared by `plugin.json`; `.codex-plugin/plug
 
 - `plugin.json` — portable Agent Plugins 1.0 manifest.
 - `.codex-plugin/plugin.json` — synchronized compatibility manifest.
-- `skills/` — M00 and O01–O12 instructions.
+- `skills/` — M00 and O01–O12 instructions, RPEDS lifecycle control plane and the RPEDS Adaptive Functional Situational Adapter.
 - `references/` — architecture, release/routing governance, P1.1 security-to-production readiness, data contracts, evaluation, forensic limits, lifecycle/recovery, security/authority, tool-adapter contract, and JSON Schemas.
 - `references/schemas/rpeds/` — seven Draft 2020-12 contracts for roadmap, milestone, iteration, progress, adaptation, risk and work item.
 - `tests/rpeds-schema-fixtures.json` and `scripts/validate_rpeds_contracts.py` — executable schema and graph-integrity checks; 24 behavioral acceptance cases remain specification-only.
 - `tests/acceptance-cases.json` — 30 baseline fixtures; `tests/release-governance-cases.json` — five release/routing fixtures; `tests/p1-security-hardening-cases.json` — 20 P1.1 security acceptance specifications. Fixtures are specifications, not test execution evidence.
 - `LICENSE` — PolyForm Noncommercial 1.0.0.
 - `TRADEMARKS.md` — separate brand and trademark notice.
+
+## PRE–RPEDS shared DNA and RPEDS-native preservation
+
+PRE Standalone and RPEDS are first-class peer manifestations of one jointly evolved roadmap capability. The shared kernel carries R0–R9 semantics, roadmap data/measurement contracts, evidence and gates, adaptation, audit, learning, assurance, next-action and continuation-prompt behavior. RPEDS remains native to A.S.F.R.E.E and retains its four modules: Roadmap Architecture Planner, Progressive Development Manager, Continuous Evaluation Engine and Adaptive Roadmap Optimizer. It remains under M00 and does not become O13 or a second case coordinator.
+
+`rpeds-adaptive-functional-situational-adapter` is mandatory when a shared update may interact with A.S.F.R.E.E SOP, authority, security, privacy, data boundaries or RPEDS-native extensions. It returns DIRECT_COMPATIBLE, ADAPTED_COMPATIBLE, HELD_FOR_AUTHORITY or QUARANTINED_OR_REJECTED. Only pure, explicitly non-breaking SHARED_DNA can be eligible for pre-approved automatic adoption; host adaptations and authority/security/privacy changes remain gated. The adapter does not silently rewrite SOP or delete RPEDS-native capabilities.
 
 ## Capability boundary
 
