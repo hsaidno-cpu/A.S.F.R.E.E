@@ -1,0 +1,288 @@
+name: RPEDS PRE Shared-DNA Host Acceptance
+
+on:
+  workflow_dispatch:
+    inputs:
+      event_id:
+        description: Exact PRE release event to verify against the RPEDS host
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: rpeds-pre-host-acceptance
+  cancel-in-progress: false
+
+jobs:
+  accept-release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PRE_FEDERATION_URL: https://ehgmtkkppmceaffhwcpc.supabase.co/functions/v1/pre-core-federation
+      PRE_EVENT_ID: ${{ inputs.event_id }}
+      HOST_ID: asfree-rpeds
+      HOST_ADAPTER_VERSION: 0.5.0-rc.2
+      ACCEPTANCE_PROFILE: plugin/references/afsa/pre-rpeds-shared-dna-0.1.6-acceptance-profile.json
+      ROLLBACK_COMMIT: f814cff8e800136a6e3a1f664b41085076f19ac8
+
+    steps:
+      - name: Check out immutable RPEDS host source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+
+      - name: Reconcile the exact release for this host and download the private artifact
+        id: fetch
+        env:
+          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL }}
+          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs");
+          const base = process.env.PRE_FEDERATION_URL;
+          const audience = base;
+
+          async function getOidc() {
+            const url = process.env.ACTIONS_ID_TOKEN_REQUEST_URL +
+              (process.env.ACTIONS_ID_TOKEN_REQUEST_URL.includes("?") ? "&" : "?") +
+              "audience=" + encodeURIComponent(audience);
+            const response = await fetch(url, {
+              headers: { Authorization: "Bearer " + process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }
+            });
+            if (!response.ok) throw new Error("GitHub OIDC token request failed: " + response.status);
+            const body = await response.json();
+            if (!body.value) throw new Error("GitHub OIDC token response is empty");
+            return body.value;
+          }
+
+          (async () => {
+            const token = await getOidc();
+            const headers = { Authorization: "Bearer " + token, "content-type": "application/json" };
+
+            const reconcile = await fetch(base + "/reconcile", {
+              method: "POST",
+              headers,
+              body: JSON.stringify({
+                event_id: process.env.PRE_EVENT_ID,
+                host_id: process.env.HOST_ID,
+                trigger_kind: "rpeds_host_acceptance"
+              })
+            });
+            const reconcileBody = await reconcile.json();
+            if (!reconcile.ok || reconcileBody.accepted !== true) {
+              throw new Error("Host-scoped reconciliation failed: " + JSON.stringify(reconcileBody));
+            }
+
+            const latestResponse = await fetch(
+              base + "/latest?host_id=" + encodeURIComponent(process.env.HOST_ID),
+              { headers: { Authorization: "Bearer " + token } }
+            );
+            const latestBody = await latestResponse.json();
+            if (!latestResponse.ok || !latestBody.latest_release) {
+              throw new Error("Host release read-back failed: " + JSON.stringify(latestBody));
+            }
+            const release = latestBody.latest_release;
+            if (release.event_id !== process.env.PRE_EVENT_ID) {
+              throw new Error("Returned release event does not match the explicitly requested event");
+            }
+            if (release.processing_state !== "RELEASED" ||
+                release.artifact_digest_verified !== true ||
+                release.issuer_signature_verified !== true ||
+                release.contract_validated !== true) {
+              throw new Error("HSO release attestation is incomplete");
+            }
+            if (!latestBody.adoption_receipt ||
+                latestBody.adoption_receipt.event_id !== process.env.PRE_EVENT_ID ||
+                latestBody.adoption_receipt.host_id !== process.env.HOST_ID) {
+              throw new Error("Host-scoped adoption receipt was not created");
+            }
+
+            const artifactUrl = base + "/artifact?sha256=" +
+              encodeURIComponent(release.artifact_sha256) + "&host_id=" +
+              encodeURIComponent(process.env.HOST_ID);
+            const artifactResponse = await fetch(artifactUrl, {
+              headers: { Authorization: "Bearer " + token }
+            });
+            if (!artifactResponse.ok) throw new Error("Private artifact read-back failed: " + artifactResponse.status);
+            const bytes = Buffer.from(await artifactResponse.arrayBuffer());
+            const digest = require("node:crypto").createHash("sha256").update(bytes).digest("hex");
+            if (digest !== release.artifact_sha256) throw new Error("Private artifact bytes failed SHA-256 read-back");
+
+            fs.mkdirSync("dist", { recursive: true });
+            fs.writeFileSync("dist/pre-rpeds-shared-dna-0.1.6.tar.gz", bytes);
+            fs.writeFileSync("dist/pre-release-context.json", JSON.stringify({
+              event_id: release.event_id,
+              release_id: release.release_id,
+              version: release.release_version,
+              artifact_sha256: digest,
+              publisher_state: release.processing_state,
+              previous_host_state: latestBody.adoption_receipt.adoption_state,
+              reconcile_result: reconcileBody
+            }, null, 2) + "\n");
+
+            coreOutput("event_id", release.event_id);
+            coreOutput("release_id", release.release_id);
+            coreOutput("version", release.release_version);
+            coreOutput("digest", digest);
+            coreOutput("adapter_version", latestBody.host.adapter_version);
+          })().catch((error) => { console.error(error.message); process.exit(1); });
+
+          function coreOutput(name, value) {
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, name + "=" + value + "\n");
+          }
+          NODE
+
+      - name: Unpack checksum-verified P0 runtime source bundle
+        run: python scripts/unpack_p0_bundle.py
+
+      - name: Apply checksum-verified P0 hardening overlay
+        run: python scripts/apply_p0_hardening.py
+
+      - name: Apply checksum-verified P1 security overlay
+        run: python scripts/apply_p1_security.py
+
+      - name: Install reference runtime dependencies
+        run: python -m pip install -e ./runtime
+
+      - name: Install pinned RPEDS schema-validation dependency
+        run: python -m pip install jsonschema==4.26.0
+
+      - name: Validate RPEDS schemas, positive/negative fixtures and semantic graph
+        run: python scripts/validate_rpeds_contracts.py
+
+      - name: Validate A.S.F.R.E.E manifests, skills, schemas and acceptance specifications
+        run: python scripts/validate_package.py
+
+      - name: Run RPEDS host policy and artifact digest acceptance
+        env:
+          PRE_RPEDS_EXPECTED_SHA256: ${{ steps.fetch.outputs.digest }}
+          PRE_RPEDS_EXPECTED_VERSION: ${{ steps.fetch.outputs.version }}
+          PRE_RPEDS_EXPECTED_RELEASE_ID: ${{ steps.fetch.outputs.release_id }}
+        run: |
+          python scripts/validate_pre_rpeds_host_acceptance.py --contract-only
+          python scripts/validate_pre_rpeds_host_acceptance.py dist/pre-rpeds-shared-dna-0.1.6.tar.gz
+
+      - name: Compile reference runtime and tests
+        run: python -m py_compile runtime/asfree/*.py runtime/asfree/security/*.py runtime/tests/*.py
+
+      - name: Run P0 regression and P1 security runtime tests
+        run: python -m unittest discover -s runtime/tests -v
+
+      - name: Run end-to-end P0 quickstart
+        run: python runtime/examples/quickstart.py
+
+      - name: Submit the host acceptance receipt as VERIFIED
+        env:
+          EVENT_ID: ${{ steps.fetch.outputs.event_id }}
+          RELEASE_ID: ${{ steps.fetch.outputs.release_id }}
+          RELEASE_VERSION: ${{ steps.fetch.outputs.version }}
+          ARTIFACT_SHA256: ${{ steps.fetch.outputs.digest }}
+          ADAPTER_VERSION: ${{ steps.fetch.outputs.adapter_version }}
+          PR_NUMBER: "TBD"
+          POLICY_PROFILE_PATH: plugin/references/afsa/pre-rpeds-shared-dna-0.1.6-acceptance-profile.json
+        run: |
+          node <<'NODE'
+          const base = process.env.PRE_FEDERATION_URL;
+          (async () => {
+            const url = process.env.ACTIONS_ID_TOKEN_REQUEST_URL +
+              (process.env.ACTIONS_ID_TOKEN_REQUEST_URL.includes("?") ? "&" : "?") +
+              "audience=" + encodeURIComponent(base);
+            const tokenResponse = await fetch(url, {
+              headers: { Authorization: "Bearer " + process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }
+            });
+            if (!tokenResponse.ok) throw new Error("GitHub OIDC token request failed");
+            const { value } = await tokenResponse.json();
+            if (!value) throw new Error("GitHub OIDC token is empty");
+
+            const runUrl = process.env.GITHUB_SERVER_URL + "/" + process.env.GITHUB_REPOSITORY +
+              "/actions/runs/" + process.env.GITHUB_RUN_ID;
+            const commitUrl = process.env.GITHUB_SERVER_URL + "/" + process.env.GITHUB_REPOSITORY +
+              "/commit/" + process.env.GITHUB_SHA;
+            const profileUrl = process.env.GITHUB_SERVER_URL + "/" + process.env.GITHUB_REPOSITORY +
+              "/blob/" + process.env.GITHUB_SHA + "/" + process.env.POLICY_PROFILE_PATH;
+            const rollbackUrl = process.env.GITHUB_SERVER_URL + "/" + process.env.GITHUB_REPOSITORY +
+              "/commit/" + process.env.ROLLBACK_COMMIT;
+
+            const payload = {
+              event_id: process.env.EVENT_ID,
+              host_id: process.env.HOST_ID,
+              adoption_state: "VERIFIED",
+              adapter_disposition: "DIRECT_COMPATIBLE",
+              adapter_version: process.env.ADAPTER_VERSION,
+              policy_refs: [
+                profileUrl,
+                process.env.GITHUB_SERVER_URL + "/" + process.env.GITHUB_REPOSITORY +
+                  "/blob/" + process.env.GITHUB_SHA + "/plugin/references/rpeds/pre-rpeds-shared-dna-and-afsa.md",
+                process.env.GITHUB_SERVER_URL + "/" + process.env.GITHUB_REPOSITORY +
+                  "/blob/" + process.env.GITHUB_SHA + "/plugin/skills/rpeds-adaptive-functional-situational-adapter/SKILL.md",
+                process.env.GITHUB_SERVER_URL + "/" + process.env.GITHUB_REPOSITORY +
+                  "/blob/" + process.env.GITHUB_SHA + "/LICENSE",
+                "https://polyformproject.org/licenses/noncommercial/1.0.0"
+              ],
+              approval_refs: [],
+              test_results: [
+                { check: "PRE_ARTIFACT_SHA256_READBACK", status: "PASS", evidence_ref: runUrl },
+                { check: "PRE_SOURCE_BLOB_PINS_37_AND_SKILLS_14", status: "PASS", evidence_ref: runUrl },
+                { check: "RPEDS_SCHEMA_AND_SEMANTIC_GRAPH", status: "PASS", evidence_ref: runUrl },
+                { check: "ASFREE_PACKAGE_VALIDATION", status: "PASS", evidence_ref: runUrl },
+                { check: "ASFREE_RUNTIME_REGRESSION", status: "PASS", evidence_ref: runUrl },
+                { check: "RPEDS_FOUR_MODULE_AND_AUTHORITY_PRESERVATION", status: "PASS", evidence_ref: runUrl },
+                { check: "PRIVATE_NONCOMMERCIAL_NONREDISTRIBUTION_SCOPE", status: "PASS", evidence_ref: runUrl }
+              ],
+              pull_request_ref: process.env.GITHUB_SERVER_URL + "/" + process.env.GITHUB_REPOSITORY +
+                "/pull/" + process.env.PR_NUMBER,
+              commit_ref: commitUrl,
+              deployment_ref: null,
+              readback_version: process.env.RELEASE_VERSION,
+              readback_digest: process.env.ARTIFACT_SHA256,
+              rollback_ref: rollbackUrl,
+              reason: "Host-side source and adapter acceptance passed for a read-only, private, non-commercial PRE shared-DNA package test. No PRE source was copied into the public A.S.F.R.E.E repository, and no live Plugin Creator package/runtime deployment is asserted.",
+              residual_risks: [
+                "PRE source package does not contain an independent redistribution license declaration; broader licensing and provenance rights remain unresolved.",
+                "This receipt verifies private repository/CI compatibility and exact artifact read-back, not installation into a live ChatGPT Plugin Creator runtime.",
+                "The PRE 52 acceptance cases and the RPEDS 24 / AFSA 8 cases remain specification-only unless a separate execution harness reports them as run."
+              ]
+            };
+
+            const response = await fetch(base + "/adoption", {
+              method: "POST",
+              headers: {
+                Authorization: "Bearer " + value,
+                "content-type": "application/json"
+              },
+              body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            if (!response.ok || result.adoption_state !== "VERIFIED") {
+              throw new Error("Host adoption receipt rejected: " + JSON.stringify(result));
+            }
+            console.log(JSON.stringify({
+              accepted: result.accepted,
+              host_id: result.host_id,
+              event_id: result.event_id,
+              adoption_state: result.adoption_state,
+              artifact_sha256: process.env.ARTIFACT_SHA256,
+              evidence_ref: runUrl
+            }));
+          })().catch((error) => { console.error(error.message); process.exit(1); });
+          NODE
+
+      - name: Preserve host acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rpeds-pre-host-acceptance-${{ inputs.event_id }}
+          path: |
+            dist/pre-release-context.json
+            dist/pre-rpeds-shared-dna-0.1.6.tar.gz
+          retention-days: 30
