@@ -8,8 +8,8 @@ A.S.F.R.E.E is a modular intelligence system for authorized forensic analysis, a
 
 ## Current baseline
 
-- **Canonical plugin candidate:** v0.5.0-rc.1 in [`plugin/`](plugin/). This is a release candidate, not a production release.
-- **Architecture:** one M00 master orchestrator and twelve specialist skills O01–O12, with RPEDS as a subordinate roadmap lifecycle control plane (not a new case coordinator).
+- **Canonical plugin candidate:** v0.5.0-rc.2 in [`plugin/`](plugin/). This is a release candidate, not a production release.
+- **Architecture:** one M00 master orchestrator and twelve specialist skills O01–O12, with one shared PRE–RPEDS roadmap DNA kernel: PRE Standalone and native RPEDS remain peer manifestations, while RPEDS retains its identity and four modules under M00; AFSA maps shared capabilities to host SOP and authority.
 - **P0 reference runtime:** local Python implementation of Evidence Management, Master Orchestration & Contract Engine, and Supervised Change & Independent Verification.
 - **Acceptance specifications:** 30 baseline + 37 P0 + 8 P0 hardening + 33 P1.0 + 20 P1.1 security cases. The established P0/P1.0 executable runtime suite has 110 tests; P1.1 cases are specifications until their implementation is integrated and executed.
 - **Production platform:** not deployed or production-verified.
