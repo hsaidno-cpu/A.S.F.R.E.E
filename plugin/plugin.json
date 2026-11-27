@@ -4,7 +4,7 @@
     "email": "harysaidno@gmail.com",
     "name": "Hary Saidno"
   },
-  "description": "Evidence-driven AI/software forensics and supervised engineering with a jointly evolved PRE–RPEDS roadmap core and A.S.F.R.E.E situational governance.",
+  "description": "Evidence-driven AI/software forensics and supervised engineering with a jointly evolved PRE–RPEDS roadmap core, native RPEDS modules and an executable A.S.F.R.E.E situational adapter.",
   "extensions": {
     "com.openai": {
       "interface": {
@@ -15,7 +15,7 @@
         ],
         "developerName": "Hary Saidno",
         "displayName": "A.S.F.R.E.E",
-        "longDescription": "A.S.F.R.E.E coordinates authorized AI/software forensics and supervised engineering through M00 and O01–O12. PRE Standalone and RPEDS are two first-class manifestations of one jointly evolved roadmap DNA: they share the R0–R9 kernel, roadmap model, contracts, measurement, evidence, adaptation, learning and release lineage while preserving their distinct identities, modules and host-specific strengths. PRE remains independently usable outside A.S.F.R.E.E; RPEDS remains the native A.S.F.R.E.E roadmap workstream under M00. The Adaptive Functional Situational Adapter maps shared capabilities to A.S.F.R.E.E SOP, authority, security, privacy and data boundaries without replacing RPEDS or weakening host controls. O11 retains security/authorization; O12 retains independent evaluation judgment; O10 retains verification. Live cross-host release delivery still requires configured credentials, host adapters, tests and adoption receipts.",
+        "longDescription": "A.S.F.R.E.E coordinates authorized AI/software forensics and supervised engineering through M00 and O01–O12. PRE Standalone and RPEDS are two first-class manifestations of one jointly evolved roadmap DNA. RPEDS remains the native A.S.F.R.E.E roadmap workstream with its four modules and M00 integration. The RPEDS Adaptive Functional Situational Adapter maps shared capabilities to local SOP, authority, security, privacy and data boundaries. M00 remains the sole case-level coordinator; O11 retains authorization/security/privacy, O12 independent evaluation judgment, O10 test/verification, and O09 supported runtime. Source and package upgrades are separate from host adoption; live cross-host updates require verified event delivery, host credentials, tests and read-back.",
         "shortDescription": "AI systems forensics"
       }
     }
@@ -42,5 +42,5 @@
   "license": "PolyForm-Noncommercial-1.0.0",
   "name": "asfree",
   "repository": "https://github.com/hsaidno-cpu/A.S.F.R.E.E",
-  "version": "0.5.0-rc.1"
+  "version": "0.5.0-rc.2"
 }
