@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "rpeds-pre-shared-dna-0.1.6-private-acceptance",
+  "status": "VERIFIED_FOR_PRIVATE_NONCOMMERCIAL_ACCEPTANCE_ONLY",
+  "host_id": "asfree-rpeds",
+  "host_name": "A.S.F.R.E.E / RPEDS",
+  "host_package_version": "0.5.0-rc.2",
+  "adapter_version": "0.5.0-rc.2",
+  "shared_identity": "pre-rpeds-shared-roadmap-dna",
+  "accepted_release_version": "0.1.6",
+  "accepted_capability_class": [
+    "SHARED_DNA"
+  ],
+  "accepted_change_scope": "NON_BREAKING_READ_ONLY_PRIVATE_CI_COMPATIBILITY_ACCEPTANCE",
+  "afsa_disposition": "DIRECT_COMPATIBLE",
+  "allowed_actions": [
+    "Retrieve the exact release archive from the authenticated private HSO artifact endpoint",
+    "Recompute SHA-256 and verify pinned source blob identities without copying archive contents into the public A.S.F.R.E.E repository",
+    "Run the existing RPEDS schema, semantic graph, package and regression checks in an isolated non-commercial GitHub Actions job",
+    "Record a host acceptance receipt with exact source, workflow, test and rollback references"
+  ],
+  "prohibited_actions": [
+    "Copy, extract or commit PRE release source files into the public A.S.F.R.E.E repository",
+    "Publish, mirror, redistribute, sublicense or expose the private PRE artifact",
+    "Use this acceptance as authorization for commercial deployment or commercial redistribution",
+    "Enable automatic adoption or change the host subscription to an unrestricted stable channel",
+    "Replace, rename, delete or rewrite the four RPEDS-native modules",
+    "Change M00 case authority, O11 security/authorization/privacy controls, O12 evaluation judgment, O10 test authority or O09 runtime authority",
+    "Move host-only SOP, private case data, credentials or authority records into the shared DNA"
+  ],
+  "preserved_rpeds_modules": [
+    {
+      "name": "Roadmap Architecture Planner",
+      "reference": "plugin/references/rpeds/roadmap-architecture.md",
+      "boundary": "Owns roadmap decomposition; M00 retains case scope and final arbitration"
+    },
+    {
+      "name": "Progressive Development Manager",
+      "reference": "plugin/references/rpeds/progressive-development-manager.md",
+      "boundary": "Coordinates approved iterations; it does not execute privileged changes itself"
+    },
+    {
+      "name": "Continuous Evaluation Engine",
+      "reference": "plugin/references/rpeds/continuous-evaluation-engine.md",
+      "boundary": "Schedules checkpoints; O12 retains independent evaluation judgment"
+    },
+    {
+      "name": "Adaptive Roadmap Optimizer",
+      "reference": "plugin/references/rpeds/adaptive-roadmap-optimizer.md",
+      "boundary": "Proposes controlled re-plans; M00/O11/O12 approval boundaries remain intact"
+    }
+  ],
+  "authority_precedence": [
+    "Binding law and platform constraints",
+    "A.S.F.R.E.E approved SOP, security and privacy",
+    "M00 case scope and authorized decision rights",
+    "O11 authorization, security and privacy controls",
+    "O12 independent evaluation authority and O10 actual test evidence",
+    "Shared PRE-RPEDS kernel",
+    "Convenience"
+  ],
+  "required_checks": [
+    "artifact-sha256-readback",
+    "37-imported-git-blob-pins",
+    "14-skill-inventory",
+    "rpeds-draft-2020-12-schema-and-semantic-graph",
+    "asfree-package-validation",
+    "rpeds-native-module-preservation",
+    "license-and-nonredistribution-boundary",
+    "exact-version-and-digest-readback",
+    "rollback-reference"
+  ],
+  "reuse_basis": {
+    "asfree_license": "PolyForm-Noncommercial-1.0.0",
+    "permitted_test_scope": "Private, non-commercial research/experiment and compatibility testing only",
+    "pre_source_rights": "PRE source package does not currently declare a separate redistribution license in its release manifest; full chain-of-title and broader reuse rights remain UNKNOWN",
+    "restriction": "This profile does not grant PRE source redistribution, sublicensing, public mirroring, derivative publication or commercial-use rights",
+    "control": "The PRE artifact remains in private Supabase Storage and is fetched only by a short-lived, repo/workflow-scoped GitHub OIDC identity"
+  },
+  "privacy_data_boundary": {
+    "transfer": "No host case records, credentials, SOP contents or authority data are uploaded to the PRE artifact or HSO release registry",
+    "storage": "Only the private release archive and sanitized release evidence are stored in the HSO release system",
+    "public_repo": "No PRE archive or PRE source content is committed to this public repository"
+  },
+  "automation": {
+    "auto_adopt_nonbreaking": false,
+    "channel_scope": "candidate",
+    "approval": "Workflow acceptance is explicit and event-scoped; it does not enable background auto-adoption"
+  },
+  "deployment_boundary": {
+    "verified_meaning": "Verified host-side artifact integrity, source compatibility and CI acceptance for the named RPEDS repository and adapter",
+    "not_asserted": [
+      "ChatGPT Plugin Creator package update",
+      "Live installed-plugin runtime activation",
+      "Commercial rights clearance",
+      "Public redistribution permission"
+    ]
+  }
+}
