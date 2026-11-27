@@ -49,3 +49,8 @@ M00 remains the sole A.S.F.R.E.E case coordinator. O11 retains authorization/sec
 ## Readiness honesty
 
 This document defines source-level architecture. It does not prove a deployed release registry, webhook, queue, credentials, host CI, automatic Plugin Creator update or runtime acceptance. Report the actual state per host and per release.
+
+
+## Executable A.S.F.R.E.E host procedure
+
+The normative host procedure is registered as `plugin/skills/rpeds-adaptive-functional-situational-adapter/SKILL.md`. It is mandatory for shared release application, host conflicts and reverse capability contributions. This dedicated skill owns the A.S.F.R.E.E functional/situational mapping; this reference records the architecture and authority contract. Do not report the adapter as separately invoked unless the host confirms a distinct skill invocation.
